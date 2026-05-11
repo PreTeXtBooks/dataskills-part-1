@@ -55,7 +55,7 @@ The `file.path` function combines characters to form a complete path, ensuring c
 ```{r}
 #| cache: false
 dir <- system.file(package = "dslabs")
-file_path <- file.path(dir, "extdata/murders.csv")
+file_path <- file.path(dir, "extdata", "murders.csv")
 ```
 
 You can copy the file with full path `file_path` to your working directory using the function `file.copy`:
