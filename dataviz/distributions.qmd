@@ -116,8 +116,8 @@ Histograms and density plots provide excellent summaries of a distribution. But 
 The normal distribution, also known as the bell curve and as the Gaussian distribution. Here is what the normal distribution looks like:
 
 ```{r normal-distribution-density, echo=FALSE}
-mu <- 0; s <- 1
-norm_dist <- data.frame(x=seq(-4,4,len=50)*s+mu) |> mutate(density=dnorm(x,mu,s))
+m <- 0; s <- 1
+norm_dist <- data.frame(x=seq(-4,4,len=50)*s + m) |> mutate(density=dnorm(x, m, s))
 norm_dist |> ggplot(aes(x,density)) + geom_line()
 ```
 
@@ -139,7 +139,7 @@ m <- sum(x) / length(x)
 and the SD is defined as
 
 ```{r}
-s <- sqrt(sum((x - mu)^2) / length(x))
+s <- sqrt(sum((x - m)^2) / length(x))
 ```
 
 which can be interpreted as the average distance between values and their average.
@@ -163,7 +163,7 @@ heights |> filter(sex == "Male") |> ggplot(aes(height)) +
   geom_line(aes(x, density),  data = norm_dist, lwd = 1.5) 
 ```
 
-## Boxplots
+## Boxplots {#sec-boxplots}
 
 To understand boxplots we need to define some terms that are commonly used in exploratory data analysis.
 
@@ -183,7 +183,7 @@ Now suppose those used to receiving just two numbers as summaries ask us for a m
 The *boxplot* provides a five-number summary composed of the range (the minimum and maximum) along with the *quartiles* (the 25th, 50th, and 75th percentiles). The R implementation of boxplots ignore *outliers* when computing the range and instead plot these as independent points. The help file provides a specific definition of outliers. The boxplot shows these numbers as a "box" with "whiskers"
 
 ```{r first-boxplot, echo=FALSE}
-murders |> ggplot(aes("",rate)) + geom_boxplot() +
+murders |> ggplot(aes("", rate)) + geom_boxplot() +
   coord_cartesian(xlim = c(0, 2)) + xlab("")
 ```
 
@@ -244,7 +244,13 @@ female <- heights$height[heights$sex == "Female"]
 
 How many measurements do we have for each?
 
-2\. Suppose we can't make a plot and want to compare the distributions side by side. We can't just list all the numbers. Instead, we will look at the percentiles. Create a five row table showing `female_percentiles` and `male_percentiles` with the 10th, 30th, 50th, 70th, & 90th percentiles for each sex. Then create a data frame with these two as columns.
+2\. Suppose we can't make a plot and want to compare the distributions side by side. We can't just list all the numbers. Instead, we will look at the percentiles. In @sec-boxplots we defined percentiles as the values for which $p = 0.01, 0.02, \ldots, 0.99$ of the data are less than or equal to that value. The `quantile` function, which we used in @sec-tidyverse and @sec-data.table, is a generalization: `quantile(x, p)` returns the value for which proportion `p` of the data in `x` are at or below, for any `p` between 0 and 1. Percentiles are the special case where $p$ is one of $0.01, 0.02, \ldots, 0.99$, for example, `quantile(x, 0.10)` gives the 10th percentile. You can pass a vector of proportions to get several percentiles at once:
+
+```{r, eval=FALSE}
+quantile(male, c(0.10, 0.30, 0.50, 0.70, 0.90))
+```
+
+Use this to create a five-element vector `female_percentiles` and a five-element vector `male_percentiles` containing the 10th, 30th, 50th, 70th, and 90th percentiles for each sex. Then create a data frame with these two vectors as columns.
 
 3\. Study the following boxplots showing population sizes by country:
 

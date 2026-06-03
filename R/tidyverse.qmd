@@ -261,13 +261,13 @@ Suppose we want three summaries from the same variable such as the median, minim
 heights |> summarize(median = median(height), min = min(height), max = max(height))
 ```
 
-But we can obtain these three values with just one line using the `quantile` function: `quantile(x, c(0.5, 0, 1))` returns the median (50th percentile), the min (0th percentile), and max (100th percentile) of the vector `x`. Here we can't use `summarize` because it expects one value per row. Instead we have to use the `reframe` function:
+But we can obtain these three values with just one line using the `quantile` function. For any value `p` between 0 and 1, `quantile(x, p)` returns the value for which proportion `p` of the data in `x` are at or below. Since the minimum is the value below which 0% of the data falls, the median the value below which 50% falls, and the maximum the value below which 100% falls, we can obtain all three with `quantile(x, c(0.5, 0, 1))`. However, to leverage this functionality, we can't use `summarize` because it expects one value per row. Instead we have to use the `reframe` function:
 
 ```{r}
 heights |> reframe(quantiles = quantile(height, c(0.5, 0, 1)))
 ```
 
-However, if we want a column per summary, as the `summarize` call above,
+If we want a column per summary, as the `summarize` call above,
 we have to define a function that returns a data frame like this:
 
 ```{r}

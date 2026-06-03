@@ -244,11 +244,14 @@ The documentation for this API^[<https://dev.socrata.com/docs/queries/>] explain
 `$limit` parameters. We can use the `req_url_query` to add this to our request:
 
 ```{r}
+#| message: false
 response <- request(url) |> 
   req_url_query(`$limit` = 100000) |>
   req_perform() 
+tab <- response |> resp_body_string() |> read_csv()
 ```
 
+We now get `r nrow(tab)` entries.
 
 The CDC service returns data in csv format but a more common format used by web services is JSON. The CDC also provides data in json format through a the url:
 

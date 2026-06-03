@@ -2,11 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.9.38">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Rafael A. Irizarry">
 <title>7&nbsp; Visualizing data distributions – Introduction to Data Science</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -67,15 +70,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../cover.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-e6d0edd034577e10f8adaa8bd7de22cf.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-2f71e96512c2b414696ba17842295890.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -101,7 +103,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+}</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
 const typesetMath = (el) => {
   if (window.MathJax) {
     // MathJax Typeset
@@ -358,7 +360,7 @@ window.Quarto = {
   <li><a href="#sec-dataviz-normal-distribution" id="toc-sec-dataviz-normal-distribution" class="nav-link" data-scroll-target="#sec-dataviz-normal-distribution"><span class="header-section-number">7.3.3</span> The normal distribution</a></li>
   </ul>
 </li>
-  <li><a href="#boxplots" id="toc-boxplots" class="nav-link" data-scroll-target="#boxplots"><span class="header-section-number">7.4</span> Boxplots</a></li>
+  <li><a href="#sec-boxplots" id="toc-sec-boxplots" class="nav-link" data-scroll-target="#sec-boxplots"><span class="header-section-number">7.4</span> Boxplots</a></li>
   <li><a href="#sec-dataviz-stratification" id="toc-sec-dataviz-stratification" class="nav-link" data-scroll-target="#sec-dataviz-stratification"><span class="header-section-number">7.5</span> Stratification</a></li>
   <li><a href="#sec-student-height-cont" id="toc-sec-student-height-cont" class="nav-link" data-scroll-target="#sec-student-height-cont"><span class="header-section-number">7.6</span> Case study continued</a></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">7.7</span> Exercises</a></li>
@@ -495,7 +497,7 @@ window.Quarto = {
 </div>
 <p>and the SD is defined as</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="op">(</span><span class="va">x</span> <span class="op">-</span> <span class="va">mu</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="op">(</span><span class="va">x</span> <span class="op">-</span> <span class="va">m</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>which can be interpreted as the average distance between values and their average.</p>
 <p>The pre-built functions <code>mean</code> and <code>sd</code> (note that, for reasons explained in statistics textbooks,<code>sd</code> divides by <code>length(x)-1</code> rather than <code>length(x)</code>) can be used here:</p>
@@ -515,7 +517,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-</section></section><section id="boxplots" class="level2" data-number="7.4"><h2 data-number="7.4" class="anchored" data-anchor-id="boxplots">
+</section></section><section id="sec-boxplots" class="level2" data-number="7.4"><h2 data-number="7.4" class="anchored" data-anchor-id="sec-boxplots">
 <span class="header-section-number">7.4</span> Boxplots</h2>
 <p>To understand boxplots we need to define some terms that are commonly used in exploratory data analysis.</p>
 <p>The <em>percentiles</em> are the values for which <span class="math inline">\(p = 0.01, 0.02, ..., 0.99\)</span> of the data are less then or equal to that value, respectively. We call, for example, the case of <span class="math inline">\(p=0.10\)</span> the 10th percentile, which gives us a number for which 10% of the data is below. The most famous percentile is the 50th, also known as the <em>median</em>. Another special case that receives a name are the <em>quartiles</em>, which are obtained when setting <span class="math inline">\(p=0.25,0.50\)</span>, and <span class="math inline">\(0.75\)</span>, which are used by the boxplot.</p>
@@ -586,7 +588,11 @@ window.Quarto = {
 <span><span class="va">female</span> <span class="op">&lt;-</span> <span class="va">heights</span><span class="op">$</span><span class="va">height</span><span class="op">[</span><span class="va">heights</span><span class="op">$</span><span class="va">sex</span> <span class="op">==</span> <span class="st">"Female"</span><span class="op">]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>How many measurements do we have for each?</p>
-<p>2. Suppose we can’t make a plot and want to compare the distributions side by side. We can’t just list all the numbers. Instead, we will look at the percentiles. Create a five row table showing <code>female_percentiles</code> and <code>male_percentiles</code> with the 10th, 30th, 50th, 70th, &amp; 90th percentiles for each sex. Then create a data frame with these two as columns.</p>
+<p>2. Suppose we can’t make a plot and want to compare the distributions side by side. We can’t just list all the numbers. Instead, we will look at the percentiles. In <a href="#sec-boxplots" class="quarto-xref"><span>Section 7.4</span></a> we defined percentiles as the values for which <span class="math inline">\(p = 0.01, 0.02, \ldots, 0.99\)</span> of the data are less than or equal to that value. The <code>quantile</code> function, which we used in <a href="../R/tidyverse.html" class="quarto-xref"><span>Chapter 4</span></a> and <a href="../R/data-table.html" class="quarto-xref"><span>Chapter 5</span></a>, is a generalization: <code>quantile(x, p)</code> returns the value for which proportion <code>p</code> of the data in <code>x</code> are at or below, for any <code>p</code> between 0 and 1. Percentiles are the special case where <span class="math inline">\(p\)</span> is one of <span class="math inline">\(0.01, 0.02, \ldots, 0.99\)</span>, for example, <code>quantile(x, 0.10)</code> gives the 10th percentile. You can pass a vector of proportions to get several percentiles at once:</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">male</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.10</span>, <span class="fl">0.30</span>, <span class="fl">0.50</span>, <span class="fl">0.70</span>, <span class="fl">0.90</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Use this to create a five-element vector <code>female_percentiles</code> and a five-element vector <code>male_percentiles</code> containing the 10th, 30th, 50th, 70th, and 90th percentiles for each sex. Then create a data frame with these two vectors as columns.</p>
 <p>3. Study the following boxplots showing population sizes by country:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -609,7 +615,7 @@ window.Quarto = {
 <p>7. If we use a log transformation, which continent shown above has the largest interquartile range?</p>
 <p>8. Load the height data set and create a vector <code>x</code> with just the male heights:</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">dslabs</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">dslabs</span><span class="op">)</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">heights</span><span class="op">$</span><span class="va">height</span><span class="op">[</span><span class="va">heights</span><span class="op">$</span><span class="va">sex</span><span class="op">==</span><span class="st">"Male"</span><span class="op">]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>What proportion of the data is between 69 and 72 inches (taller than 69, but shorter or equal to 72)? Hint: use a logical operator and <code>mean</code>.</p>
