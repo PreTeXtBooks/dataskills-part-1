@@ -1,5 +1,148 @@
     <part xml:id="part-data-visualization">
       <title>Data Visualization</title>
+<introduction>
+<title>Data Visualization</title>
+<p>
+  Looking at the numbers and character strings that define a dataset is rarely useful. 
+  To convince yourself, print and stare at the US murders data table:
+</p>
+
+<program language="r">
+  <input>
+    library(dslabs)
+    head(murders)
+  </input>
+</program>
+  <pre>
+    #&gt;        state abb region population total
+    #&gt; 1    Alabama  AL  South    4779736   135
+    #&gt; 2     Alaska  AK   West     710231    19
+    #&gt; 3    Arizona  AZ   West    6392017   232
+    #&gt; 4   Arkansas  AR  South    2915918    93
+    #&gt; 5 California  CA   West   37253956  1257
+    #&gt; 6   Colorado  CO   West    5029196    65
+  </pre>
+<p>
+  What do you learn from staring at this table? How quickly can you determine which 
+  states have the largest populations? Which states have the smallest? How large is a 
+  typical state? Is there a relationship between population size and total murders? How 
+  do murder rates vary across regions of the country? For most human brains, it is quite 
+  difficult to extract this information just by looking at the numbers. In contrast, the 
+  answer to all the questions above are readily available from examining this plot.
+</p>
+
+          <figure xml:id="fig-1-part-2">
+            <image source="images/ggplot-example-plot-0-1.png" width="70%"/>
+          </figure>
+
+<p>
+  We are reminded of the saying <q>a picture is worth a thousand words.</q> Data 
+  visualization provides a powerful way to communicate a data-driven finding. In some 
+  cases, the visualization is so convincing that no follow-up analysis is required.
+</p>
+
+<p>
+  The growing availability of informative datasets and software tools has led to 
+  increased reliance on data visualizations across many industries, academia, and 
+  government. A salient example is news organizations, which are increasingly embracing 
+  data journalism and including effective infographics as part of their reporting.
+</p>
+
+<p>
+  A particularly effective example is a 
+  <url href="http://graphics.wsj.com/infectious-diseases-and-vaccines/?mc_cid=711ddeb86e">Wall Street Journal article</url> 
+  showing data related to the impact of vaccines on battling infectious diseases. One 
+  of the graphs shows measles cases by US state through the years with a vertical line 
+  demonstrating when the vaccine was introduced.
+</p>
+
+          <figure xml:id="fig-2-part-2">
+            <image source="images/wsj-vaccines-example-1.png" width="70%"/>
+          </figure>
+
+<p>
+  A 
+  <url href="https://www.nytimes.com/2011/02/19/nyregion/19schools.html">New York Times chart</url> 
+  provides a compelling example by summarizing scores from the NYC Regents Exams. 
+  According to the accompanying article, these scores are collected for various purposes, 
+  one of which is to determine a student's eligibility for high school graduation. In 
+  New York City, a score of 65 is required to pass. The pattern of these test scores 
+  suggests something unusual.
+</p>
+
+          <figure xml:id="fig-3-part-2">
+            <image source="images/regents-exams-example-1.png" width="70%"/>
+          </figure>
+
+<p>
+  The most common test score is the minimum passing grade, with very few scores just 
+  below the threshold. This unexpected result is consistent with students close to 
+  passing having their scores bumped up.
+</p>
+
+<p>
+  This is an example of how data visualization can lead to discoveries which would 
+  otherwise be missed if we simply subjected the data to a battery of data analysis 
+  tools or procedures. Data visualization is the strongest tool of what we call 
+  exploratory data analysis (EDA). John W. Tukey, considered the father of EDA, once 
+  said:
+</p>
+
+<blockquote>
+  <p>
+    The greatest value of a picture is when it forces us to notice what we never 
+    expected to see.
+  </p>
+  <attribution>John W. Tukey</attribution>
+</blockquote>
+
+<p>
+  Many widely used data analysis tools were initiated by discoveries made via EDA. EDA 
+  is perhaps the most important part of data analysis, yet it is one that is often 
+  overlooked.
+</p>
+
+<p>
+  Data visualization is also now pervasive in philanthropic and educational 
+  organizations. In the talks 
+  <url href="https://www.ted.com/talks/hans_rosling_reveals_new_insights_on_poverty?language=en">New Insights on Poverty</url> 
+  and 
+  <url href="https://www.ted.com/talks/hans_rosling_shows_the_best_stats_you_ve_ever_seen">The Best Stats You've Ever Seen</url>, 
+  Hans Rosling forces us to notice the unexpected with a series of plots related to 
+  world health and economics. In his videos, he uses animated graphs to show us how the 
+  world is changing and how old narratives are no longer true.
+</p>
+
+<figure xml:id="fig-gapminder-animation">
+  <image source="images/gampnider-example-plot-1.gif" width="80%">
+    <description>An animated plot showing world health and economics data over time.</description>
+  </image>
+</figure>
+
+<p>
+  It is also important to note that mistakes, biases, systematic errors and other 
+  unexpected problems often lead to data that should be handled with care. Failure to 
+  discover these problems can give rise to flawed analyses and false discoveries. As an 
+  example, consider that measurement devices sometimes fail and that most data analysis 
+  procedures are not designed to detect these. Yet these data analysis procedures will 
+  still give you an answer. The fact that it can be difficult or impossible to notice an 
+  error just from the reported results makes data visualization particularly important.
+</p>
+
+<p>
+  In this part of the book, we will learn the basics of data visualization and 
+  exploratory data analysis by using three motivating examples. We will use the 
+  <c>ggplot2</c> package to code. To learn the very basics, we will start with a 
+  somewhat artificial example: heights reported by students. Then we will focus on two 
+  case studies: (1) world health and economics and (2) infectious disease trends in the 
+  United States. Note that we do not cover interactive graphics. For those interested in 
+  creating interactive plots we highly recommend learning to use the 
+  <url href="https://plotly.com/r/">plotly</url> package or 
+  <url href="https://shiny.rstudio.com/">Shiny</url>, both built on top of R. For more 
+  advanced challenges consider learning to program in 
+  <url href="https://d3js.org/">D3.js</url>.
+</p>
+</introduction>
 
       <chapter xml:id="ch-visualizing-data-distributions">
         <title>Visualizing data distributions</title>
