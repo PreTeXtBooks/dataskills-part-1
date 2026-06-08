@@ -1430,7 +1430,7 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
                   <image source="productivity/img/windows-screenshots/VirtualBox_Windows-7-Enterprise_23_03_2018_14_34_06.png"/>
                 </figure>
 
-                <p>We now need to pay attention to the Git pane. It is important to know that <alert>your local files and the GitHub repo will not be synced automatically</alert>. As described in <xref ref = "sec-git-overview">, you have to sync using git push when you are ready. We show how you can do this through RStudio rather than the terminal below.</p>
+                <p>We now need to pay attention to the Git pane. It is important to know that <alert>your local files and the GitHub repo will not be synced automatically</alert>. As described in <xref ref = "sec-git-overview"/>, you have to sync using git push when you are ready. We show how you can do this through RStudio rather than the terminal below.</p>
 
                 <p>Before we start working on a collaborative project, usually the first thing we do is <em>pull</em> in the changes from the remote repo, in our case the one on GitHub. However, for the example shown here, since we are starting with an empty repo and we are the only ones making changes, we don't need to start by pulling.</p>
 
@@ -1713,9 +1713,9 @@ plot(1)
                 <subsection xml:id="subsec-create-directories-in-unix">
                   <title>Create directories in Unix</title>
 
-                  <p>In <xref ref = "sec-prep-project"> we demonstrated how to use Unix to prepare
+                  <p>In <xref ref = "sec-prep-project"/> we demonstrated how to use Unix to prepare
 for a data science project using an example. Here we continue this example and show how to use RStudio.
-In <xref ref = "sec-prep-project"> We created the following directories using Unix:</p>
+In <xref ref = "sec-prep-project"/> We created the following directories using Unix:</p>
 
                   <program language="r">
                     <input>
