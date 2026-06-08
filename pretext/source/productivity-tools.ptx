@@ -952,11 +952,11 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
 <li><p>2. Once you’re happy with your changes, you’ll move them to the <em>staging area</em>. Think of this as preparing or packing your changes.</p></li>
                   <li><p>From there, you'll save these changes to your <em>local repo</em>, this is like your personal save point on your computer and will generate a new version of the repository in the log.</p></li>
                   <li><p>After saving locally, you'll then send, or <em>push</em>, these changes to the main storage space where everyone can see them. In our examples, this main storage space is hosted on GitHub, and Git calls it the <em>upstream repo</em>.</p></li>
+                </ol>
+
                 <figure>
                   <image source="images/git-layout.png"/>
                 </figure>
-
-                </ol>
 
                 <p>Now, to work with this strategy, you'll need an account on GitHub. In the next two sections, we'll guide you on how to set up an account and create repos on GitHub.</p>
 
