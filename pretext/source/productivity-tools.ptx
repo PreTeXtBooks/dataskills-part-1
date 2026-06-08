@@ -5,10 +5,14 @@
         <title>Organizing with Unix</title>
         
           <p>Unix is the operating system of choice in data science. We will introduce you to the Unix way of thinking using an example: how to keep a data analysis project organized. We will learn some of the most commonly used commands along the way. However, we won't go into advanced details. We highly encourage you to learn more, especially when you find yourself using the mouse or performing a repetitive task often. In those cases, there is probably a more efficient way to do it in Unix. Here are some basic courses to get you started:</p>
-
-          <p>-   "Learn the Command Line" through codecademy -   "LinuxFoundationX: Introduction to Linux" through edX -   "The Unix Workbench" through coursera</p>
-
-          <p>There are many reference books as well. Bite Size Linux and Bite Size Command Line are two particularly clear, succinct, and complete examples.</p>
+<p>
+          <ul>
+<li>"Learn the Command Line" through <url href = "https://www.codecademy.com/learn/learn-the-command-line">codecademy</url></li>
+<li>"LinuxFoundationX: Introduction to Linux" through <url href = "https://www.edx.org/course/introduction-linux-linuxfoundationx-lfs101x-1">edX</url></li>
+<li>"The Unix Workbench" through <url href = "https://www.coursera.org/learn/unix">coursera</url></li>
+</ul>
+</p>
+          <p>There are many <url href = "https://www.quora.com/Which-are-the-best-Unix-Linux-reference-books">reference books</url> as well. <url href = "https://gumroad.com/l/bite-size-linux">Bite Size Linux</url> and <url href = "https://jvns.ca/blog/2018/08/05/new-zine--bite-size-command-line/">Bite Size Command Line</url> are two particularly clear, succinct, and complete examples.</p>
 
           <p>When searching for Unix resources, keep in mind that other terms used to describe what we will learn here are <em>Linux</em>, <em>the shell</em>, and <em>the command line</em>. Basically, what we are learning is a series of commands and a way of thinking that facilitates the organization of files without using the mouse.</p>
 
@@ -19,29 +23,17 @@
 
           <p>Before you start organizing projects with Unix you want to pick a name convention that you will use to systematically name your files and directories. This will help you find files and know what is in them.</p>
 
-          <p>In general you want to name your files in a way that is related to their contents and specifies how they relate to other files. The Smithsonian Data Management Best Practices has "five precepts of file naming and organization" and they are:</p>
+          <p>In general you want to name your files in a way that is related to their contents and specifies how they relate to other files. The <url href = "https://library.si.edu/sites/default/files/tutorial/pdf/filenamingorganizing20180227.pdf">Smithsonian Data Management Best Practices</url> has "five precepts of file naming and organization" and they are:</p>
 
           <blockquote>
             <p>-   Have a distinctive, human-readable name that gives an indication of the content.</p>
-          </blockquote>
-
-          <blockquote>
             <p>-   Follow a consistent pattern that is machine-friendly.</p>
-          </blockquote>
-
-          <blockquote>
             <p>-   Organize files into directories (when necessary) that follow a consistent pattern.</p>
-          </blockquote>
-
-          <blockquote>
             <p>-   Avoid repetition of semantic elements among file and directory names.</p>
-          </blockquote>
-
-          <blockquote>
             <p>-   Have a file extension that matches the file format (no changing extensions!)</p>
           </blockquote>
 
-          <p>For specific recommendations we highly recommend you follow The Tidyverse Style Guide.</p>
+          <p>For specific recommendations we highly recommend you follow <url href = "https://style.tidyverse.org/">The Tidyverse Style Guide</url>.</p>
 
         </section>
 
@@ -52,11 +44,11 @@
 
           <p>The terminal is integrated into Mac and Linux systems, but Windows users will have to install an <em>emulator</em>. Once you have a terminal open, you can start typing commands. You should see a blinking cursor at the spot where what you type will show up. This position is called the <em>command line</em>. Once you type something and hit enter on Windows or return on the Mac, Unix will try to execute this command. If you want to try out an example, type this command:</p>
 
-          <sage language="r">
+          <program language="r">
             <input>
 echo "hello world"
             </input>
-          </sage>
+          </program>
 
           <p>The command <c>echo</c> is similar to <c>cat</c> in R. Executing this line should print out <c>hello world</c>, then return back to the command line.</p>
 
@@ -128,11 +120,11 @@ echo "hello world"
 
             <p>Open a terminal and type:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 pwd
               </input>
-            </sage>
+            </program>
 
             <p>We do not show the result of running this command because it will be quite different on your system compared to others. If you open a terminal and type <c>pwd</c> as your first command, you should see something like <c>/Users/yourusername</c> on a Mac or something like <c>/c/Users/yourusername</c> on Windows. The character string returned by calling <c>pwd</c> represents your working directory. When we first open a terminal, it will start in our home directory so in this case the working directory is the home directory.</p>
 
@@ -165,11 +157,11 @@ pwd
 
             <p>To see the content of your home directory, open a terminal and type:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 ls
               </input>
-            </sage>
+            </program>
 
             <p>We will see more examples soon.</p>
 
@@ -184,73 +176,73 @@ ls
 
             <p>You can try this particular example on your system. Open a terminal and type:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 mkdir projects
               </input>
-            </sage>
+            </program>
 
             <p>If you do this correctly, nothing will happen: no news is good news. If the directory already exists, you will get an error message and the existing directory will remain untouched.</p>
 
             <p>To confirm that you created the directory, you can list the contents of the current working directory:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 ls
               </input>
-            </sage>
+            </program>
 
             <p>You should see the directory we just created listed. Perhaps you can also see many other directories that were already on your computer.</p>
 
             <p>For illustrative purposes, let's make a few more directories. You can list more than one directory name like this:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 mkdir docs teaching
               </input>
-            </sage>
+            </program>
 
             <p>You can check to see if the three directories were created:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 ls
               </input>
-            </sage>
+            </program>
 
             <p>If you made a mistake and need to remove the directory, you can use the command <c>rmdir</c> to remove it.</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 mkdir junk
 rmdir junk
               </input>
-            </sage>
+            </program>
 
             <p>This will remove the directory as long as it is empty. If it is not empty, you will get an error message and the directory will remain untouched. To remove directories that are not empty, we will learn about the command <c>rm</c> later.</p>
 
           </subsection>
 
           <subsection xml:id="subsec-cd-navigating-the-filesystem-by-changing-directories">
-            <title>`cd`: navigating the filesystem by changing directories</title>
+            <title><c>cd</c>: navigating the filesystem by changing directories</title>
 
             <p>Next we want to create directories inside directories that we have already created. We also want to avoid pointing and clicking our way through the filesystem. We explain how to do this in Unix, using the command line.</p>
 
             <p>Suppose we open a terminal and our working directory is our home directory. We want to change our working directory to <c>projects</c>. We do this using the <c>cd</c> command, which stands for <em>change directory</em>:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 cd projects
               </input>
-            </sage>
+            </program>
 
             <p>To check that the working directory changed, we can use a command we previously learned to see our location:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 pwd
               </input>
-            </sage>
+            </program>
 
             <p>Our working directory should now be <c>~/projects</c>. Note that on your computer the home directory <c>~</c> will be spelled out to something like <c>/c/Users/yourusername</c>.</p>
 
@@ -258,41 +250,41 @@ pwd
 
             <p>When using <c>cd</c>, we can either type a full path, which will start with <c>/</c> or <c>~</c>, or a <em>relative path</em>. In the example above, in which we typed <c>cd projects</c>, we used a relative path. If the path you type does not start with <c>/</c> or <c>~</c>, Unix will assume you are typing a relative path, meaning that it will look for the directory in your current working directory. So something like this will give you an error:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 cd Users
               </input>
-            </sage>
+            </program>
 
             <p>because there is no <c>Users</c> directory in your working directory.</p>
 
             <p>Now suppose we want to move back to the directory in which <c>projects</c> is a subdirectory, referred to as the <em>parent directory</em>. We could use the full path of the parent directory, but Unix provides a shortcut for this: the parent directory of the working directory is represented with two dots: <c>..</c> so to move back we simply type:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 cd ..
               </input>
-            </sage>
+            </program>
 
             <p>You should now be back in your home directory which you can confirm using <c>pwd</c>.</p>
 
             <p>Because we can use full paths with <c>cd</c>, the following command:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 cd ~
               </input>
-            </sage>
+            </program>
 
             <p>will always take us back to the home directory, no matter where we are in the filesystem.</p>
 
             <p>The working directory also has a nickname, which is a single <c>.</c> so if you type</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 cd .
               </input>
-            </sage>
+            </program>
 
             <p>you will not move. Although this particular use of <c>.</c> is not useful, this nickname does come in handy sometimes. The reasons are not relevant for this section, but you should still be aware of this fact.</p>
 
@@ -300,47 +292,47 @@ cd .
 
             <p>When typing directory names, we can concatenate directories with the forward-slashes. So if we want a command that takes us to the <c>projects</c> directory no matter where we are in the filesystem, we can type:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 cd ~/projects
               </input>
-            </sage>
+            </program>
 
             <p>which is equivalent to writing the entire path out. For example, in Windows we would write something like</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 cd /c/Users/yourusername/projects
               </input>
-            </sage>
+            </program>
 
             <p>The last two commands are equivalent and in both cases we are typing the full path.</p>
 
             <p>We can also concatenate directory names for relative paths. For instance, if we want to move back to the parent directory of the parent directory of the working directory, we can type:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 cd ../..
               </input>
-            </sage>
+            </program>
 
             <p>Here are a couple of final tips related to the <c>cd</c> command. First, you can go back to whatever directory you just left by typing:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 cd -
               </input>
-            </sage>
+            </program>
 
             <p>This can be useful if you type a very long path and then realize you want to go back to where you were, and that too has a very long path.</p>
 
             <p>Second, if you just type:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 cd
               </input>
-            </sage>
+            </program>
 
             <p>you will be returned to your home directory.</p>
 
@@ -359,29 +351,29 @@ cd
 
             <p>Here it is convenient to use relative paths:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 cd project-1/figs
               </input>
-            </sage>
+            </program>
 
             <p>Now suppose our working directory is <c>~/projects</c> and we want to move to <c>reports</c> in <c>docs</c>, how can we do this?</p>
 
             <p>One way is to use relative paths:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 cd ../docs/reports
               </input>
-            </sage>
+            </program>
 
             <p>Another is to use the full path:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 cd ~/docs/reports
               </input>
-            </sage>
+            </program>
 
             <p>If you are trying this out on your system, remember to use auto-complete.</p>
 
@@ -389,19 +381,19 @@ cd ~/docs/reports
 
             <p>With relative paths:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 cd ../../project-2
               </input>
-            </sage>
+            </program>
 
             <p>and with full paths:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 cd ~/projects/project-2
               </input>
-            </sage>
+            </program>
 
           </subsection>
 
@@ -411,7 +403,7 @@ cd ~/projects/project-2
           <title>More Unix commands</title>
 
           <subsection xml:id="subsec-mv-moving-files">
-            <title>`mv`: moving files</title>
+            <title><c>mv</c>: moving files</title>
 
             <p>In a point-and-click system, we move files from one directory to another by dragging and dropping. In Unix, we use the <c>mv</c> command.</p>
 
@@ -419,72 +411,72 @@ cd ~/projects/project-2
 
             <p>Now that you know how to use full and relative paths, using <c>mv</c> is relatively straightforward. The general form is:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 mv path-to-file path-to-destination-directory
               </input>
-            </sage>
+            </program>
 
             <p>For example, if we want to move the file <c>cv.tex</c> from <c>resumes</c> to <c>reports</c>, you could use the full paths like this:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 mv ~/docs/resumes/cv.tex ~/docs/reports/
               </input>
-            </sage>
+            </program>
 
             <p>You can also use relative paths. You could do this:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 cd ~/docs/resumes
 mv cv.tex ../reports/
               </input>
-            </sage>
+            </program>
 
             <p>or this:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 cd ~/docs/reports/
 mv ../resumes/cv.tex ./
               </input>
-            </sage>
+            </program>
 
             <p>Notice that in the last one we used the working directory shortcut <c>.</c> to give a relative path as the destination directory.</p>
 
             <p>We can also use <c>mv</c> to change the name of a file. To do this, instead of the second argument being the destination directory, it also includes a filename. So, for example, to change the name from <c>cv.tex</c> to <c>resume.tex</c>, we simply type:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 cd ~/docs/resumes
 mv cv.tex resume.tex
               </input>
-            </sage>
+            </program>
 
             <p>We can also combine the move and a rename. For example:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 cd ~/docs/resumes
 mv cv.tex ../reports/resume.tex
               </input>
-            </sage>
+            </program>
 
             <p>And we can move entire directories. To move the <c>resumes</c> directory into <c>reports</c>, we do as follows:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 mv ~/docs/resumes ~/docs/reports/
               </input>
-            </sage>
+            </program>
 
             <p>It is important to add the last <c>/</c> to make it clear you do not want to rename the <c>resumes</c> directory to <c>reports</c>, but rather move it into the <c>reports</c> directory.</p>
 
           </subsection>
 
           <subsection xml:id="subsec-cp-copying-files">
-            <title>`cp`: copying files</title>
+            <title><c>cp</c>: copying files</title>
 
             <p>The command <c>cp</c> behaves similar to <c>mv</c> except instead of moving, we copy the file, meaning that the original file stays untouched.</p>
 
@@ -493,7 +485,7 @@ mv ~/docs/resumes ~/docs/reports/
           </subsection>
 
           <subsection xml:id="subsec-rm-removing-files">
-            <title>`rm`: removing files</title>
+            <title><c>rm</c>: removing files</title>
 
             <p>In point-and-click systems, we remove files by dragging and dropping them into the trash or using a special click on the mouse. In Unix, we use the <c>rm</c> command.</p>
 
@@ -501,35 +493,35 @@ mv ~/docs/resumes ~/docs/reports/
 
             <p>The general way it works is as follows:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 rm filename
               </input>
-            </sage>
+            </program>
 
             <p>You can actually list files as well like this:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 rm filename-1 filename-2 filename-3
               </input>
-            </sage>
+            </program>
 
             <p>You can use full or relative paths. To remove non-empty directories, you will have to learn about arguments, which we do later.</p>
 
           </subsection>
 
           <subsection xml:id="subsec-less-looking-at-a-file">
-            <title>`less`: looking at a file</title>
+            <title><c>less</c>: looking at a file</title>
 
             <p>Often you want to quickly look at the content of a file. If this file is a text file, the quickest way to do is by using the command <c>less</c>. To look a the file <c>cv.tex</c>, you do this:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 cd ~/docs/resumes
 less cv.tex 
               </input>
-            </sage>
+            </program>
 
             <p>To exit the viewer, you type <c>q</c>. If the files are long, you can use the arrow keys to move up and down. There are many other keyboard commands you can use within <c>less</c> to, for example, search or jump pages.</p>
 
@@ -542,30 +534,30 @@ less cv.tex
         <section xml:id="sec-prep-project">
           <title>Case study: Preparing for a project</title>
 
-          <p>We are now ready to prepare a directory for a project. We will use the US murders project as an example.</p>
+          <p>We are now ready to prepare a directory for a project. We will use the <url href = "https://github.com/rairizarry/murders">US murders project</url> as an example.</p>
 
           <p>You should start by creating a directory where you will keep all your projects. We recommend a directory called <em>projects</em> in your home directory. To do this you would type:</p>
 
-          <sage language="r">
+          <program language="r">
             <input>
 cd ~
 mkdir projects
             </input>
-          </sage>
+          </program>
 
           <p>Our project relates to gun violence murders so we will call the directory for our project <c>murders</c>. It will be a subdirectory in our projects directories. In the <c>murders</c> directory, we will create two subdirectories to hold the raw data and intermediate data. We will call these <c>data</c> and <c>rda</c>, respectively.</p>
 
           <p>Open a terminal and make sure you are in the home directory:</p>
 
-          <sage language="r">
+          <program language="r">
             <input>
 cd ~
             </input>
-          </sage>
+          </program>
 
           <p>Now run the following commands to create the directory structure we want. At the end, we use <c>ls</c> and <c>pwd</c> to confirm we have generated the correct directories in the correct working directory:</p>
 
-          <sage language="r">
+          <program language="r">
             <input>
 cd projects
 mkdir murders
@@ -574,17 +566,17 @@ mkdir data rdas
 ls
 pwd
             </input>
-          </sage>
+          </program>
 
           <p>Note that the full path of our <c>murders</c> dataset is <c>~/projects/murders</c>.</p>
 
           <p>So if we open a new terminal and want to navigate into that directory we type:</p>
 
-          <sage language="r">
+          <program language="r">
             <input>
 cd projects/murders
             </input>
-          </sage>
+          </program>
 
           <p>In <xref ref="sec-organizing"/> we will describe how we can use RStudio to organize a data analysis project, once these directories have been created.</p>
 
@@ -600,67 +592,67 @@ cd projects/murders
 
             <p>Most Unix commands can be run with arguments. Arguments are typically defined by using a dash <c>-</c> or two dashes <c>--</c> (depending on the command) followed by a letter or a word. An example of an argument is the <c>-r</c> behind <c>rm</c>. The <c>r</c> stands for recursive, and the result is that files and directories are removed recursively, which means that if you type:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 rm -r directory-name
               </input>
-            </sage>
+            </program>
 
             <p>all files, subdirectories, files in subdirectories, subdirectories in subdirectories, and so on, will be removed. This is equivalent to throwing a folder in the trash, except you can't recover it. Once you remove it, it is deleted for good. Often, when you are removing directories, you will encounter files that are protected. In such cases, you can use the argument <c>-f</c> which stands for <c>force</c>.</p>
 
             <p>You can also combine arguments. For instance, to remove a directory regardless of protected files, you type:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 rm -rf directory-name
               </input>
-            </sage>
+            </program>
 
             <p>Remember that once you remove there is no going back, so use this command very carefully.</p>
 
             <p>A command that is often called with argument is <c>ls</c>. Here are some examples:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 ls -a 
               </input>
-            </sage>
+            </program>
 
             <p>The <c>a</c> stands for all. This argument makes <c>ls</c> show you all files in the directory, including hidden files. In Unix, all files starting with a <c>.</c> are hidden. Many applications create hidden directories to store important information without getting in the way of your work. An example is <c>git</c> (which we cover in depth in <xref ref="ch-git-and-github"/>). Once you initialize a directory as a git directory with <c>git init</c>, a hidden directory called <c>.git</c> is created. Another hidden file is the <c>.gitignore</c> file.</p>
 
             <p>Another example of using an argument is:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 ls -l 
               </input>
-            </sage>
+            </program>
 
             <p>The <c>l</c> stands for long and the result is that more information about the files is shown.</p>
 
             <p>It is often useful to see files in chronological order. For that we use:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 ls -t 
               </input>
-            </sage>
+            </program>
 
             <p>and to reverse the order of how files are shown you can use:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 ls -r 
               </input>
-            </sage>
+            </program>
 
             <p>We can combine all these arguments to show more information for all files in reverse chronological order:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 ls -lart 
               </input>
-            </sage>
+            </program>
 
             <p>Each command has a different set of arguments. In the next section, we learn how to find out what they each do.</p>
 
@@ -671,19 +663,19 @@ ls -lart
 
             <p>As you may have noticed, Unix uses an extreme version of abbreviations. This makes it very efficient, but hard to guess how to call commands. To make up for this weakness, Unix includes complete help files or <em>man pages</em> (man is short for manual). In most systems, you can type <c>man</c> followed by the command name to get help. So for <c>ls</c>, we would type:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 man ls
               </input>
-            </sage>
+            </program>
 
             <p>This command is not available in some of the compact implementations of Unix, such as Git Bash. An alternative way to get help that works on Git Bash is to type the command followed by <c>--help</c>. So for <c>ls</c>, it would be as follows:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 ls --help
               </input>
-            </sage>
+            </program>
 
           </subsection>
 
@@ -692,27 +684,27 @@ ls --help
 
             <p>The help pages are typically long and if you type the commands above to see the help, it scrolls all the way to the end. It would be useful if we could save the help to a file and then use <c>less</c> to see it. The <c>pipe</c>, written like this <c>|</c>, does something similar. It <em>pipes</em> the results of a command to the command after the <c>pipe</c>. This is similar to the pipe <c>|&gt;</c> that we use in R. To get more help we thus can type:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 man ls | less
               </input>
-            </sage>
+            </program>
 
             <p>or in Git Bash:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 ls --help | less 
               </input>
-            </sage>
+            </program>
 
             <p>This is also useful when listing files with many files. We can type:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 ls -lart | less 
               </input>
-            </sage>
+            </program>
 
           </subsection>
 
@@ -721,37 +713,37 @@ ls -lart | less
 
             <p>Some of the most powerful aspects of Unix are the <em>wild cards</em>. Suppose we want to remove all the temporary html files produced while trouble shooting for a project. Imagine there are dozens of files. It would be quite painful to remove them one by one. In Unix, we can actually write an expression that means all the files that end in <c>.html</c>. To do this we type <em>wild card</em>: <c>*</c>. As discussed in the data wrangling part of this book, this character means any number of any combination of characters. Specifically, to list all html files, we would type:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 ls *.html
               </input>
-            </sage>
+            </program>
 
             <p>To remove all html files in a directory, we would type:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 rm *.html
               </input>
-            </sage>
+            </program>
 
             <p>The other useful wild card is the <c>?</c> symbol. This means any single character. So if all the files we want to erase have the form <c>file-001.html</c> with the numbers going from 1 to 999, we can type:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 rm file-???.html
               </input>
-            </sage>
+            </program>
 
             <p>This will only remove files with that format.</p>
 
             <p>We can combine wild cards. For example, to remove all files with the form <c>file-001</c> up to <c>file-999</c> regardless of suffix, we can type:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 rm file-???.* 
               </input>
-            </sage>
+            </program>
 
             <p>Combining rm with the <c>*</c> wild card can be dangerous. There are combinations of these commands that will erase your entire filesystem without asking "are you sure?". So make sure you understand how it works before using this wild card with the <c>rm</c> command. We recommend always checking what files will match the wild card first by using the <c>ls</c> command.</p>
 
@@ -764,19 +756,19 @@ rm file-???.*
 
             <p>Earlier we saw that <c>echo</c> is the Unix command for print. So we can see our home directory by typing:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 echo $HOME 
               </input>
-            </sage>
+            </program>
 
             <p>You can see them all by typing:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 env
               </input>
-            </sage>
+            </program>
 
             <p>You can change some of these environment variables. But their names vary across different <em>shells</em>. We describe shells in the next section.</p>
 
@@ -787,21 +779,21 @@ env
 
             <p>Much of what we use in this chapter is part of what is called the <em>Unix shell</em>. There are actually different shells, but the differences are almost unnoticeable. They are also important, although we do not cover those here. You can see what shell you are using by typing:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 echo $SHELL
               </input>
-            </sage>
+            </program>
 
             <p>The most common one is <c>bash</c>.</p>
 
             <p>Once you know the shell, you can change environmental variables. In Bash Shell, we do it using <c>export variable value</c>. To change the path, described in more detail soon, you would type:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 export PATH = /usr/bin/
               </input>
-            </sage>
+            </program>
 
             <p>Don't actually run this command though!</p>
 
@@ -819,14 +811,17 @@ export PATH = /usr/bin/
 which git
               </input>
             </program>
+<pre>
+#&gt; /usr/bin/git
+</pre>
 
             <p>That directory is probably full of program files. The directory <c>/usr/bin</c> usually holds many program files. If you type:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 ls /usr/bin
               </input>
-            </sage>
+            </program>
 
             <p>in your terminal, you will see several executable files.</p>
 
@@ -834,21 +829,21 @@ ls /usr/bin
 
             <p>When you type <c>ls</c>, Unix knows to run a program which is an executable that is stored in some other directory. So how does Unix know where to find it? This information is included in the environmental variable <c>$PATH</c>. If you type:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 echo $PATH
               </input>
-            </sage>
+            </program>
 
             <p>you will see a list of directories separated by <c>:</c>. The directory <c>/usr/bin</c> is probably one of the first ones on the list.</p>
 
             <p>Unix looks for program files in those directories in that order. Although we don't teach it here, you can actually create executables yourself. However, if you put it in your working directory and this directory is not on the path, you can't run it just by typing the command. You get around this by typing the full path. So if your command is called my-ls, you can type:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 ./my-ls
               </input>
-            </sage>
+            </program>
 
             <p>Once you have mastered the basics of Unix, you should consider learning to write your own executables as they can help alleviate repetitive work.</p>
 
@@ -859,11 +854,11 @@ echo $PATH
 
             <p>If you type:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 ls -l
               </input>
-            </sage>
+            </program>
 
             <p>At the beginning, you will see a series of symbols like this <c>-rw-r--r--</c>. This string indicates the type of file: regular file <c>-</c>, directory <c>d</c>, or executable <c>x</c>. This string also indicates the permission of the file: is it readable? writable? executable? Can other users on the system read the file? Can other users on the system edit the file? Can other users execute if the file is executable? This is more advanced than what we cover here, but you can learn much more in a Unix reference book.</p>
 
@@ -873,37 +868,32 @@ ls -l
             <title>Commands you should learn</title>
 
             <p>There are many commands that we do not teach in this book, but we want to make you aware of them and what they do. They are:</p>
-
-            <p>-   open/start - On the Mac, <c>open filename</c> tries to figure out the right application of the filename and open it with that application. This is a very useful command. On Git Bash, you can try <c>start filename</c>. Try opening an <c>R</c> or <c>Rmd</c> file with <c>open</c> or <c>start</c>: it should open them with RStudio.</p>
-
-            <p>-   nano - Opens a bare-bones text editor.</p>
-
-            <p>-   tar - Archives files and subdirectories of a directory into one file.</p>
-
-            <p>-   ssh - Connects to another computer.</p>
-
-            <p>-   find - Finds files by filename on your system.</p>
-
-            <p>-   grep - Searches for patterns in a file.</p>
-
-            <p>-   awk/sed - These are two very powerful commands that permit you to find specific strings in files and change them.</p>
-
-            <p>-   ln - Creates a symbolic link. We do not recommend its use, but you should be familiar with it.</p>
-
+<p>
+<ul>
+            <li>open/start - On the Mac, <c>open filename</c> tries to figure out the right application of the filename and open it with that application. This is a very useful command. On Git Bash, you can try <c>start filename</c>. Try opening an <c>R</c> or <c>Rmd</c> file with <c>open</c> or <c>start</c>: it should open them with RStudio.</li>
+            <li>nano - Opens a bare-bones text editor.</li>
+            <li>tar - Archives files and subdirectories of a directory into one file.</li>
+            <li>ssh - Connects to another computer.</li>
+            <li>find - Finds files by filename on your system.</li>
+            <li>grep - Searches for patterns in a file.</li>
+            <li>awk/sed - These are two very powerful commands that permit you to find specific strings in files and change them.</li>
+            <li>ln - Creates a symbolic link. We do not recommend its use, but you should be familiar with it.</li>
+</ul>
+</p>
           </subsection>
 
           <subsection xml:id="subsec-file-manipulation-in-r">
             <title>File manipulation in R</title>
 
-            <p>We can also perform file management from within R. The key functions to learn about can be seen by looking at the help file for <c>?files</c>. Another useful function is <c>unlink</c>.</p>
+            <p>We can also perform file management from within R. The key functions to learn about can be seen by looking at the help file for <url href = "https://rdrr.io/r/base/files.html"><c>?files</c></url>. Another useful function is <c>unlink</c>.</p>
 
             <p>Although not generally recommended, you can run Unix commands in R using <c>system</c>.</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
               </input>
-            </sage>
+            </program>
 
           </subsection>
 
