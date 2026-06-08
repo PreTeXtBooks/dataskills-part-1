@@ -915,8 +915,8 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
                 <p>Here we provide a brief introduction Git and GitHub. We are only scratching the surface. To learn more about Git, we highly recommend the following resources:</p>
 
                 <ul>
-                  <li>"Learn Git &amp; GitHub" on Codecademy</li>
-                  <li>"Hello World" exercises GitHub Guides</li>
+                  <li>"Learn Git &amp; GitHub" on <url href = "https://rafalab.dfci.harvard.edu/dsbook-part-1/productivity/git.html#fn1">Codecademy</url></li>
+                  <li>"Hello World" exercises <url href = "https://rafalab.dfci.harvard.edu/dsbook-part-1/productivity/git.html#fn2">GitHub Guides</url></li>
                 </ul>
 
                 <p>If you plan to use Git and Github frequently in conjunction with R, we highly recommend reading Happy Git and GitHub for the useR to learn about the details we don't cover here.</p>
@@ -949,10 +949,11 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
 
                 <ol>
                   <li><p>First, you'll learn how to make changes on your computer in what's called the <em>working directory</em>. </p></li>
+<li><p>2. Once you’re happy with your changes, you’ll move them to the <em>staging area</em>. Think of this as preparing or packing your changes.</p></li>
                   <li><p>From there, you'll save these changes to your <em>local repo</em>, this is like your personal save point on your computer and will generate a new version of the repository in the log.</p></li>
                   <li><p>After saving locally, you'll then send, or <em>push</em>, these changes to the main storage space where everyone can see them. In our examples, this main storage space is hosted on GitHub, and Git calls it the <em>upstream repo</em>.</p></li>
                 <figure>
-                  <image source="productivity/img/git/git-layout.png"/>
+                  <image source="images/git-layout.png"/>
                 </figure>
 
                 </ol>
@@ -964,7 +965,7 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
               <section xml:id="sec-github-accounts">
                 <title>GitHub accounts</title>
 
-                <p>Basic GitHub accounts are free. To create one, go to GitHub where you will see a box in which you can sign up.</p>
+                <p>Basic GitHub accounts are free. To create one, go to <url href = "https://github.com">GitHub</url> where you will see a box in which you can sign up.</p>
 
                 <p>You want to pick a name carefully. It should be short, easy to remember and to spell, somehow related to your name, and professional. This last one is important since you might be sending potential employers a link to your GitHub account. Your initials and last name are usually a good choice.</p>
 
@@ -1006,7 +1007,7 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
 
                 <p>When accessing GitHub you need credentials to verify your identity. There are two ways to connect: HTTPS or SSH, each requiring different credentials. We recommend using HTTPS, which uses a Personal Access Token (PAT). Note that <alert>your GitHub website password isn't your access token</alert>.</p>
 
-                <p>GitHub provides a detailed guide on obtaining an access token which can be found by searching "Managing your personal access tokens" on the GitHub Docs website. To generate a token:</p>
+                <p>GitHub provides a detailed guide on obtaining an <url href = "https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens">access token</url> which can be found by searching "Managing your personal access tokens" on the <url href = "https://docs.github.com/en">GitHub Docs website</url>. To generate a token:</p>
 
                 <ol>
                   <li><p>Carefully follow the instructions provided by GitHub.</p></li>
@@ -1022,16 +1023,16 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
 
                 <p>In some of the procedures outlined below, you'll be prompted to enter your password. Instead, paste the token you've copied. After this, password prompts should no longer appear. If you ever need the token again, retrieve it from your password manager.</p>
 
-                <p>For a much more detailed explanation, including how to use SSH instead of HTTPS, please consult Happy Git and GitHub for the useR.</p>
+                <p>For a much more detailed explanation, including how to use SSH instead of HTTPS, please consult Happy Git and GitHub for the <url href = "https://happygitwithr.com/https-pat">useR</url>.</p>
 
                 <p>The next step is to let Git know who we are. This will make it easier to connect with GitHub. To to this type the following two commands in our terminal window:</p>
 
-                <sage language="r">
+                <program language="r">
                   <input>
       git config --global user.name "Your Name"
       git config --global user.email "your@email.com"
                   </input>
-                </sage>
+                </program>
 
                 <p>This will change the Git configuration in way that anytime you use Git, it will know this information. Note that <alert>you need to use the email account that you used to open your GitHub account</alert>.</p>
 
@@ -1042,37 +1043,31 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
 
                 <p>In a terminal, move to the directory you want to store the local repository. We recommend naming the directory the same as the GitHub repo. In our example we would use:</p>
 
-                <sage language="r">
+                <program language="r">
                   <input>
       mkdir homework-0
       cd homework-0
                   </input>
-                </sage>
+                </program>
 
                 <p>We then initialize the directory as a Git repository, starting the version control process.</p>
 
-                <sage language="r">
+                <program language="r">
                   <input>
       git init
                   </input>
-                </sage>
+                </program>
 
                 <note>
-                  <p>## main verus master</p>
+                  <p><alert>main verus master</alert></p>
                   <p>GitHub now uses <c>main</c> as the default branch name. In the past, both Git and GitHub used <c>master</c> as the default. As a result, many older repositories or older versions of Git might still use <c>master</c> as their primary branch.</p>
                   <p>To ensure your local branch aligns with the GitHub repository's branch name:</p>
                   <p>1. Visit the GitHub repository page.</p>
                   <p>2. Check the dropdown menu on the left that lists branches. This will display the default branch name.</p>
                   <p>To verify your local branch name, use:</p>
-                  <p>```</p>
-                  <p>git branch</p>
-                  <p>```</p>
+                  <program language = "bash"><input>git branch</input></program>
                   <p>If you see a branch name other than <c>main</c> but want it to be <c>main</c>, rename it with:</p>
-                  <program language="bash">
-                    <input>
-      git branch -M main
-                    </input>
-                  </program>
+                  <program language = "bash"><input> git branch -M main</input></program>
                   <p>The <c>-M</c> stands for move. Note that this is different from changing branches, it is renaming the current branch.</p>
                 </note>
 
@@ -1084,11 +1079,11 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
 
                 <p>Once you have this you can type</p>
 
-                <sage language="r">
+                <program language="bash">
                   <input>
       git remote add origin https://github.com/rairizarry/homework-0.git
                   </input>
-                </sage>
+                </program>
 
                 <p>To understand this command note that <c>git remote add</c> adds a new remote reference. A <em>remote</em> in Git refers to another place where your code repository is stored, usually on the internet or another network. <c>origin</c> is the conventional name given to the remote repository or the central repository that other people will treat as an main project source. It's essentially a shorthand alias for the repository's URL. You could technically name it anything you want, but <c>origin</c> is the convention most use. Finally, <c>https://github.com/rairizarry/homework-0.git</c>  is the URL of the remote repository. It tells Git where the repository is hosted. Together, these commands set up a new local Git repository and link it to a remote repository on GitHub.</p>
 
@@ -1108,15 +1103,15 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
 
                   <p>The working directory is the same as your Unix working directory. In our example, if we create a file in the <c>homework-0</c> directory, it is considered to be in the working directory. Git can tell you how the files in the working directory relate to the versions of the files in other areas with the command</p>
 
-                  <sage language="r">
+                  <program language="r">
                     <input>
       git status
                     </input>
-                  </sage>
+                  </program>
 
                   <p>Because we have not done anything yet, you should receive a message such as</p>
 
-                  <sage language="r">
+                  <program language="r">
                     <input>
       On branch main
 
@@ -1124,17 +1119,17 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
 
       nothing to commit (create/copy files and use "git add" to track)
                     </input>
-                  </sage>
+                  </program>
 
                   <p>If we add a file, say <c>code.R</c>, you will see a message like:</p>
 
-                  <sage language="r">
+                  <program language="r">
                     <input>
       Untracked files:
         (use "git add &lt;file&gt;..." to include in what will be committed)
       	code.R
                     </input>
-                  </sage>
+                  </program>
 
                 </subsection>
 
@@ -1149,25 +1144,25 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
 
                   <p>To demonstrate, we add <c>code.R</c> to the staging area:</p>
 
-                  <sage language="r">
+                  <program language="r">
                     <input>
       git add code.R
                     </input>
-                  </sage>
+                  </program>
 
                   <p>Running <c>git status</c> now shows</p>
 
-                  <sage language="r">
+                  <program language="r">
                     <input>
       Changes to be committed:
         (use "git rm --cached &lt;file&gt;..." to unstage)
       	new file:   code.R
                     </input>
-                  </sage>
+                  </program>
 
                   <p>Note that it is not a problem to have other files in the working directory that are not in the staging area. For example, if we create files <c>test-1.R</c> and <c>test-2.R</c>, <c>git status</c> reminds us these are not staged:</p>
 
-                  <sage language="r">
+                  <program language="r">
                     <input>
       On branch main
 
@@ -1182,7 +1177,7 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
       	test-1.R
       	test-2.R
                     </input>
-                  </sage>
+                  </program>
 
                 </subsection>
 
@@ -1195,72 +1190,72 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
 
                   <p>If we are now ready to make a first version of our repository, which only includes <c>code.R</c>, we can use the following command:</p>
 
-                  <sage language="r">
+                  <program language="r">
                     <input>
       git commit -m "Adding a new file." 
                     </input>
-                  </sage>
+                  </program>
 
                   <p>Note that <c>commit</c> requires us to add a message. Making these informative will help us remember why this change was made. After running <c>commit</c> we will receive a message letting us know it was committed:</p>
 
-                  <sage language="r">
+                  <program language="r">
                     <input>
       [main (root-commit) 1735c25] adding a new file
        1 file changed, 0 insertions(+), 0 deletions(-)
        create mode 100644 code.R
                     </input>
-                  </sage>
+                  </program>
 
                   <p>Note that  if we edit <c>code.R</c>, it changes only in the working directory. <c>git status</c> shows us</p>
 
-                  <sage language="r">
+                  <program language="r">
                     <input>
       Changes not staged for commit:
        (use "git add &lt;file&gt;..." to update what will be committed)
         (use "git restore &lt;file&gt;..." to discard changes in working directory)
       	modified:   code.R
                     </input>
-                  </sage>
+                  </program>
 
                   <p>To add the edited file to the local repo, we need to stage the edited file and commit the changes</p>
 
-                  <sage language="r">
+                  <program language="r">
                     <input>
       git add code.R
       git commit -m "Added some lines of code."
                     </input>
-                  </sage>
+                  </program>
 
                   <p>which gives us a message letting us know a change was made:</p>
 
-                  <sage language="r">
+                  <program language="r">
                     <input>
       [main 8843673] added some lines of code
        1 file changed, 1 insertion(+)
                     </input>
-                  </sage>
+                  </program>
 
                   <p>Note that we can achieve the same results with just one line by following the commit command with the files we want committed:</p>
 
-                  <sage language="r">
+                  <program language="r">
                     <input>
       git commit -m "Added some lines of code." code.R
                     </input>
-                  </sage>
+                  </program>
 
                   <p>This is convenient when the number of files that change is small and we can list them at the end.</p>
 
                   <p>To see version control in action note what happens when we type</p>
 
-                  <sage language="r">
+                  <program language="r">
                     <input>
       git log code.R
                     </input>
-                  </sage>
+                  </program>
 
                   <p>we get a list of the version that have been stored in our log:</p>
 
-                  <sage language="r">
+                  <program language="r">
                     <input>
       commit 88436739dcbd57d8ad27a23663d30fd2c06034ca (HEAD -&gt; main)
       Author: Rafael A Irizarry 
@@ -1274,7 +1269,7 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
 
           Adding a new file.
                     </input>
-                  </sage>
+                  </program>
 
                 </subsection>
 
@@ -1287,11 +1282,11 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
 
                   <p>Once we are ready to sync our local repo with the upstream GitHub repo, we can use</p>
 
-                  <sage language="r">
+                  <program language="r">
                     <input>
       git push -u origin main
                     </input>
-                  </sage>
+                  </program>
 
                   <note>
                     <p>If this is your first time pushing to your GitHub account, you will be asked for a password and you have to enter the personal access token we described in <xref ref="sec-connecting-git-github"/>. You should only need to do this once.</p>
@@ -1299,28 +1294,28 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
 
                   <p>The <c>-u</c> flag, short for <c>--set-upstream</c> will make Git remember that in this repository you want to push to the <c>main</c> branch in the remote repo <c>origin</c> defined in the initialization. This is beneficial because the next time you want to push or pull from this branch, you can simply use</p>
 
-                  <sage language="r">
+                  <program language="r">
                     <input>
       git push
                     </input>
-                  </sage>
+                  </program>
 
                   <p>If you need a reminder of where you are pushing to you can type</p>
 
-                  <sage language="r">
+                  <program language="r">
                     <input>
       git remote -v
                     </input>
-                  </sage>
+                  </program>
 
                   <p>The <c>v</c> stands for <c>verbose</c>. In our example we will get</p>
 
-                  <sage language="r">
+                  <program language="r">
                     <input>
       origin  https://github.com/username/homework-0.git (fetch)
       origin  https://github.com/username/homework-0.git (push)
                     </input>
-                  </sage>
+                  </program>
 
                   <p>We describe <c>fetch</c> next. If you don't get anything back it means you have not defined your remote as we did in <xref ref="sec-init"/>.</p>
 
@@ -1339,19 +1334,19 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
 
                   <p>If this is a collaborative project, the upstream repo may change and become different than your version. To update your local repository to be like the upstream repo, we use the command <c>fetch</c>:</p>
 
-                  <sage language="r">
+                  <program language="r">
                     <input>
       git fetch
                     </input>
-                  </sage>
+                  </program>
 
                   <p>And then to make these copies to our working directory, we use the command:</p>
 
-                  <sage language="r">
+                  <program language="r">
                     <input>
       git merge
                     </input>
-                  </sage>
+                  </program>
 
                 </subsection>
 
@@ -1364,11 +1359,11 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
 
                   <p>We very often just want to fetch and merge without checking. For this, we use:</p>
 
-                  <sage language="r">
+                  <program language="r">
                     <input>
       git pull
                     </input>
-                  </sage>
+                  </program>
 
                 </subsection>
 
@@ -1377,19 +1372,19 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
 
                   <p>You can easily download all the code and version control logs from an existing public repository using <c>git clone</c>. When you clone you are essentially making a complete copy of the entire directory. For example, you can download all the code used to create this book using:</p>
 
-                  <sage language="r">
+                  <program language="r">
                     <input>
       git clone https://github.com/rafalab/dsbook-part-1.git
                     </input>
-                  </sage>
+                  </program>
 
                   <p>You can see a simple example with the murders directory created in the Unix chapter by cloning this repository:</p>
 
-                  <sage language="r">
+                  <program language="r">
                     <input>
       git clone https://github.com/rairizarry/murders.git
                     </input>
-                  </sage>
+                  </program>
 
                   <p>If you use <c>git clone</c>, you do not need to initialize as the branch and remote will already be defined. Now, to push changes you need to be added as a collaborator. Otherwise you will have to follow the more complex process of a <em>pull request</em>, which we don't cover here.</p>
 
@@ -1400,7 +1395,7 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
               <section xml:id="sec-gitignore">
                 <title>.gitignore</title>
 
-                <p>When we use <c>git status</c> we obtain information about all files in our local repo. But we don't necessarily need to add all the files in our working directory to the Git repo, only the ones we want to keep track of or the ones we want to share. If our work is producing files of a certain type that we do not want to keep track of, we can add the suffix that defines these files to the .gitignore file. More details on using .gitignore are included on the git-scm website. These files will stop appearing when you type <c>git status</c>.</p>
+                <p>When we use <c>git status</c> we obtain information about all files in our local repo. But we don't necessarily need to add all the files in our working directory to the Git repo, only the ones we want to keep track of or the ones we want to share. If our work is producing files of a certain type that we do not want to keep track of, we can add the suffix that defines these files to the .gitignore file. More details on using .gitignore are included on the <url href = "https://git-scm.com/docs/gitignore">git-scm website</url>. These files will stop appearing when you type <c>git status</c>.</p>
 
               </section>
 
@@ -1419,7 +1414,7 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
                   <image source="productivity/img/windows-screenshots/VirtualBox_Windows-7-Enterprise_23_03_2018_14_30_43.png"/>
                 </figure>
 
-                <p>The repository URL is the link you used as <c>origin</c> or to clone. We used <c>https://github.com/username/homework-0.git</c> as an example. In the project directory name, you need to put the name of the folder that was generated, which in our example will be the name of the repo <c>homework-0</c>. This will create a folder called <c>homework-0</c> on your local system. Note you will need to remove the folder if it already exists or chose a different name. Once you do this, the project is created and it is aware of the connection to a GitHub repo. You will see on the top right corner the name and type of project as well as a new tab on the upper right pane titled <em>Git</em>.</p>
+                <p>The repository URL is the link you used as <c>origin</c> or to clone. In <xref ref = "sec-github-repos"/> we used <c>https://github.com/username/homework-0.git</c> as an example. In the project directory name, you need to put the name of the folder that was generated, which in our example will be the name of the repo <c>homework-0</c>. This will create a folder called <c>homework-0</c> on your local system. Note you will need to remove the folder if it already exists or chose a different name. Once you do this, the project is created and it is aware of the connection to a GitHub repo. You will see on the top right corner the name and type of project as well as a new tab on the upper right pane titled <em>Git</em>.</p>
 
                 <figure>
                   <image source="productivity/img/windows-screenshots/VirtualBox_Windows-7-Enterprise_23_03_2018_14_31_10.png"/>
@@ -1435,7 +1430,7 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
                   <image source="productivity/img/windows-screenshots/VirtualBox_Windows-7-Enterprise_23_03_2018_14_34_06.png"/>
                 </figure>
 
-                <p>We now need to pay attention to the Git pane. It is important to know that <alert>your local files and the GitHub repo will not be synced automatically</alert>. You have to sync using git push when you are ready. We show how you can do this through RStudio rather than the terminal below.</p>
+                <p>We now need to pay attention to the Git pane. It is important to know that <alert>your local files and the GitHub repo will not be synced automatically</alert>. As described in <xref ref = "sec-git-overview">, you have to sync using git push when you are ready. We show how you can do this through RStudio rather than the terminal below.</p>
 
                 <p>Before we start working on a collaborative project, usually the first thing we do is <em>pull</em> in the changes from the remote repo, in our case the one on GitHub. However, for the example shown here, since we are starting with an empty repo and we are the only ones making changes, we don't need to start by pulling.</p>
 
