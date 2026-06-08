@@ -31,7 +31,7 @@
   answer to all the questions above are readily available from examining this plot.
 </p>
 
-          <figure xml:id="fig-1-part-2">
+          <figure>
             <image source="images/ggplot-example-plot-0-1.png" width="70%"/>
           </figure>
 
@@ -561,6 +561,10 @@ x &lt;- heights$height[heights$sex=="Male"]
       We will construct a graph that summarizes the US murders dataset that looks like this:
     </p>
 
+          <figure>
+            <image source="images/ggplot-example-plot-1.png" width="70%"/>
+          </figure>
+
    <p>We can clearly 
       see how much states vary across population size and the total number of murders. 
       Not surprisingly, we also see a clear relationship between murder totals and 
@@ -681,6 +685,10 @@ x &lt;- heights$height[heights$sex=="Male"]
       </input>
     </program>
 
+          <figure>
+            <image source="images/ggplot-example-1-1.png" width="70%"/>
+          </figure>
+
     <p>
       Both these lines of code render a plot, in this case a blank slate since no 
       geometry has been defined. The only style choice we see is a grey background, the 
@@ -722,6 +730,15 @@ x &lt;- heights$height[heights$sex=="Male"]
       scatterplot. Geometries are added using functions. Taking a quick look at the 
       cheat sheet, we see that we should use the function <c>geom_point</c>.
     </p>
+
+          <figure>
+            <image source="images/ggplot2-cheatsheeta.png" width="70%"/>
+          </figure>
+          <figure>
+<caption>Image courtesy of <url href = "https://rstudio.github.io/cheatsheets/data-visualization.pdf">
+Posit</url> <url href = "https://github.com/rstudio/cheatsheets/blob/main/LICENSE">CC-BY-4.0 license<url></caption>
+            <image source="images/ggplot2-cheatsheetb.png" width="70%"/>
+          </figure>
 
     <p>
       Note that geometry function names follow the pattern: <c>geom_X</c> where 
@@ -770,6 +787,9 @@ x &lt;- heights$height[heights$sex=="Male"]
         murders |> ggplot() + geom_point(aes(population/10^6, total))
       </input>
     </program>
+          <figure>
+            <image source="images/ggplot-example-2-1" width="70%"/>
+          </figure>
 
     <p>
       We didn't use the <c>x</c> and <c>y</c> to define the arguments because the help 
@@ -811,6 +831,9 @@ x &lt;- heights$height[heights$sex=="Male"]
           geom_text(aes(population/10^6, total, label = abb))
       </input>
     </program>
+          <figure>
+            <image source="images/ggplot-example-3-1.png" width="70%"/>
+          </figure>
 
     <p>
       As an example of the unique behavior of <c>aes</c> related to variable names, 
@@ -859,11 +882,16 @@ x &lt;- heights$height[heights$sex=="Male"]
           geom_point() +
           geom_text(aes(x = 10, y = 800, label = "Hello there!"))
       </input>
-      <output>
+    </program>
+
+      <pre>
         #> Warning in geom_text(aes(x = 10, y = 800, label = "Hello there!")): All aesthetics have length 1, but the data has 51 rows.
         #> ℹ Please consider using `annotate()` or provide this layer with data containing a single row.
-      </output>
-    </program>
+      </pre>
+
+          <figure>
+            <image source="images/ggplot-example-4-1.png" width="70%"/>
+          </figure>
 
     <p>
       Clearly, the second call to <c>geom_text</c> does not use <c>population</c> and 
@@ -891,6 +919,10 @@ x &lt;- heights$height[heights$sex=="Male"]
       </input>
     </program>
 
+          <figure>
+            <image source="imagesggplot-example-5-1.png" width="70%"/>
+          </figure>
+
     <p>
       In <xref ref="sec-ggplot2-addons"/> we learn a better way of assuring we can see 
       the points and the labels.
@@ -914,6 +946,10 @@ x &lt;- heights$height[heights$sex=="Male"]
       </input>
     </program>
 
+          <figure>
+            <image source="images/ggplot-example-6-1.png" width="70%"/>
+          </figure>
+
     <p>
       Note that <c>geom_point</c> automatically assigns a different color to each 
       category and also adds a legend! Legends are usually desired, but to avoid adding 
@@ -934,6 +970,10 @@ x &lt;- heights$height[heights$sex=="Male"]
           geom_point(color = "blue", size = 3)
       </input>
     </program>
+
+          <figure>
+            <image source="images/ggplot-example-7-1.png" width="70%"/>
+          </figure>
   </section>
 
   <section xml:id="sec-ggplot2-updating">
@@ -1002,6 +1042,10 @@ x &lt;- heights$height[heights$sex=="Male"]
       </input>
     </program>
 
+          <figure>
+            <image source="images/gggplot-example-8-1.png" width="70%"/>
+          </figure>
+
     <p>
       Be aware that ggplot2 offers immense flexibility, particularly through the scales 
       functions. We've introduced just one of the many available. In subsequent chapters 
@@ -1040,6 +1084,10 @@ x &lt;- heights$height[heights$sex=="Male"]
       </input>
     </program>
 
+          <figure>
+            <image source="images/ggplot-example-9-1.png" width="70%"/>
+          </figure>
+
     <p>
       Our desired final plot includes a line that represents the average murder rate for 
       the entire country. In the log-scale this line turns into a line with slope 1 and 
@@ -1070,6 +1118,10 @@ x &lt;- heights$height[heights$sex=="Male"]
         p5
       </input>
     </program>
+
+          <figure>
+            <image source="images/ggplot-example-10-1.png" width="70%"/>
+          </figure>
 
     <p>
       Note that <c>geom_abline</c> does not use any mappings from the data object, once 
@@ -1158,6 +1210,11 @@ x &lt;- heights$height[heights$sex=="Male"]
           theme_economist()
       </input>
     </program>
+
+          <figure>
+            <image source="images/final-ggplot-example-1.png" width="70%"/>
+          </figure>
+
   </section>
 
   <section xml:id="sec-ggplot2-geometries">
@@ -1326,6 +1383,10 @@ x &lt;- heights$height[heights$sex=="Male"]
             scale_fill_gradientn(colors = terrain.colors(10, 1))
         </input>
       </program>
+
+          <figure>
+            <image source="images/ggplot2-image-new-colors-1.png" width="70%"/>
+          </figure>
     </subsection>
   </section>
 
@@ -1344,6 +1405,10 @@ x &lt;- heights$height[heights$sex=="Male"]
         grid.arrange(p5, p6, ncol = 2)
       </input>
     </program>
+
+          <figure>
+            <image source="images/gridExtra-example-1.png" width="70%"/>
+          </figure>
   </section>
 
   <exercises xml:id="exercises-ggplot2">
