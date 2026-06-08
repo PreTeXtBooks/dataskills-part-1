@@ -1498,16 +1498,6 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
 
                 <p>Situations like the ones just described are actually quite common for a data analyst. Here, we describe how you can keep your projects organized with RStudio so that re-running an analysis is straight-forward. We then demonstrate how to generate reproducible reports with quarto or R markdown. The <alert>knitR</alert> package will greatly help with recreating reports with minimal work. This is possible due to the fact that markdown documents permit code and textual descriptions to be combined into the same document, and the figures and tables produced by the code are automatically added to the document.</p>
 
-                <sage language="r">
-                  <input>
-      img_path &lt;- "productivity/img"
-      screenshots &lt;- list.files(file.path(img_path, "windows-screenshots"))
-      screenshots &lt;- file.path(img_path, "windows-screenshots", screenshots)
-      mac_screenshots &lt;- list.files(file.path(img_path, "mac-screenshots"))
-      mac_screenshots &lt;- file.path(img_path,"mac-screenshots", mac_screenshots)
-                  </input>
-                </sage>
-
               <section xml:id="sec-rstudio-projects">
                 <title>RStudio projects</title>
 
@@ -1599,7 +1589,7 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
 
                   <p>At the top you see:</p>
 
-                  <sage language="r">
+                  <program language="r">
                     <input>
       ---
       title: "Report on Gun Murders"
@@ -1607,7 +1597,7 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
       format: html
       ---
                     </input>
-                  </sage>
+                  </program>
 
                   <p>The things between the <c>---</c> is the <em>YAML</em> header. YAML is a widely used language mainly used for providing configuration data. With Quarto and R markdown it is mainly used to define options for the document. You can define many other things in the header than what is included in the template. We don't discuss those here, but much information is available from the quarto guide. The one parameter that we will highlight is <c>format</c>. By changing this to, say, <c>pdf</c>, we can control the type of output that is produced when we compile. The title and author parameters are automatically filled because we filled in the blanks in the RStudio dialog box that pops up when creating a new document.</p>
 
@@ -1618,11 +1608,13 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
 
                   <p>In various places in the document, we see something like this:</p>
 
-                  <sage language="r">
+                  <program language="r">
                     <input>
-      1 + 1
+```{r}
+1 + 1
+```
                     </input>
-                  </sage>
+                  </program>
 
                   <p>These are the code chunks. When you compile the document, the R code inside the chunk, in this case <c>1+1</c>, will be evaluated and the result included in that position in the final document.</p>
 
@@ -1630,31 +1622,36 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
 
                   <p>This applies to plots as well; the plot will be placed in that position. We can write something like this:</p>
 
-                  <sage language="r">
+                  <program language="r">
                     <input>
-      plot(1)
-                    </input>
-                  </sage>
+```{r}
+plot(1)
+```                    </input>
+                  </program>
 
                   <p>By default, the code will show up as well. To avoid having the code show up, you can use an argument, which are annotated with <c>#|</c> To avoid showing code in the final document, you can use the argument <c>echo: FALSE</c>. For example:</p>
 
-                  <sage language="r">
+                  <program language="r">
                     <input>
-      #| echo: false
+```{r}
+#| echo: false
 
-      1+1
+1+1
+```
                     </input>
-                  </sage>
+                  </program>
 
                   <p>We recommend getting into the habit of adding a label to the R code chunks. This will be very useful when debugging, among other situations. You do this by adding a descriptive word like this:</p>
 
-                  <sage language="r">
+                  <program language="r">
                     <input>
-      #| label: one-plus-one
+ ```{r}
+#| label: one-plus-one
 
-      1+1
+1+1
+```
                     </input>
-                  </sage>
+                  </program>
 
                 </subsection>
 
@@ -1663,12 +1660,12 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
 
                   <p>If you want to apply an option globally, you can include in the header, under <c>execute</c>. For example adding the following line to the header make code not show up, by default:</p>
 
-                  <sage language="r">
+                  <program language="r">
                     <input>
       execute:
         echo: false
                     </input>
-                  </sage>
+                  </program>
 
                   <p>We will not cover more details here, but as you become more experienced with R Markdown, you will learn the advantages of setting global options for the compilation process.</p>
 
@@ -1702,7 +1699,12 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
 
                   <p>There is a lot more you can do with R markdown. We highly recommend you continue learning as you gain more experience writing reports in R. There are many free resources on the internet including:</p>
 
-                  <p>-   The Quarto Guide -   Hello, Quarto tutorial -   Dynamic Documents with R and knitr textbook</p>
+                  <p><ul>
+<li><url href = "https://rafalab.dfci.harvard.edu/dsbook-part-1/productivity/reproducible-projects.html#fn5">The Quarto Guide</url></li>
+<li><url href = "https://rafalab.dfci.harvard.edu/dsbook-part-1/productivity/reproducible-projects.html#fn6">Hello, Quarto tutorial</url></li>
+<li><url href = "https://rafalab.dfci.harvard.edu/dsbook-part-1/productivity/reproducible-projects.html#fn7">Dynamic Documents with R and knitr textbook</url></li>
+</ul>
+</p>
 
                 </subsection>
 
@@ -1716,7 +1718,9 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
                 <subsection xml:id="subsec-create-directories-in-unix">
                   <title>Create directories in Unix</title>
 
-                  <p>We demonstrated how to use Unix to prepare for a data science project using an example. Here we continue this example and show how to use RStudio. We created the following directories using Unix:</p>
+                  <p>In <xref ref = "sec-prep-project"> we demonstrated how to use Unix to prepare
+for a data science project using an example. Here we continue this example and show how to use RStudio.
+In <xref ref = "sec-prep-project"> We created the following directories using Unix:</p>
 
                   <program language="bash">
                     <input>
@@ -1762,14 +1766,14 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
 
                   <p>The content of this file will be:</p>
 
-                  <sage language="r">
+                  <program language="r">
                     <input>
       url &lt;- "https://raw.githubusercontent.com/rafalab/dslabs/master/inst/
       extdata/murders.csv"
       dest_file &lt;- "data/murders.csv"
       download.file(url, destfile = dest_file)
                     </input>
-                  </sage>
+                  </program>
 
                   <p>Notice that we are using the relative path <c>data/murders.csv</c>.</p>
 
@@ -1777,7 +1781,7 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
 
                   <p>Now we are ready to write a script to read this data and prepare a table that we can use for analysis. Call the file <c>wrangle-data.R</c>. The content of this file will be:</p>
 
-                  <sage language="r">
+                  <program language="r">
                     <input>
       if (!requireNamespace("tidyverse", quietly = TRUE)) tryCatch(install.packages("tidyverse", repos = "https://cloud.r-project.org"), error = function(e) invisible(NULL))
       library(tidyverse)
@@ -1786,7 +1790,7 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
                                    rate = total / population * 10^5)
       save(murders, file = "rdas/murders.rda")
                     </input>
-                  </sage>
+                  </program>
 
                   <p>Again note that we use relative paths exclusively.</p>
 
@@ -1801,21 +1805,19 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
 
                   <p>While <c>save</c> let's you save several objects that then get loaded with the same names used when saving, the function <c>saveRDS</c> lets you save one object, without the name. To bring it back you use the <c>readRDS</c> function. An example of how this is used is you save it in one session:</p>
 
-                  <sage language="r">
+                  <program language="r">
                     <input>
-      #| eval: false
       saveRDS(murders, file = "rdas/murders.rda")
                     </input>
-                  </sage>
+                  </program>
 
                   <p>Then read it in in another session, using whatever object name you want:</p>
 
-                  <sage language="r">
+                  <program language="r">
                     <input>
-      #| eval: false
       dat &lt;- readRDS("rdas/murders.rda")
                     </input>
-                  </sage>
+                  </program>
 
                 </subsection>
 
@@ -1824,9 +1826,8 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
 
                   <p>Now we are ready to write the analysis file. Let's call it <c>analysis.R</c>. The content should be the following:</p>
 
-                  <sage language="r">
+                  <program language="r">
                     <input>
-      if (!requireNamespace("tidyverse", quietly = TRUE)) tryCatch(install.packages("tidyverse", repos = "https://cloud.r-project.org"), error = function(e) invisible(NULL))
       library(tidyverse)
       load("rdas/murders.rda")
 
@@ -1835,7 +1836,7 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
         geom_bar(width = 0.5, stat = "identity", color = "black") +
         coord_flip()
                     </input>
-                  </sage>
+                  </program>
 
                   <p>If you run this analysis, you will see that it generates a plot.</p>
 
@@ -1854,11 +1855,11 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
 
                   <p>and then you can add the line:</p>
 
-                  <sage language="r">
+                  <program language="r">
                     <input>
       ggsave("figs/barplot.png")
                     </input>
-                  </sage>
+                  </program>
 
                   <p>to your R script. If you run the script now, a png file will be saved into the <c>figs</c> directory. If we wanted to copy that file to some other directory where we are developing a presentation, we can avoid using the mouse by using the <c>cp</c> command in our terminal.</p>
 
@@ -1869,7 +1870,7 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
 
                   <p>You now have a self-contained analysis in one directory. One final recommendation is to create a <c>README.txt</c> file describing what each of these files does for the benefit of others reading your code, including your future self. This would not be a script but just some notes. One of the options provided when opening a new file in RStudio is a text file. You can save something like this into the text file:</p>
 
-                  <sage language="r">
+                  <program language="r">
                     <input>
       We analyze US gun murder data collected by the FBI.
 
@@ -1880,7 +1881,7 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
 
       analysis.R - A plot is generated and saved in the figs directory.
                     </input>
-                  </sage>
+                  </program>
 
                 </subsection>
 
@@ -1923,11 +1924,11 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
 
                   <p>We can now go to GitHub and confirm that our files are there. You can see a version of this project, organized with Unix directories, on GitHub. You can download a copy to your computer by using the <c>git clone</c> command on your terminal. This command will create a directory called <c>murders</c> in your working directory, so be careful where you call it from.</p>
 
-                  <sage language="r">
+                  <program language="r">
                     <input>
       git clone https://github.com/rairizarry/murders.git
                     </input>
-                  </sage>
+                  </program>
 
                 </subsection>
 
