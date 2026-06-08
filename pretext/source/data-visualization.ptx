@@ -181,6 +181,15 @@ library(dslabs)
 head(heights)
             </input>
           </program>
+<pre>
+#>      sex height
+#> 1   Male     75
+#> 2   Male     70
+#> 3   Male     68
+#> 4   Male     74
+#> 5   Male     61
+#> 6 Female     65
+</pre>
           
           <p>One way to convey the heights to ET is to simply send him this list of 1,050 heights. But there are much more effective ways to convey this information, and understanding the concept of a distribution will be key. To simplify the explanation, we first focus on male heights. We examine the female height data later in this chapter.</p>
         </section>
@@ -189,27 +198,20 @@ head(heights)
           <title>Distributions</title>
           
           <p>The most basic statistical summary of a list of objects or numbers is its <em>distribution</em>. The simplest way to think of a distribution is as a compact description of a list with many entries. This concept should not be new for readers of this book. For example, with categorical data, the distribution simply describes the proportion of each unique category. The sex represented in the heights dataset is:</p>
-          
-          <program language="r">
-            <input>
-prop.table(table(heights$sex))
-            </input>
-          </program>
-          
+
+<pre>
+#> Female   Male 
+#>  0.227  0.773
+</pre>
+
           <p>This two-category <em>frequency table</em> is the simplest form of a distribution. We don't really need to visualize it since one number describes everything we need to know: 23% are females and the rest are males. When there are more categories, then a simple barplot describes the distribution. Here is an example with US state regions:</p>
-          
-          <program language="r">
-            <input>
-murders |> group_by(region) |>
-  summarize(n = n()) |>
-  mutate(Proportion = n/sum(n), 
-         region = reorder(region, Proportion)) |>
-  ggplot(aes(x=region, y=Proportion, fill=region)) + 
-  geom_bar(stat = "identity", show.legend = FALSE) + 
-  xlab("")
-            </input>
-          </program>
-          
+
+<figure xml:id="fig-state-region-distribution-1">
+  <image source="images/state-region-distribution-1.png" width="80%">
+    <description>TODO</description>
+  </image>
+</figure>
+
           <p>This particular plot simply shows us four numbers, one for each category. We usually use barplots to display a few numbers. Although this particular plot does not provide much more insight than a frequency table itself, it is a first example of how we convert a vector into a plot that succinctly summarizes all the information in the vector. When the data is numerical, the task of displaying distributions is more challenging.</p>
           
           <subsection xml:id="subsec-histograms">
@@ -219,29 +221,22 @@ murders |> group_by(region) |>
             
             <p>Statistics textbooks teach us that a more useful way to define a distribution for numeric data is to define a function that reports the proportion of the data below <m>a</m> for all possible values of <m>a</m>. This function is called the empirical cumulative distribution function (eCDF), it can be plotted, and it provides a full description of the distribution of our data. Here is the eCDF for male student heights:</p>
             
-            <program language="r">
-              <input>
-ds_theme_set()
-heights |> filter(sex=="Male") |> 
-  ggplot(aes(height)) + 
-  stat_ecdf() +
-  ylab("Proportion of heights less than or equal to a") + 
-  xlab("a")
-              </input>
-            </program>
+
+<figure xml:id="fig-ecdf-1">
+  <image source="images/ecdf-1.png" width="80%">
+    <description>TODO</description>
+  </image>
+</figure>
             
             <p>However, summarizing data by plotting the eCDF is actually not very popular in practice. The main reason is that it does not easily convey characteristics of interest such as: at what value is the distribution centered? Is the distribution symmetric? What ranges contain 95% of the values?</p>
             
             <p><em>Histograms</em> are much preferred because they greatly facilitate answering such questions. Histograms sacrifice just a bit of information to produce plots that are much easier to interpret. The simplest way to make a histogram is to divide the span of our data into non-overlapping bins of the same size. Then, for each bin, we count the number of values that fall in that interval. The histogram plots these counts as bars with the base of the bar defined by the intervals. Here is the histogram for the height data splitting the range of values into one inch intervals: <m>(49.5, 50.5]</m>, <m>(50.5, 51.5]</m>, <m>(51.5,52.5]</m>, <m>(52.5,53.5]</m>, <m>...</m>, <m>(82.5,83.5]</m>.</p>
             
-            <program language="r">
-              <input>
-heights |> 
-  filter(sex=="Male") |> 
-  ggplot(aes(height)) + 
-  geom_histogram(binwidth = 1, color = "black")
-              </input>
-            </program>
+<figure xml:id="fig-height-histogram-1">
+  <image source="images/height-histogram-1.png" width="80%">
+    <description>TODO</description>
+  </image>
+</figure>
             
             <p>As you can see in the figure above, a histogram is similar to a barplot, but it differs in that the x-axis is numerical, not categorical.</p>
             
@@ -257,28 +252,21 @@ heights |>
             
             <p><em>Smooth density</em> plots relay the same information as a histogram but are aesthetically more appealing. Here is what a smooth density plot looks like for our male heights data:</p>
             
-            <program language="r">
-              <input>
-heights |> 
-  filter(sex=="Male") |> 
-  ggplot(aes(height)) + 
-  geom_density(alpha = .2, fill= "#00BFC4", color = 0)  +
-  geom_line(stat='density')
-              </input>
-            </program>
+<figure xml:id="fig-example-of-smoothed-density-1">
+  <image source="images/example-of-smoothed-density-1.png" width="80%">
+    <description>TODO</description>
+  </image>
+</figure>
             
             <p>In this plot, we no longer have sharp edges at the interval boundaries and many of the local peaks have been removed. Also, the scale of the y-axis changed from counts to <em>density</em>. To fully understand smooth densities, we have to understand <em>estimates</em>, a topic covered in statistics our advanced data science textbooks. Here we simply describe them as making the histograms prettier by drawing a curve that goes through the top of the histogram bars and then removing the bars. The values shown y-axis are chosen so that the area under the curve adds up to 1. This implies that for any interval, the area under the curve for that interval gives us an approximation of how what proportion of the data is in the interval.</p>
             
             <p>An advantage of smooth densities over histograms for visualization purposes is that densities make it easier to compare two distributions. This is in large part because the jagged edges of the histogram add clutter. Here is an example comparing male and female heights:</p>
             
-            <program language="r">
-              <input>
-heights |> 
-  ggplot(aes(height, fill=sex)) + 
-  geom_density(alpha = 0.2, color = 0) +
-  geom_line(stat='density')
-              </input>
-            </program>
+<figure xml:id="fig-two-densities-one-plot-1">
+  <image source="images/two-densities-one-plot-1.png" width="80%">
+    <description>TODO</description>
+  </image>
+</figure>
             
             <p>With the right argument, <c>ggplot</c> automatically shades the intersecting region with a different color. We will show examples of <alert>ggplot2</alert> code for densities later in this book.</p>
           </subsection>
@@ -311,44 +299,44 @@ x &lt;- heights$height[index]
             
             <p>the average is defined as</p>
             
-            <sage language="r">
+            <program language="r">
               <input>
 m &lt;- sum(x) / length(x)
               </input>
-            </sage>
+            </program>
             
             <p>and the SD is defined as</p>
             
-            <sage language="r">
+            <program language="r">
               <input>
 s &lt;- sqrt(sum((x - mu)^2) / length(x))
               </input>
-            </sage>
+            </program>
             
             <p>which can be interpreted as the average distance between values and their average.</p>
             
             <p>The pre-built functions <c>mean</c> and <c>sd</c> (note that, for reasons explained in statistics textbooks, <c>sd</c> divides by <c>length(x)-1</c> rather than <c>length(x)</c>) can be used here:</p>
             
-            <sage language="r">
+            <program language="r">
               <input>
 m &lt;- mean(x)
 s &lt;- sd(x)
 c(average = m, sd = s)
               </input>
-            </sage>
+            </program>
+
+<pre>
+#> average      sd 
+#>   69.31    3.61
+</pre>
             
             <p>Here is a plot of our student height smooth density in blue and the normal distribution with mean = 69.3 and SD = 3.6 plotted as a black line:</p>
             
-            <sage language="r">
-              <input>
-norm_dist &lt;- data.frame(x = seq(-4, 4, len = 50)*s + m) |> 
-  mutate(density = dnorm(x, m, s))
-
-heights |> filter(sex == "Male") |> ggplot(aes(height)) +
-  geom_density(fill = "#0099FF") +
-  geom_line(aes(x, density),  data = norm_dist, lwd = 1.5)
-              </input>
-            </sage>
+<figure xml:id="fig-data-and-normal-densities-1">
+  <image source="images/data-and-normal-densities-1.png" width="80%">
+    <description>TODO</description>
+  </image>
+</figure>
           </subsection>
         </section>
         
@@ -361,26 +349,24 @@ heights |> filter(sex == "Male") |> ggplot(aes(height)) +
           
           <p>To motivate boxplots we will go back to the US murder data. Suppose we want to summarize the murder rate distribution. Using the data visualization technique we have learned, we can quickly see that the normal approximation does not apply here:</p>
           
-          <program language="r">
-            <input>
-murders &lt;- murders |> mutate(rate = total/population*100000)
-murders |> ggplot(aes(x = rate)) + geom_histogram(binwidth = 0.5, color = "black") + ggtitle("Histogram")
-            </input>
-          </program>
-          
+<figure xml:id="fig-hist-non-normal-data-1">
+  <image source="images/hist-non-normal-data-1.png" width="80%">
+    <description>TODO</description>
+  </image>
+</figure>
+
           <p>In this case, the histogram above or a smooth density plot would serve as a relatively succinct summary.</p>
           
           <p>Now suppose those used to receiving just two numbers as summaries ask us for a more compact numerical summary.</p>
           
           <p>The <em>boxplot</em> provides a five-number summary composed of the range (the minimum and maximum) along with the <em>quartiles</em> (the 25th, 50th, and 75th percentiles). The R implementation of boxplots ignore <em>outliers</em> when computing the range and instead plot these as independent points. The help file provides a specific definition of outliers. The boxplot shows these numbers as a "box" with "whiskers"</p>
           
-          <program language="r">
-            <input>
-murders |> ggplot(aes("",rate)) + geom_boxplot() +
-  coord_cartesian(xlim = c(0, 2)) + xlab("")
-            </input>
-          </program>
-          
+<figure xml:id="fig-first-boxplot-1">
+  <image source="images/first-boxplot-1.png" width="80%">
+    <description>TODO</description>
+  </image>
+</figure>
+
           <p>with the box defined by the 25% and 75% percentile and the whiskers showing the range. The distance between the 25% and 75% percentile is called the <em>interquartile</em> range. The two points are outliers according to the R implementation. The median is shown with a horizontal line.</p>
           
           <p>From just this simple plot, we know that the median is about 2.5, that the distribution is not symmetric, and that the range is 0 to 5 for the great majority of states with two exceptions.</p>
@@ -403,22 +389,19 @@ murders |> ggplot(aes("",rate)) + geom_boxplot() +
           
           <p>Boxplots are useful when we want to quickly compare two or more distributions. Here are the heights for men and women:</p>
           
-          <program language="r">
-            <input>
-heights |> ggplot(aes(x = sex, y = height, fill = sex)) +
-  geom_boxplot()
-            </input>
-          </program>
+<figure xml:id="female-male-boxplots-1">
+  <image source="images/female-male-boxplots-1.png" width="80%">
+    <description>TODO</description>
+  </image>
+</figure>
           
           <p>The plot immediately reveals that males are, on average, taller than females. The  interquartile ranges appear to be similar. But does the normal approximation also work for the female height data collected by the survey? We expect that they will follow a normal distribution, just like males. However, exploratory plots reveal that the approximation is not as useful:</p>
           
-          <program language="r">
-            <input>
-heights |> filter(sex == "Female") |>
-  ggplot(aes(height)) +
-  geom_density(fill = "#F8766D")
-            </input>
-          </program>
+<figure xml:id="histogram-qqplot-female-heights-1">
+  <image source="images/histogram-qqplot-female-heights-1.png" width="80%">
+    <description>TODO</description>
+  </image>
+</figure>
           
           <p>We see something we did not see for the males: the density plot has a second "bump". Also, the highest points tend to be taller than expected by the normal than expected heights for a normal distribution. When reporting back to ET, we might need to provide a histogram rather than just the average and standard deviation for the female heights.</p>
           
@@ -433,6 +416,9 @@ heights |> filter(sex == "Female") |>
   pull(height)
             </input>
           </program>
+<pre>
+#> [1] 51 52 52 53 55
+</pre>
           
           <p>Because these are reported heights, a possibility is that the student meant to enter 5'1", 5'2", 5'3" or 5'5".</p>
         </section>
@@ -461,19 +447,11 @@ female &lt;- heights$height[heights$sex == "Female"]
             <li>
               <p>Study the following boxplots showing population sizes by country:</p>
               
-              <program language="r">
-                <input>
-if (!requireNamespace("tidyverse", quietly = TRUE)) tryCatch(install.packages("tidyverse", repos = "https://cloud.r-project.org"), error = function(e) invisible(NULL))
-library(tidyverse)
-if (!requireNamespace("dslabs", quietly = TRUE)) tryCatch(install.packages("dslabs", repos = "https://cloud.r-project.org"), error = function(e) invisible(NULL))
-library(dslabs)
-ds_theme_set()
-tab &lt;- gapminder |> filter(year == 2010) |> group_by(continent) |> select(continent, population)  
-tab |> ggplot(aes(x = continent, y = population/10^6)) + 
-  geom_boxplot() + 
-  scale_y_continuous(trans = "log10", breaks = c(1,10,100,1000)) + ylab("Population in millions")
-                </input>
-              </program>
+<figure xml:id="boxplot-exercise-1">
+  <image source="images/boxplot-exercise-1.png" width="80%">
+    <description>TODO</description>
+  </image>
+</figure>
               
               <p>Which continent has the country with the biggest population size?</p>
             </li>
@@ -1520,7 +1498,7 @@ data.frame(Country = c("United States", "China", "Japan", "Germany", "France"), 
 
           <p>To appreciate how the right order can help convey a message, suppose we want to create a plot to compare the murder rate across states. We are particularly interested in the most dangerous and safest states. Note the difference when we order alphabetically (the default) versus when we order by the actual rate:</p>
 
-          < language="r">
+          <program language="r">
             <input>
 p1 &lt;- murders |&gt; mutate(murder_rate = total / population * 100000) |&gt;
   ggplot(aes(state, murder_rate)) +
@@ -1539,11 +1517,11 @@ p2 &lt;- murders |&gt; mutate(murder_rate = total / population * 100000) |&gt;
 
 grid.arrange(p1, p2, ncol = 2)
             </input>
-          </>
+          </program>
 
           <p>Here is an example showing boxplots of income distributions across regions. Here are the two versions plotted against each other:</p>
 
-          < language="r">
+          <program language="r">
             <input>
 past_year &lt;- 1970
 p1 &lt;- gapminder |&gt; 
