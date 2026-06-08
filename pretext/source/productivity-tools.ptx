@@ -814,7 +814,7 @@ export PATH = /usr/bin/
 
             <p>In Unix, all programs are files. They are called executables. So <c>ls</c>, <c>mv</c> and <c>git</c> are all files. But where are these program files? You can find out using the command <c>which</c>:</p>
 
-            <program language="bash">
+            <program language="r">
               <input>
 which git
               </input>
@@ -1065,9 +1065,9 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
                   <p>1. Visit the GitHub repository page.</p>
                   <p>2. Check the dropdown menu on the left that lists branches. This will display the default branch name.</p>
                   <p>To verify your local branch name, use:</p>
-                  <program language = "bash"><input>git branch</input></program>
+                  <program language = "r"><input>git branch</input></program>
                   <p>If you see a branch name other than <c>main</c> but want it to be <c>main</c>, rename it with:</p>
-                  <program language = "bash"><input> git branch -M main</input></program>
+                  <program language = "r"><input> git branch -M main</input></program>
                   <p>The <c>-M</c> stands for move. Note that this is different from changing branches, it is renaming the current branch.</p>
                 </note>
 
@@ -1079,7 +1079,7 @@ knitr::opts_chunk$set(out.width = NULL, out.extra = NULL)
 
                 <p>Once you have this you can type</p>
 
-                <program language="bash">
+                <program language="r">
                   <input>
       git remote add origin https://github.com/rairizarry/homework-0.git
                   </input>
@@ -1717,7 +1717,7 @@ plot(1)
 for a data science project using an example. Here we continue this example and show how to use RStudio.
 In <xref ref = "sec-prep-project"> We created the following directories using Unix:</p>
 
-                  <program language="bash">
+                  <program language="r">
                     <input>
       cd ~
       cd projects
@@ -1842,7 +1842,7 @@ In <xref ref = "sec-prep-project"> We created the following directories using Un
 
                   <p>Now suppose we want to save the generated plot for use in a report or presentation. We can do this with the <alert>ggplot</alert> command <c>ggsave</c>. But where do we put the graph? We should be systematically organized so we will save plots to a directory called <c>figs</c>. Start by creating a directory by typing the following in the terminal:</p>
 
-                  <program language="bash">
+                  <program language="r">
                     <input>
       mkdir figs
                     </input>
@@ -1887,7 +1887,7 @@ In <xref ref = "sec-prep-project"> We created the following directories using Un
 
                   <p>We can do this in the Unix terminal:</p>
 
-                  <program language="bash">
+                  <program language="r">
                     <input>
       cd ~/projects/murders
       git init
