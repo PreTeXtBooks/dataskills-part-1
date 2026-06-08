@@ -2215,7 +2215,7 @@ p2 +  geom_jitter(width = .1, alpha = .5)
 
             <p>Country population sizes provide a clear example of a <em>right-skewed</em> distribution: most countries have relatively small populations, while a few have extremely large ones. As shown in the box plot above, this imbalance causes most of the data points to be compressed into a small area of the plot, while a large portion of the plotting space is left empty. This makes it difficult to see meaningful differences among the majority of countries.</p>
 
-            <p>In <xref ref="sec-scales"/>, we saw how applying a log transformation improved the readability of a scatter plot by addressing this kind of skew. Similarly, applying a log transformation to population sizes here produces a much more informative visualization. Below, we compare the original barplot to a boxplot with a log-transformed y-axis to illustrate the improvement.</p>
+            <p>In <xref ref="sec-ggplot2-scales"/>, we saw how applying a log transformation improved the readability of a scatter plot by addressing this kind of skew. Similarly, applying a log transformation to population sizes here produces a much more informative visualization. Below, we compare the original barplot to a boxplot with a log-transformed y-axis to illustrate the improvement.</p>
 
             <program language="r">
               <input>
