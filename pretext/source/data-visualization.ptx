@@ -736,7 +736,7 @@ x &lt;- heights$height[heights$sex=="Male"]
           </figure>
           <figure>
 <caption>Image courtesy of <url href = "https://rstudio.github.io/cheatsheets/data-visualization.pdf">
-Posit</url> <url href = "https://github.com/rstudio/cheatsheets/blob/main/LICENSE">CC-BY-4.0 license<url></caption>
+Posit</url> <url href = "https://github.com/rstudio/cheatsheets/blob/main/LICENSE">CC-BY-4.0 license</url></caption>
             <image source="images/ggplot2-cheatsheetb.png" width="70%"/>
           </figure>
 
