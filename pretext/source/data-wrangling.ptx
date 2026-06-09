@@ -2913,7 +2913,7 @@ pattern &lt;- "^[4-7]'\\d{1,2}\"$"
             <sage language="r">
               <input>
 library(stringr)
-pattern <- "^[4-7]'\\d{1,2}\"$"
+pattern &lt;- "^[4-7]'\\d{1,2}\"$"
 
 yes &lt;- c("5'7\"", "6'2\"",  "5'12\"")
 no &lt;- c("6,2\"", "6.2\"","I am 5'11\"", "3'2\"", "64")
@@ -2939,12 +2939,15 @@ identical("Hi", "Hi ")
 
             <p>In regex, <c>\s</c> represents white space. To find patterns like <c>5' 4</c>, we can change our pattern to:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 pattern_2 &lt;- "^[4-7]'\\s\\d{1,2}\"$"
 str_subset(problems, pattern_2)
               </input>
-            </sage>
+            </program>
+<pre>
+#&gt; [1] "5' 4\""  "5' 11\"" "5' 7\""
+</pre>
 
             <p>However, this will not match the patterns with no space. So do we need more than one regex pattern? It turns out we can use a quantifier for this as well.</p>
 
@@ -2958,8 +2961,13 @@ str_subset(problems, pattern_2)
             <sage language="r">
               <input>
 yes &lt;- c("AB", "A1B", "A11B", "A111B", "A1111B")
-no &lt;- c("A2B", "A21B")
 str_detect(yes, "A1*B")
+              </input>
+            </sage>
+
+            <sage language="r">
+              <input>
+no &lt;- c("A2B", "A21B")
 str_detect(no, "A1*B")
               </input>
             </sage>
@@ -2972,7 +2980,15 @@ str_detect(no, "A1*B")
               <input>
 data.frame(string = c("AB", "A1B", "A11B", "A111B", "A1111B"),
            none_or_more = str_detect(yes, "A1*B"),
+              </input>
+            </sage>
+            <sage language="r">
+              <input>
            nore_or_once = str_detect(yes, "A1?B"),
+              </input>
+            </sage>
+            <sage language="r">
+              <input>
            once_or_more = str_detect(yes, "A1+B"))
               </input>
             </sage>
@@ -2990,8 +3006,14 @@ data.frame(string = c("AB", "A1B", "A11B", "A111B", "A1111B"),
               <input>
 pattern &lt;- "[^a-zA-Z]\\d"
 yes &lt;- c(".3", "+2", "-0","*4")
-no &lt;- c("A3", "B2", "C0", "E4")
 str_detect(yes, pattern)
+              </input>
+            </sage>
+
+            <sage language="r">
+              <input>
+pattern &lt;- "[^a-zA-Z]\\d"
+no &lt;- c("A3", "B2", "C0", "E4")
 str_detect(no, pattern)
               </input>
             </sage>
@@ -3053,6 +3075,9 @@ str_match(s, pattern_with_groups)
 str_extract(s, pattern_with_groups)
               </input>
             </program>
+<pre>
+#&gt; [1] "5,9"  "5,11" "6,"   "6,1"  NA     NA     NA     NA
+</pre>
 
           </subsection>
 
@@ -3061,12 +3086,15 @@ str_extract(s, pattern_with_groups)
 
             <p>Earlier we defined the object <c>problems</c> containing the strings that do not appear to be in inches. We can see that not too many of our problematic strings match the pattern:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 pattern &lt;- "^[4-7]'\\d{1,2}\"$"
 sum(str_detect(problems, pattern))
               </input>
-            </sage>
+            </program>
+<pre>
+#&gt; [1] 14
+</pre>
 
             <p>To see why this is, we show some examples that expose why we don't have more matches:</p>
 
@@ -3183,8 +3211,16 @@ pattern_with_groups &lt;- "^([4-7])\\s*[,\\.\\s+]\\s*(\\d*)$"
 
             <p>Let's break this one down:</p>
 
-            <p>-   <c>^</c> = start of the string -   <c>[4-7]</c> = one digit representing feet, either 4, 5, 6, or 7 -   <c>\\s*</c> = none or more white space -   <c>[,\\.\\s+]</c> = feet and inches are separated by either <c>,</c>, <c>.</c> or at least one space -   <c>\\s*</c> = none or more white space -   <c>\\d*</c> = none or more digits representing inches -   <c>$</c> = end of the string</p>
-
+<ul>
+<li><p><c>^</c> = start of the string</p></li>
+<li><p><c>[4-7]</c> = one digit representing feet, either 4, 5, 6, or 7</p></li>
+<li><p><c>\\s*</c> = none or more white space</p></li>
+<li><p><c>[,\\.\\s+]</c> = feet and inches are separated by either <c>,</c>, <c>.</c> or at least one space</p></li>
+<li><p><c>\\s*</c> = none or more white space</p></li>
+<li><p><c>\\d*</c> = none or more digits representing inches</p></li>
+<li><p><c>$</c> = end of the string</p>
+</li>
+</ul>
             <p>We can see that it appears to be working:</p>
 
             <program language="r">
@@ -3432,6 +3468,8 @@ convert_format &lt;- function(s){
             <li><p>We start by defining a variable to keep a copy of the original entry, we then clean up and covert the <c>height</c> entry using the functions described above. </p></li>
             <li><p>We then use the <c>separate_wider_regex_</c> function to extract feet and inches when the entry matches our feet<c>'</c>inches format. </p></li>
             <li><p>We use a lookaround to make sure that entries that have numbers with no <c>'</c> following them don't match and return an <c>NA</c>. </p></li>
+            <li><p>Once this is done, we convert the feet and inches into inches.</p></li>
+            <li><p>Finally, we decide if the entries are in inches, centimeters, or meters and convert appropriately.</p></li>
           <program language="r">
             <input>
 patterns &lt;- c(feet = "[4-7](?=\\s*'\\s*)", 
@@ -3462,7 +3500,35 @@ new_heights &lt;- reported_heights |&gt;
 
           </ol>
 
-          <p>We see that we fix all but <c>sum(is.na(new_heights$height))</c> entries. You can see that these are mostly un-fixable:</p>
+<program language = "r">
+<input>
+patterns &lt;- c(feet = "[4-7](?=\\s*'\\s*)", 
+              "\\s*'\\s*", 
+              inches = "\\d+\\.?\\d*")
+smallest &lt;- 50
+tallest &lt;- 84
+new_heights &lt;- reported_heights |&gt; 
+  mutate(original = height, 
+         height = convert_format(cleanup(height))) |&gt;
+  separate_wider_regex(height, patterns = patterns, 
+                       too_few = "align_start", 
+                       cols_remove = FALSE) |&gt; 
+  mutate(across(c(height, feet, inches), as.numeric)) |&gt;
+  mutate(guess = 12 * feet + inches) |&gt;
+  mutate(height = case_when(
+    is.na(height) ~ as.numeric(NA),
+    between(height, smallest, tallest) ~ height,  #inches
+    between(height/2.54, smallest, tallest) ~ height/2.54, #cm
+    between(height*100/2.54, smallest, tallest) ~ height*100/2.54, #meters
+    TRUE ~ as.numeric(NA))) |&gt;
+  mutate(height = ifelse(is.na(height) & 
+                           inches &lt;= 12 & between(guess, smallest, tallest),
+                         guess, height)) |&gt;
+  select(-feet, -inches, -guess)
+</input>
+</program>
+
+          <p>We see that we fix all but 44 entries. You can see that these are mostly un-fixable:</p>
 
           <program language="r">
             <input>
@@ -3540,7 +3606,7 @@ research_funding_rates |&gt;
 #&gt; 9    Medical sciences              18.8                11.2
 </pre>
 
-          <p>The data comes from a paper published in the Proceedings of the National Academy of Science (PNAS), a widely read scientific journal. However, the data is not provided in a spreadsheet; it is in a table in a PDF document. Here is a screenshot of the table:</p>
+          <p>The data comes from a paper published in the Proceedings of the <url href = "http://www.pnas.org/content/112/40/12349.abstract">National Academy of Science (PNAS)</url>, a widely read scientific journal. However, the data is not provided in a spreadsheet; it is in a table in a PDF document. Here is a screenshot of the table:</p>
 
           <figure>
             <image source="wrangling/img/pnas-table-s1.png"/>
@@ -3636,12 +3702,10 @@ the_names_1
 
           <p>Now we will look at <c>the_names_2</c>:</p>
 
-          <program language="r">
-            <input>
-cat(substr(the_names_2, 1, options()$width))
-cat(substr(the_names_2, options()$width, nchar(the_names_2)))
-            </input>
-          </program>
+<pre>
+#&gt;                         Discipline              Total     Men      Women
+#&gt; n         Total    Men       Women          Total    Men      Women
+</pre>
 
           <p>Here we want to trim the leading space and then split by space as we did for the first line:</p>
 
@@ -3793,16 +3857,13 @@ gapminder$country &lt;-
           <title>Exercises</title>
 
           <exercise>
-            <p>Complete all lessons and exercises in the <url href = "https://regexone.com/">RegexOne</url></p>
+            <p>Complete all lessons and exercises in the <url href = "https://regexone.com/">RegexOne</url> online interactive tutorial.</p>
           </exercise>
 
-          <p>online interactive tutorial.</p>
 
           <exercise>
-            <p>In the <c>extdata</c> directory of the <alert>dslabs</alert> package, you will find</p>
-          </exercise>
-
-          <p>a PDF file containing daily mortality data for Puerto Rico from Jan 1, 2015 to May 31, 2018. You can find the file like this:</p>
+            <p>In the <c>extdata</c> directory of the <alert>dslabs</alert> package, you will find
+        a PDF file containing daily mortality data for Puerto Rico from Jan 1, 2015 to May 31, 2018. You can find the file like this:</p>
 
           <program language="r">
             <input>
@@ -3810,7 +3871,6 @@ fn &lt;- system.file("extdata", "RD-Mortality-Report_2015-18-180531.pdf",
                   package="dslabs")
             </input>
           </program>
-
           <p>Find and open the file or open it directly from RStudio. On a Mac, you can type:</p>
 
           <program language="r">
@@ -3829,13 +3889,17 @@ system("cmd.exe", input = paste("start", fn))
 
           <p>Which of the following best describes this file:</p>
 
-          <p>a.  It is a table. Extracting the data will be easy. b.  It is a report written in prose. Extracting the data will be impossible. c.  It is a report combining graphs and tables. Extracting the data seems possible. d.  It shows graphs of the data. Extracting the data will be difficult.</p>
+          <ol>
+<li><p>It is a table. Extracting the data will be easy.</p></li>
+<li><p>It is a report written in prose. Extracting the data will be impossible.</p></li>
+<li><p>It is a report combining graphs and tables. Extracting the data seems possible.</p></li>
+<li><p>It shows graphs of the data. Extracting the data will be difficult.</p></li>
+</ol>
 
-          <exercise>
-            <p>We are going to create a tidy dataset with each row representing one</p>
           </exercise>
-
-          <p>observation. The variables in this dataset will be year, month, day, and deaths. Start by installing and loading the <alert>pdftools</alert> package:</p>
+          <exercise>
+            <p>We are going to create a tidy dataset with each row representing one
+observation. The variables in this dataset will be year, month, day, and deaths. Start by installing and loading the <alert>pdftools</alert> package:</p>
 
           <program language="r">
             <input>
@@ -3846,96 +3910,99 @@ library(pdftools)
 
           <p>Now read-in <c>fn</c> using the <c>pdf_text</c> function and store the results in an object called <c>txt</c>. Which of the following best describes what you see in <c>txt</c>?</p>
 
-          <p>a.  A table with the mortality data. b.  A character string of length 12. Each entry represents the text in each page. The mortality data is in there somewhere. c.  A character string with one entry containing all the information in the PDF file. d.  An html document.</p>
-
-          <exercise>
-            <p>Extract the ninth page of the PDF file from the object <c>txt</c>, then</p>
+          <ol>
+<li><p>A table with the mortality data.</p></li>
+<li><p>A character string of length 12. Each entry represents the text in each page. The mortality data is in there somewhere.</p></li>
+<li><p>A character string with one entry containing all the information in the PDF file.</p></li>
+<li><p>An html document.</p></li>
+</ol>
           </exercise>
 
-          <p>use the <c>str_split</c> from the <alert>stringr</alert> package so that you have each line in a different entry. Call this string vector <c>s</c>. Then look at the result and choose the one that best describes what you see.</p>
-
-          <p>a.  It is an empty string. b.  I can see the figure shown in page 1. c.  It is a tidy table. d.  I can see the table! But there is a bunch of other stuff we need to get rid of.</p>
+          <exercise>
+            <p>Extract the ninth page of the PDF file from the object <c>txt</c>, then
+          use the <c>str_split</c> from the <alert>stringr</alert> package so that you have each line in a different entry. Call this string vector <c>s</c>. Then look at the result and choose the one that best describes what you see.</p>
+         <ol>
+<li><p>a.  It is an empty string.</p></li>
+<li><p>I can see the figure shown in page 1.</p></li>
+<li><p>It is a tidy table.</p></li>
+<li><p>I can see the table! But there is a bunch of other stuff we need to get rid of.</p></li>
+</ol>
+</exercise>
 
           <exercise>
             <p>What kind of object is <c>s</c> and how many entries does it have?</p>
-            <p>We see that the output is a list with one component. Redefine <c>s</c> to</p>
+           </exercise>
+          <exercise>
+           <p>We see that the output is a list with one component. Redefine <c>s</c> to
+be the first entry of the list. What kind of object is <c>s</c> and how many entries does it have?</p>
           </exercise>
-
-          <p>be the first entry of the list. What kind of object is <c>s</c> and how many entries does it have?</p>
 
           <exercise>
-            <p>When inspecting the string we obtained above, we see a common</p>
+            <p>When inspecting the string we obtained above, we see a common
+          problem: white space before and after the other characters. Trimming is a common first step in string processing. These extra spaces will eventually make splitting the strings hard so we start by removing them. We learned about the command <c>str_trim</c> that removes spaces at the start or end of the strings. Use this function to trim <c>s</c>.</p>
           </exercise>
-
-          <p>problem: white space before and after the other characters. Trimming is a common first step in string processing. These extra spaces will eventually make splitting the strings hard so we start by removing them. We learned about the command <c>str_trim</c> that removes spaces at the start or end of the strings. Use this function to trim <c>s</c>.</p>
 
           <exercise>
-            <p>We want to extract the numbers from the strings stored in <c>s</c>.</p>
+            <p>We want to extract the numbers from the strings stored in <c>s</c>.
+          However, there are many non-numeric characters that will get in the way. We can remove these, but before doing this we want to preserve the string with the column header, which includes the month abbreviation. Use the <c>str_which</c> function to find the rows with a header. Save these results to <c>header_index</c>. Hint: find the first string that matches the pattern <c>2015</c> using the <c>str_which</c> function.</p>
+
           </exercise>
 
-          <p>However, there are many non-numeric characters that will get in the way. We can remove these, but before doing this we want to preserve the string with the column header, which includes the month abbreviation. Use the <c>str_which</c> function to find the rows with a header. Save these results to <c>header_index</c>. Hint: find the first string that matches the pattern <c>2015</c> using the <c>str_which</c> function.</p>
 
           <exercise>
-            <p>Now we are going to define two objects: <c>month</c> will store the month</p>
+            <p>Now we are going to define two objects: <c>month</c> will store the month
+          and <c>header</c> will store the column names. Identify which row contains the header of the table. Save the content of the row into an object called <c>header</c>, then use <c>str_split</c> to help define the two objects we need. Hints: the separator here is one or more spaces. Also, consider using the <c>simplify</c> argument.</p>
           </exercise>
 
-          <p>and <c>header</c> will store the column names. Identify which row contains the header of the table. Save the content of the row into an object called <c>header</c>, then use <c>str_split</c> to help define the two objects we need. Hints: the separator here is one or more spaces. Also, consider using the <c>simplify</c> argument.</p>
 
           <exercise>
-            <p>Notice that towards the end of the page you see a <em>totals</em> row</p>
+            <p>Notice that towards the end of the page you see a <em>totals</em> row
+          followed by rows with other summary statistics. Create an object called <c>tail_index</c> with the index of the <em>totals</em> entry.</p>
+
           </exercise>
 
-          <p>followed by rows with other summary statistics. Create an object called <c>tail_index</c> with the index of the <em>totals</em> entry.</p>
 
           <exercise>
-            <p>Because our PDF page includes graphs with numbers, some of our rows</p>
+            <p>Because our PDF page includes graphs with numbers, some of our rows
+have just one number (from the y-axis of the plot). Use the <c>str_count</c> function to create an object <c>n</c> with the number of numbers in each each row. Hint: you can write a regex for number like this <c>\\d+</c>.</p>
           </exercise>
-
-          <p>have just one number (from the y-axis of the plot). Use the <c>str_count</c> function to create an object <c>n</c> with the number of numbers in each each row. Hint: you can write a regex for number like this <c>\\d+</c>.</p>
 
           <exercise>
-            <p>We are now ready to remove entries from rows that we know we don't</p>
+            <p>We are now ready to remove entries from rows that we know we don't
+          need. The entry <c>header_index</c> and everything before it should be removed. Entries for which <c>n</c> is 1 should also be removed, and the entry <c>tail_index</c> and everything that comes after it should be removed as well.</p>
+
           </exercise>
 
-          <p>need. The entry <c>header_index</c> and everything before it should be removed. Entries for which <c>n</c> is 1 should also be removed, and the entry <c>tail_index</c> and everything that comes after it should be removed as well.</p>
 
           <exercise>
-            <p>Now we are ready to remove all the non-numeric entries. Do this</p>
+            <p>Now we are ready to remove all the non-numeric entries. Do this
+          using regex and the <c>str_remove_all</c> function. Hint: remember that in regex, using the upper case version of a special character usually means the opposite. So <c>\\D</c> means "not a digit". Remember you also want to keep spaces.</p>
           </exercise>
-
-          <p>using regex and the <c>str_remove_all</c> function. Hint: remember that in regex, using the upper case version of a special character usually means the opposite. So <c>\\D</c> means "not a digit". Remember you also want to keep spaces.</p>
 
           <exercise>
-            <p>To convert the strings into a table, use the <c>str_split_fixed</c></p>
+            <p>To convert the strings into a table, use the <c>str_split_fixed</c>
+function. Convert <c>s</c> into a data matrix with just the day and death count data. Hints: note that the separator is one or more spaces. Make the argument <c>n</c> a value that limits the number of columns to the values in the 4 columns and the last column captures all the extra stuff. Then keep only the first four columns.</p>
           </exercise>
-
-          <p>function. Convert <c>s</c> into a data matrix with just the day and death count data. Hints: note that the separator is one or more spaces. Make the argument <c>n</c> a value that limits the number of columns to the values in the 4 columns and the last column captures all the extra stuff. Then keep only the first four columns.</p>
 
           <exercise>
-            <p>Now you are almost ready to finish. Add column names to the matrix,</p>
+            <p>Now you are almost ready to finish. Add column names to the matrix, including one called <c>day</c>. Also, add a column with the month. Call the resulting object <c>dat</c>. Finally, make sure the day is an integer not a character. Hint: use only the first five columns.</p>
           </exercise>
-
-          <p>including one called <c>day</c>. Also, add a column with the month. Call the resulting object <c>dat</c>. Finally, make sure the day is an integer not a character. Hint: use only the first five columns.</p>
 
           <exercise>
-            <p>Now finish it up by tidying <c>tab</c> with the <c>pivot_longer</c></p>
+            <p>Now finish it up by tidying <c>tab</c> with the <c>pivot_longer</c> function.</p>
           </exercise>
-
-          <p>function.</p>
 
           <exercise>
-            <p>Make a plot of deaths versus day with color to denote year. Exclude</p>
-            <p>Now that we have wrangled this data step-by-step, put it all</p>
+            <p>Make a plot of deaths versus day with color to denote year. Exclude 2018 since we do not have data for the entire year.</p>
           </exercise>
-
-          <p>together in one R chunk, using the pipe as much as possible. Hint: first define the indexes, then write one line of code that does all the string processing.</p>
 
           <exercise>
-            <p>Advanced: let's return to the MLB Payroll example from the web</p>
+            <p>Now that we have wrangled this data step-by-step, put it all together in one R chunk, using the pipe as much as possible. Hint: first define the indexes, then write one line of code that does all the string processing.</p>
           </exercise>
 
-          <p>scraping exercises. Use what you have learned in the web scraping and string processing chapters to extract the payroll for the New York Yankees, Boston Red Sox, and Oakland A's and plot them as a function of time.</p>
-
+          <exercise>
+            <p>Advanced: let's return to the MLB Payroll example from the web scraping exercises. Use what you have learned in the web scraping and string processing chapters to extract the payroll for the New York Yankees, Boston Red Sox, and Oakland A's and plot them as a function of time.</p>
+          </exercise>
         </exercises>
 
         
