@@ -3,7 +3,7 @@
       
       <p>
         This is a <url href="https://pretextbook.org/">PreTeXt</url> conversion of <em>Introduction to Data Science: Data Wrangling and Visualization with R</em>, written by
-        <url href="https://rafalab.github.io/dsbook-part-1/" visual="rafalab.github.io/dsbook-part-1">Rafael A. Irizarry</url>.
+        Rafael A. Irizarry.
         The original work and its source code are available at
         <url href="https://rafalab.github.io/dsbook-part-1/" visual="rafalab.github.io/dsbook-part-1">rafalab.github.io/dsbook-part-1</url>
         and <url href="https://github.com/rafalab/dsbook-part-1"
