@@ -4030,7 +4030,7 @@ library(dslabs)
             </input>
           </program>
 
-          <p>X, formerly known as twitter, provides an API that permits downloading tweets. Brendan Brown runs the trump archive, which compiles tweet data from Trump's account. The <alert>dslabs</alert> package includes tweets from the following range:</p>
+          <p>X, formerly known as twitter, provides an API that permits downloading tweets. Brendan Brown runs <url href = "https://www.thetrumparchive.com/">the trump archive</url>, which compiles tweet data from Trump's account. The <alert>dslabs</alert> package includes tweets from the following range:</p>
 
           <program language="r">
             <input>
@@ -4506,7 +4506,6 @@ android_vs_iphone |&gt;
 
           <program language="r">
             <input>
-if (!requireNamespace("gutenbergr", quietly = TRUE)) tryCatch(install.packages("gutenbergr", repos = "https://cloud.r-project.org"), error = function(e) invisible(NULL))
 library(gutenbergr)
             </input>
           </program>
@@ -4521,13 +4520,29 @@ gutenberg_metadata
 
           <exercise>
             <p>Use <c>str_detect</c> to find the ID of the novel <em>Pride and Prejudice</em>.</p>
+          </exercise>
+          <exercise>
             <p>We notice that there are several versions. The <c>gutenberg_works()</c> function filters this table to remove replicates and include only English language works. Read the help file and use this function to find the ID for <em>Pride and Prejudice</em>.</p>
+          </exercise>
+          <exercise>
             <p>Use the <c>gutenberg_download</c> function to download the text for Pride and Prejudice. Save it to an object called <c>book</c>.</p>
+          </exercise>
+          <exercise>
             <p>Use the <alert>tidytext</alert> package to create a tidy table with all the words in the text. Save the table in an object called <c>words</c></p>
+          </exercise>
+          <exercise>
             <p>We will later make a plot of sentiment versus location in the book. For this, it will be useful to add a column with the word number to the table.</p>
+          </exercise>
+          <exercise>
             <p>Remove the stop words and numbers from the <c>words</c> object. Hint: use the <c>anti_join</c>.</p>
+          </exercise>
+          <exercise>
             <p>Now use the <c>AFINN</c> lexicon to assign a sentiment value to each word.</p>
+          </exercise>
+          <exercise>
             <p>Make a plot of sentiment score versus location in the book and add a smoother.</p>
+          </exercise>
+          <exercise>
             <p>Assume there are 300 words per page. Convert the locations to pages and then compute the average sentiment in each page. Plot that average score by page. Add a smoother that appears to go through data.</p>
           </exercise>
 
