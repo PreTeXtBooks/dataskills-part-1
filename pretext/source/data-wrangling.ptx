@@ -1725,7 +1725,7 @@ url &lt;- paste0("https://en.wikipedia.org/w/index.php?title=",
             <image source="wrangling/img/murders-data-wiki-page.png"/>
           </figure>
 
-          <p>(Web page courtesy of Wikipedia. CC-BY-SA-3.0 license. Screenshot of part of the page.)</p>
+          <p>(Web page courtesy of <url href = "https://en.wikipedia.org/w/index.php?title=Gun_violence_in_the_United_States_by_state&direction=prev&oldid=810166167">Wikipedia</url>. <url href = "https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License">CC-BY-SA-3.0 license</url>. Screenshot of part of the page.)</p>
 
           <p><em>Web scraping</em>, or <em>web harvesting</em>, is the term we use to describe the process of extracting data from a website. The reason we can do this is because the information used by a browser to render webpages is received as a text file from a server. The text is code written in hyper text markup language (HTML). Every browser has a way to show the html source code for a page, each one different. On Chrome, you can use Control-U on a PC and command+alt+U on a Mac. You will see something like this:</p>
 
@@ -1778,7 +1778,8 @@ title="List of U.S. states and territories by population"&gt;Population&lt;/a&gt
 
             <p>You can actually see the data, except data values are surrounded by html code such as <c>&lt;td&gt;</c>. We can also see a pattern of how it is stored. If you know HTML, you can write programs that leverage knowledge of these patterns to extract what we want. We also take advantage of a language widely used to make webpages look "pretty" called Cascading Style Sheets (CSS). We say more about this in <xref ref="sec-css-selectors"/>.</p>
 
-            <p>Although we provide tools that make it possible to scrape data without knowing HTML, it is useful to learn some HTML and CSS. Not only does this improve your scraping skills, but it might come in handy if you are creating a webpage to showcase your work. There are plenty of online courses and tutorials for learning these. Two examples are Codeacademy and W3schools.</p>
+            <p>Although we provide tools that make it possible to scrape data without knowing HTML, it is useful to learn some HTML and CSS. Not only does this improve your scraping skills, but it might come in handy if you are creating a webpage to showcase your work. There are plenty of online courses and tutorials for learning these. Two examples are <url href = "https://www.codecademy.com/learn/learn-html">Codeacademy</url>
+and <url href = "https://www.w3schools.com/">W3schools</url>.</p>
 
           </subsection>
 
@@ -1789,9 +1790,7 @@ title="List of U.S. states and territories by population"&gt;Population&lt;/a&gt
 
             <program language="r">
               <input>
-if (!requireNamespace("tidyverse", quietly = TRUE)) tryCatch(install.packages("tidyverse", repos = "https://cloud.r-project.org"), error = function(e) invisible(NULL))
 library(tidyverse)
-if (!requireNamespace("rvest", quietly = TRUE)) tryCatch(install.packages("rvest", repos = "https://cloud.r-project.org"), error = function(e) invisible(NULL))
 library(rvest)
 h &lt;- read_html(url)
               </input>
@@ -1896,7 +1895,9 @@ head(tab)
 
             <p>If we want to grab data from a webpage and we happen to know a selector that is unique to the part of the page containing this data, we can use the <c>html_nodes</c> function. However, knowing which selector can be quite complicated. In fact, the complexity of webpages has been increasing as they become more sophisticated. For some of the more advanced ones, it seems almost impossible to find the nodes that define a particular piece of data. However, selector gadgets actually make this possible.</p>
 
-            <p>SelectorGadget is piece of software that allows you to interactively determine what CSS selector you need to extract specific components from the webpage. If you plan on scraping data other than tables from html pages, we highly recommend you install it. A Chrome extension is available which permits you to turn on the gadget and then, as you click through the page, it highlights parts and shows you the selector you need to extract these parts. There are various demos of how to do this including <alert>rvest</alert> author Hadley Wickham's vignette and other tutorials based on the vignette.</p>
+            <p><url href = "http://selectorgadget.com/">SelectorGadget</url> is piece of software that allows you to interactively determine what CSS selector you need to extract specific components from the webpage. If you plan on scraping data other than tables from html pages, we highly recommend you install it. A Chrome extension is available which permits you to turn on the gadget and then, as you click through the page, it highlights parts and shows you the selector you need to extract these parts. There are various demos of how to do this including <alert>rvest</alert> author 
+<url href = "https://rvest.tidyverse.org/articles/selectorgadget.html">Hadley Wickham's vignette</url> and
+other tutorials based on the <url href = "https://www.analyticsvidhya.com/blog/2017/03/beginners-guide-on-web-scraping-in-r-using-rvest-with-hands-on-knowledge/">vignette</url>.</p>
 
           </subsection>
 
@@ -1976,28 +1977,37 @@ nobel$prizes |&gt;
             <title>API types and concepts</title>
 
             <p>There are several types of APIs. The main ones related to retrieving data are:</p>
-
-            <p>* <alert>Web Services</alert> - Often built using protocols like HTTP/HTTPS. Commonly used to enable applications to communicate with each other over the web. For instance, a weather application for a smartphone may use a web API to request weather data from a remote server.</p>
-
-            <p>* <alert>Database APIs</alert> - Enable communication between an application and a database, SQL-based calls for example.</p>
-
+<ul>
+<li>
+            <p> <alert>Web Services</alert> - Often built using protocols like HTTP/HTTPS. Commonly used to enable applications to communicate with each other over the web. For instance, a weather application for a smartphone may use a web API to request weather data from a remote server.</p>
+</li><li>
+            <p> <alert>Database APIs</alert> - Enable communication between an application and a database, SQL-based calls for example.</p>
+</li>
+</ul>
             <p>Some key concepts associated with APIs:</p>
 
-            <p>- <alert>Endpoints</alert>: Specific functions available through the API. For web APIs, an endpoint is usually a specific URL where the API can be accessed.</p>
+<ul><li>
+            <p> <alert>Endpoints</alert>: Specific functions available through the API. For web APIs, an endpoint is usually a specific URL where the API can be accessed.</p>
+</li><li>
 
-            <p>- <alert>Methods</alert>: Actions that can be performed. In web APIs, these often correspond to HTTP methods like GET, POST, PUT, or DELETE.</p>
+            <p> <alert>Methods</alert>: Actions that can be performed. In web APIs, these often correspond to HTTP methods like GET, POST, PUT, or DELETE.</p>
+</li><li>
 
-            <p>- <alert>Requests and Responses</alert>: The act of asking the API to perform its function is a <em>request</em>. The data it returns is the <em>response</em>.</p>
+            <p> <alert>Requests and Responses</alert>: The act of asking the API to perform its function is a <em>request</em>. The data it returns is the <em>response</em>.</p>
+</li><li>
 
-            <p>- <alert>Rate Limits</alert>: Restrictions on how often you can call the API, often used to prevent abuse or overloading of the service.</p>
+            <p> <alert>Rate Limits</alert>: Restrictions on how often you can call the API, often used to prevent abuse or overloading of the service.</p>
+</li><li>
 
-            <p>- <alert>Authentication and Authorization</alert>: Mechanisms to ensure that only approved users or applications can use the API. Common methods include <em>API keys</em>, <em>OAuth</em>, or <em>Jason Web Tokens</em> (JWT).</p>
+            <p> <alert>Authentication and Authorization</alert>: Mechanisms to ensure that only approved users or applications can use the API. Common methods include <em>API keys</em>, <em>OAuth</em>, or <em>Jason Web Tokens</em> (JWT).</p>
+</li><li>
 
-            <p>- <alert>Data Formats</alert>: Many web APIs exchange data in a specific format, often JSON or CSV.</p>
+            <p> <alert>Data Formats</alert>: Many web APIs exchange data in a specific format, often JSON or CSV.</p>
+</li></ul>
 
             <p>Here now describe the <alert>httr2</alert> package that facilitates interacionts between R and HTTP web services.</p>
 
-          </subsection>
+</subsection>
 
           <subsection xml:id="subsec-the-httr2-package">
             <title>The httr2 package</title>
@@ -2008,7 +2018,7 @@ nobel$prizes |&gt;
 
             <p>The function returns an object of class <c>response</c>. This object contains all the details of the server's response, including status code, headers, and content. You can then use other <alert>httr2</alert> functions to extract or interpret information from this response.</p>
 
-            <p>Let's say you want to retrieve COVID-19 deaths by state from the CDC. By visiting their data catalog you can search for datasets and find that the data is provided through this API:</p>
+            <p>Let's say you want to retrieve COVID-19 deaths by state from the CDC. By visiting <url href ="https://data.cdc.gov/">their data catalog</url> you can search for datasets and find that the data is provided through this API:</p>
 
             <program language="r">
               <input>
@@ -2020,7 +2030,6 @@ url &lt;- "https://data.cdc.gov/resource/muzy-jte6.csv"
 
             <program language="r">
               <input>
-if (!requireNamespace("httr2", quietly = TRUE)) tryCatch(install.packages("httr2", repos = "https://cloud.r-project.org"), error = function(e) invisible(NULL))
 library(httr2)
 response &lt;- request(url) |&gt; req_perform()
               </input>
@@ -2045,14 +2054,12 @@ response
 
             <program language="r">
               <input>
-#| message: false
-if (!requireNamespace("readr", quietly = TRUE)) tryCatch(install.packages("readr", repos = "https://cloud.r-project.org"), error = function(e) invisible(NULL))
 library(readr)
 tab &lt;- response |&gt; resp_body_string() |&gt; read_csv()
               </input>
             </program>
 
-            <p>We note that the returned object is only <c>nrow(tab)</c> entries. API often limit how much you can download. The documentation for this API explains that we can change this limit through the <c>$limit</c> parameters. We can use the <c>req_url_query</c> to add this to our request:</p>
+            <p>We note that the returned object is only <c>nrow(tab)</c> entries. API often limit how much you can download. The documentation for this <url href = "https://dev.socrata.com/docs/queries/">API</url> explains that we can change this limit through the <c>$limit</c> parameters. We can use the <c>req_url_query</c> to add this to our request:</p>
 
             <program language="r">
               <input>
@@ -2138,40 +2145,55 @@ html_text(nodes[[8]])
           <p>If the content of this object is an html table, we can use the <c>html_table</c> function to convert it to a data frame. Use the <c>html_table</c> function to convert the 8th entry of <c>nodes</c> into a table.</p>
 
           <exercise>
-            <p>Repeat the above for the first 4 components of <c>nodes</c>. Which of the following are payroll tables:</p>
+            <p>Repeat the above for the first 4 components of <c>nodes</c>. Which of the following are payroll tables:
+          <ol><li> All of them </li><li> 1 </li><li> 2 </li><li> 2-4</li></ol></p>
           </exercise>
-
-          <p>a. All of them. b. 1 c. 2 d. 2-4</p>
 
           <exercise>
             <p>Repeat the above for the first <alert>last</alert> 3 components of <c>nodes</c>. Which of the following is true:</p>
-          </exercise>
+         
+          <ol>
+<li><p>a. The last entry in <c>nodes</c> shows the average across all teams through time, not payroll per team.
+</p></li><li><p>All three are payroll per team tables.
+</p></li><li><p>All three are like the first entry, not a payroll table.
+</p></li><li><p>All of the above.</p></li></ol>
 
-          <p>a. The last entry in <c>nodes</c> shows the average across all teams through time, not payroll per team. b. All three are payroll per team tables. c. All three are like the first entry, not a payroll table. d. All of the above.</p>
+</exercise>
+
 
           <exercise>
             <p>We have learned that the first and last entries of <c>nodes</c> are not payroll tables. Redefine <c>nodes</c> so that these two are removed.</p>
-            <p>We saw in the previous analysis that the first table node is not actually a table. This happens sometimes in html because tables are used to make text look a certain way, as opposed to storing numeric values. </p>
-          </exercise>
-
+          <exercise>
+           </exercise>
+           <p>We saw in the previous analysis that the first table node is not actually a table.
+This happens sometimes in html because tables are used to make text look a certain way, as opposed
+to storing numeric values. </p>
           <p>Remove the first component and then use <c>sapply</c> and <c>html_table</c> to convert each node in <c>nodes</c> into a table. Note that in this case, <c>sapply</c> will return a list of tables. You can also use <c>lapply</c> to assure that a list is applied.</p>
+          </exercise>
 
           <exercise>
             <p>Look through the resulting tables. Are they all the same? Could we just join them with <c>bind_rows</c>? </p>
+          </exercise>
+          <exercise>
             <p>Create two tables, call them <c>tab_1</c> and <c>tab_2</c> using the 10th and 19th tables in <c>nodes</c>.</p>
-            <p>Use a <c>full_join</c> function to combine these two tables. Before you do this you will have to fix the missing header problem. You will also need to make the names match.</p>
-            <p>After joining the tables, you see several <c>NA</c>s. This is because some teams are in one table and not the other. Use the <c>anti_join</c> function to get a better idea of why this is happening.</p>
-            <p>We see see that one of the problems is that Yankees are listed as both <em>N.Y. Yankees</em> and <em>NY Yankees</em>. In the next section, we will learn efficient approaches to fixing problems like this. Here we can do it "by hand" as follows:</p>
+          </exercise>
+          <exercise>
+<p>Use a <c>full_join</c> function to combine these two tables. Before you do this you will have to fix the missing header problem. You will also need to make the names match.</p>
+          </exercise>
+          <exercise>
+<p>After joining the tables, you see several <c>NA</c>s. This is because some teams are in one table and not the other. Use the <c>anti_join</c> function to get a better idea of why this is happening.</p>
+          </exercise>
+          <exercise>
+<p>We see see that one of the problems is that Yankees are listed as both <em>N.Y. Yankees</em> and <em>NY Yankees</em>. In the next section, we will learn efficient approaches to fixing problems like this. Here we can do it "by hand" as follows:</p>
           <program language="r">
             <input>
 tab_1 &lt;- tab_1 |&gt;
   mutate(Team = ifelse(Team == "N.Y. Yankees", "NY Yankees", Team))
             </input>
           </program>
+          <p>Now join the tables and show only Oakland and the Yankees and the payroll columns.</p>
 
           </exercise>
-
-          <p>Now join the tables and show only Oakland and the Yankees and the payroll columns.</p>
 
           <exercise>
             <p>Advanced: extract the titles of the movies that won Best Picture from IMDB.</p>
