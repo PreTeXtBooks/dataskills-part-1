@@ -3928,7 +3928,7 @@ tweet_words |&gt;
 head(stop_words)
             </input>
           </program>
-<pre
+<pre>
 #&gt; # A tibble: 6 × 2
 #&gt;   word  lexicon
 #&gt;   &lt;chr&gt; &lt;chr&gt;  
