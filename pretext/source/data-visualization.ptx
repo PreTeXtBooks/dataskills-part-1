@@ -182,13 +182,13 @@ head(heights)
             </input>
           </program>
 <pre>
-#>      sex height
-#> 1   Male     75
-#> 2   Male     70
-#> 3   Male     68
-#> 4   Male     74
-#> 5   Male     61
-#> 6 Female     65
+#&gt;      sex height
+#&gt; 1   Male     75
+#&gt; 2   Male     70
+#&gt; 3   Male     68
+#&gt; 4   Male     74
+#&gt; 5   Male     61
+#&gt; 6 Female     65
 </pre>
           
           <p>One way to convey the heights to ET is to simply send him this list of 1,050 heights. But there are much more effective ways to convey this information, and understanding the concept of a distribution will be key. To simplify the explanation, we first focus on male heights. We examine the female height data later in this chapter.</p>
@@ -200,8 +200,8 @@ head(heights)
           <p>The most basic statistical summary of a list of objects or numbers is its <em>distribution</em>. The simplest way to think of a distribution is as a compact description of a list with many entries. This concept should not be new for readers of this book. For example, with categorical data, the distribution simply describes the proportion of each unique category. The sex represented in the heights dataset is:</p>
 
 <pre>
-#> Female   Male 
-#>  0.227  0.773
+#&gt; Female   Male 
+#&gt;  0.227  0.773
 </pre>
 
           <p>This two-category <em>frequency table</em> is the simplest form of a distribution. We don't really need to visualize it since one number describes everything we need to know: 23% are females and the rest are males. When there are more categories, then a simple barplot describes the distribution. Here is an example with US state regions:</p>
@@ -326,8 +326,8 @@ c(average = m, sd = s)
             </program>
 
 <pre>
-#> average      sd 
-#>   69.31    3.61
+#&gt; average      sd 
+#&gt;   69.31    3.61
 </pre>
             
             <p>Here is a plot of our student height smooth density in blue and the normal distribution with mean = 69.3 and SD = 3.6 plotted as a black line:</p>
@@ -417,7 +417,7 @@ heights |> filter(sex == "Female") |>
             </input>
           </program>
 <pre>
-#> [1] 51 52 52 53 55
+#&gt; [1] 51 52 52 53 55
 </pre>
           
           <p>Because these are reported heights, a possibility is that the student meant to enter 5'1", 5'2", 5'3" or 5'5".</p>
@@ -885,8 +885,8 @@ Posit</url> <url href = "https://github.com/rstudio/cheatsheets/blob/main/LICENS
     </program>
 
       <pre>
-        #> Warning in geom_text(aes(x = 10, y = 800, label = "Hello there!")): All aesthetics have length 1, but the data has 51 rows.
-        #> ℹ Please consider using `annotate()` or provide this layer with data containing a single row.
+        #&gt; Warning in geom_text(aes(x = 10, y = 800, label = "Hello there!")): All aesthetics have length 1, but the data has 51 rows.
+        #&gt; ℹ Please consider using `annotate()` or provide this layer with data containing a single row.
       </pre>
 
           <figure>
@@ -2949,16 +2949,16 @@ gapminder |&gt; as_tibble()
             </input>
           </program>
 <pre>
-#> # A tibble: 10,545 × 9
-#>   country     year infant_mortality life_expectancy fertility population
-#>   <fct>      <int>            <dbl>           <dbl>     <dbl>      <dbl>
-#> 1 Albania     1960            115.             62.9      6.19    1636054
-#> 2 Algeria     1960            148.             47.5      7.65   11124892
-#> 3 Angola      1960            208              36.0      7.32    5270844
-#> 4 Antigua a…  1960             NA              63.0      4.43      54681
-#> 5 Argentina   1960             59.9            65.4      3.11   20619075
-#> # ℹ 10,540 more rows
-#> # ℹ 3 more variables: gdp <dbl>, continent <fct>, region <fct>
+#&gt; # A tibble: 10,545 × 9
+#&gt;   country     year infant_mortality life_expectancy fertility population
+#&gt;   &lt;fct&gt;      &lt;int&gt;            &lt;dbl&gt;           &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
+#&gt; 1 Albania     1960            115.             62.9      6.19    1636054
+#&gt; 2 Algeria     1960            148.             47.5      7.65   11124892
+#&gt; 3 Angola      1960            208              36.0      7.32    5270844
+#&gt; 4 Antigua a…  1960             NA              63.0      4.43      54681
+#&gt; 5 Argentina   1960             59.9            65.4      3.11   20619075
+#&gt; # ℹ 10,540 more rows
+#&gt; # ℹ 3 more variables: gdp &lt;dbl&gt;, continent &lt;fct&gt;, region &lt;fct&gt;
 </pre>
 
           <p>As done in the <em>New Insights on Poverty</em> video, we start by testing our knowledge regarding differences in child mortality across different countries. For each of the six pairs of countries below, which country do you think had the highest child mortality rates in 2015? Which pairs do you think are most similar?</p>
@@ -2983,9 +2983,9 @@ gapminder |&gt;
             </input>
           </program>
 <pre>
-#>     country infant_mortality
-#> 1 Sri Lanka              8.4
-#> 2    Turkey             11.6
+#&gt;     country infant_mortality
+#&gt; 1 Sri Lanka              8.4
+#&gt; 2    Turkey             11.6
 </pre>
 
           <p>Turkey has the higher infant mortality rate.</p>
