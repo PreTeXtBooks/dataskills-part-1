@@ -610,9 +610,9 @@ tab |&gt; ggplot(aes(population/10^6, ev, label = abb)) +
             </input>
           </program>
 
-<Figure>
-<image></image>
-</Figure>
+            <figure>
+              <image source="images/ev-vs-population-1.png"/>
+            </figure>
 
           <p>We see the relationship is close to linear with about 2 electoral votes for every million persons, but with very small states getting higher ratios.</p>
 
@@ -1103,14 +1103,15 @@ co2_wide &lt;- data.frame(matrix(co2, ncol = 12, byrow = TRUE)) |&gt;
 
           <program language="r">
             <input>
-if (!requireNamespace("tidyverse", quietly = TRUE)) tryCatch(install.packages("tidyverse", repos = "https://cloud.r-project.org"), error = function(e) invisible(NULL))
 library(tidyverse)
-if (!requireNamespace("dslabs", quietly = TRUE)) tryCatch(install.packages("dslabs", repos = "https://cloud.r-project.org"), error = function(e) invisible(NULL))
 library(dslabs)
 polls_us_election_2016$startdate |&gt; head()
             </input>
           </program>
-
+<pre>
+#&gt; [1] "2016-11-03" "2016-11-01" "2016-11-02" "2016-11-04" "2016-11-03"
+#&gt; [6] "2016-11-03"
+</pre>
           <p>The dates look like strings, but they are not:</p>
 
           <program language="r">
@@ -1118,7 +1119,9 @@ polls_us_election_2016$startdate |&gt; head()
 class(polls_us_election_2016$startdate)
             </input>
           </program>
-
+<pre>
+#&gt; [1] "Date"
+</pre>
           <p>Look at what happens when we convert them to numbers:</p>
 
           <program language="r">
@@ -1126,7 +1129,9 @@ class(polls_us_election_2016$startdate)
 as.numeric(polls_us_election_2016$startdate) |&gt; head()
             </input>
           </program>
-
+<pre>
+#&gt; [1] 17108 17106 17107 17109 17108 17108
+</pre>
           <p>It turns them into days since the epoch. The <c>as.Date</c> function can convert a character into a date. So to see that the epoch is day 0 we can type</p>
 
           <program language="r">
@@ -1134,7 +1139,9 @@ as.numeric(polls_us_election_2016$startdate) |&gt; head()
 as.Date("1970-01-01") |&gt; as.numeric()
             </input>
           </program>
-
+<pre>
+#&gt; [1] 0
+</pre>
           <p>Plotting functions, such as those in ggplot, are aware of the date format. This means that, for example, a scatterplot can use the numeric representation to decide on the position of the point, but include the string in the labels:</p>
 
           <program language="r">
@@ -1144,6 +1151,10 @@ polls_us_election_2016 |&gt; filter(pollster == "Ipsos" &amp; state == "U.S.") |
   geom_line()
             </input>
           </program>
+
+          <figure>
+            <image source="images/rawpolls-vs-time-1.png"/>
+          </figure>
 
           <p>Note in particular that the month names are displayed, a very convenient feature.</p>
 
@@ -1156,7 +1167,6 @@ polls_us_election_2016 |&gt; filter(pollster == "Ipsos" &amp; state == "U.S.") |
 
           <program language="r">
             <input>
-if (!requireNamespace("lubridate", quietly = TRUE)) tryCatch(install.packages("lubridate", repos = "https://cloud.r-project.org"), error = function(e) invisible(NULL))
 library(lubridate)
             </input>
           </program>
@@ -1170,7 +1180,10 @@ dates &lt;- sample(polls_us_election_2016$startdate, 10) |&gt; sort()
 dates
             </input>
           </program>
-
+<pre>
+#&gt;  [1] "2016-05-31" "2016-08-08" "2016-08-19" "2016-09-22" "2016-09-27"
+#&gt;  [6] "2016-10-12" "2016-10-24" "2016-10-26" "2016-10-29" "2016-10-30"
+</pre>
           <p>The functions <c>year</c>, <c>month</c> and <c>day</c> extract those values:</p>
 
           <program language="r">
@@ -1178,7 +1191,17 @@ dates
 tibble(date = dates, month = month(dates), day = day(dates), year = year(dates))
             </input>
           </program>
-
+<pre>
+#&gt; # A tibble: 10 × 4
+#&gt;   date       month   day  year
+#&gt;   <date>     &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;
+#&gt; 1 2016-05-31     5    31  2016
+#&gt; 2 2016-08-08     8     8  2016
+#&gt; 3 2016-08-19     8    19  2016
+#&gt; 4 2016-09-22     9    22  2016
+#&gt; 5 2016-09-27     9    27  2016
+#&gt; # ℹ 5 more rows
+</pre>
           <p>We can also extract the month labels:</p>
 
           <program language="r">
@@ -1186,12 +1209,10 @@ tibble(date = dates, month = month(dates), day = day(dates), year = year(dates))
 month(dates, label = TRUE)
             </input>
           </program>
-
-          <program language="r">
-            <input>
-lubridate::month(dates, label = TRUE)
-            </input>
-          </program>
+<pre>
+#&gt;  [1] May Aug Aug Sep Sep Oct Oct Oct Oct Oct
+#&gt; 12 Levels: Jan < Feb < Mar < Apr < May < Jun < Jul < Aug < ... < Dec
+</pre>
 
           <p>Another useful set of functions are the <em>parsers</em> that convert strings into dates. The function <c>ymd</c> assumes the dates are in the format YYYY-MM-DD and tries to parse as well as possible.</p>
 
@@ -1202,92 +1223,95 @@ x &lt;- c(20090101, "2009-01-02", "2009 01 03", "2009-1-4",
 ymd(x)
             </input>
           </program>
-
+<pre>
+#&gt; [1] "2009-01-01" "2009-01-02" "2009-01-03" "2009-01-04" "2009-01-05"
+#&gt; [6] "2009-01-06" "2009-01-07"
+</pre>
           <p>A further complication comes from the fact that dates often come in different formats in which the order of year, month, and day are different. The preferred format is to show year (with all four digits), month (two digits), and then day, or what is called the ISO 8601. Specifically we use YYYY-MM-DD so that if we order the string, it will be ordered by date. You can see the function <c>ymd</c> returns them in this format.</p>
 
           <p>But, what if you encounter dates such as "09/01/02"? This could be September 1, 2002 or January 2, 2009 or January 9, 2002. In these cases, examining the entire vector of dates will help you determine what format it is by process of elimination. Once you know, you can use the many parses provided by <alert>lubridate</alert>.</p>
 
           <p>For example, if the string is:</p>
 
-          <program language="r">
+          <sage language="r">
             <input>
 x &lt;- "09/01/02"
             </input>
-          </program>
+          </sage>
 
           <p>The <c>ymd</c> function assumes the first entry is the year, the second is the month, and the third is the day, so it converts it to:</p>
 
-          <program language="r">
+          <sage language="r">
             <input>
 ymd(x)
             </input>
-          </program>
+          </sage>
 
           <p>The <c>mdy</c> function assumes the first entry is the month, then the day, then the year:</p>
 
-          <program language="r">
+          <sage language="r">
             <input>
 mdy(x)
             </input>
-          </program>
+          </sage>
 
           <p>The <em>lubridate</em> package provides a function for every possibility. Here is the other common one:</p>
 
-          <program language="r">
+          <sage language="r">
             <input>
 dmy(x)
             </input>
-          </program>
+          </sage>
 
           <p>The <alert>lubridate</alert> package is also useful for dealing with times. In base R, you can get the current time typing <c>Sys.time()</c>. The <alert>lubridate</alert> package provides a slightly more advanced function, <c>now</c>, that permits you to define the time zone:</p>
 
-          <program language="r">
+          <sage language="r">
             <input>
 now()
 now("GMT")
             </input>
-          </program>
+          </sage>
 
           <p>You can see all the available time zones with <c>OlsonNames()</c> function.</p>
 
           <p>We can also extract hours, minutes, and seconds:</p>
 
-          <program language="r">
+          <sage language="r">
             <input>
 now() |&gt; hour()
 now() |&gt; minute()
 now() |&gt; second()
             </input>
-          </program>
+          </sage>
 
           <p>The package also includes a function to parse strings into times as well as parsers for time objects that include dates:</p>
 
-          <program language="r">
+          <sage language="r">
             <input>
 x &lt;- c("12:34:56")
 hms(x)
 x &lt;- "Nov/2/2012 12:34:56"
 mdy_hms(x)
             </input>
-          </program>
+          </sage>
 
           <p>This package has many other useful functions. We describe two of these here that we find particularly useful.</p>
 
           <p>The <c>make_date</c> function can be used to quickly create a date object. It can take up to seven arguments: year, month, day, hour, minute, seconds, and time zone defaulting to the epoch values on UTC time. To create an date object representing, for example, July 6, 2019 we write:</p>
 
-          <program language="r">
+          <sage language="r">
             <input>
 make_date(2019, 7, 6)
             </input>
-          </program>
+          </sage>
 
           <p>To make a vector of January 1 for the 80s we write:</p>
 
-          <program language="r">
+          <sage language="r">
             <input>
 make_date(1980:1989)
             </input>
-          </program>
+          </sage>
 
           <p>Another very useful function is <c>round_date</c>. It can be used to <em>round</em> dates to nearest year, quarter,  month, week, day, hour, minutes, or seconds. So if we want to group all the polls by week of the year we can do the following:</p>
 
@@ -1302,6 +1326,10 @@ polls_us_election_2016 |&gt;
             </input>
           </program>
 
+          <figure>
+            <image source="images/poll-margin-versus-week-1.png"/>
+          </figure>
+
           <p>Finally, you should be aware the there are useful function for computing operations on time such a <c>difftime</c>, <c>time_length</c>, and <c>interval</c>.</p>
 
         </section>
@@ -1313,13 +1341,16 @@ polls_us_election_2016 |&gt;
 
           <program language="r">
             <input>
-if (!requireNamespace("data.table", quietly = TRUE)) tryCatch(install.packages("data.table", repos = "https://cloud.r-project.org"), error = function(e) invisible(NULL))
 library(data.table)
 st &lt;- as.Date("2024-03-04")
 day(st)
 mday(st)
             </input>
           </program>
+<pre>
+#&gt; [1] 4
+#&gt; [1] 4
+</pre>
 
           <p>Other similar functions included in <alert>data.table</alert> are <c>second</c>, <c>minute</c>, <c>hour</c>, <c>yday</c>, <c>wday</c>, <c>week</c>, <c>isoweek</c> and <c>quarter</c>.</p>
 
@@ -1331,6 +1362,10 @@ object.size(polls_us_election_2016$startdate)
 object.size(as.IDate(polls_us_election_2016$startdate))
             </input>
           </program>
+<pre>
+#&gt; 33936 bytes
+#&gt; 17168 bytes
+</pre>
 
         </section>
 
