@@ -436,11 +436,11 @@ get_dupes(x)
 </pre>
         </section>
 
-        <section xml:id="sec-reshaping-data-exercises">
+        <exercises xml:id="sec-reshaping-data-exercises">
           <title>Exercises</title>
 
-          <ol>
-            <li><p>Run the following command to define the <c>co2_wide</c> object:</p></li>
+          <exercise>
+            <p>Run the following command to define the <c>co2_wide</c> object:</p>
           <program language="r">
             <input>
 co2_wide &lt;- data.frame(matrix(co2, ncol = 12, byrow = TRUE)) |&gt; 
@@ -449,19 +449,19 @@ co2_wide &lt;- data.frame(matrix(co2, ncol = 12, byrow = TRUE)) |&gt;
             </input>
           </program>
 
-          </ol>
+          </exercise>
 
           <p>Use the <c>pivot_longer</c> function to wrangle this into a tidy dataset. Call the column with the CO2 measurements <c>co2</c> and call the month column <c>month</c>. Call the resulting object <c>co2_tidy</c>.</p>
 
-          <ol>
-            <li><p>Plot CO2 versus month with a different curve for each year using this code:</p></li>
+          <exercise>
+            <p>Plot CO2 versus month with a different curve for each year using this code:</p>
           <program language="r">
             <input>
 co2_tidy |&gt; ggplot(aes(month, co2, color = year)) + geom_line()
             </input>
           </program>
 
-          </ol>
+          </exercise>
 
           <p>If the expected plot is not made, it is probably because <c>co2_tidy$month</c> is not numeric:</p>
 
@@ -473,14 +473,14 @@ class(co2_tidy$month)
 
           <p>Rewrite your code to make sure the month column is numeric. Then make the plot.</p>
 
-          <ol>
-            <li><p>What do we learn from this plot?</p></li>
-          </ol>
+          <exercise>
+            <p>What do we learn from this plot?</p>
+          </exercise>
 
           <p>a.  CO2 measures increase monotonically from 1959 to 1997. b.  CO2 measures are higher in the summer and the yearly average increased from 1959 to 1997. c.  CO2 measures appear constant and random variability explains the differences. d.  CO2 measures do not have a seasonal trend.</p>
 
-          <ol>
-            <li><p>Now load the <c>admissions</c> data set, which contains admission information for men and women across six majors and keep only the admitted percentage column:</p></li>
+          <exercise>
+            <p>Now load the <c>admissions</c> data set, which contains admission information for men and women across six majors and keep only the admitted percentage column:</p>
           <program language="r">
             <input>
 load(admissions)
@@ -488,23 +488,23 @@ dat &lt;- admissions |&gt; select(-applicants)
             </input>
           </program>
 
-          </ol>
+          </exercise>
 
           <p>If we think of an observation as a major, and that each observation has two variables (men admitted percentage and women admitted percentage) then this is not tidy. Use the <c>pivot_wider</c> function to wrangle into tidy shape: one row for each major.</p>
 
-          <ol>
-            <li><p>Now we will try a more advanced wrangling challenge. We want to wrangle the admissions data so that for each major we have 4 observations: <c>admitted_men</c>, <c>admitted_women</c>, <c>applicants_men</c> and <c>applicants_women</c>. The <em>trick</em> we perform here is actually quite common: first use <c>pivot_longer</c> to generate an intermediate data frame and then <c>pivot_wider</c> to obtain the tidy data we want. We will go step by step in this and the next two exercises.</p></li>
-          </ol>
+          <exercise>
+            <p>Now we will try a more advanced wrangling challenge. We want to wrangle the admissions data so that for each major we have 4 observations: <c>admitted_men</c>, <c>admitted_women</c>, <c>applicants_men</c> and <c>applicants_women</c>. The <em>trick</em> we perform here is actually quite common: first use <c>pivot_longer</c> to generate an intermediate data frame and then <c>pivot_wider</c> to obtain the tidy data we want. We will go step by step in this and the next two exercises.</p>
+          </exercise>
 
           <p>Use the <c>pivot_longer</c> function to create a <c>tmp</c> data frame with a column containing the type of observation: <c>admitted</c> or <c>applicants</c>. Call the new columns <c>name</c> and <c>value</c>.</p>
 
-          <ol>
-            <li><p>Now you have an object <c>tmp</c> with columns <c>major</c>, <c>gender</c>, <c>name</c> and <c>value</c>. Note that if you combine the <c>name</c> and <c>gender</c>, we get the column names we want: <c>admitted_men</c>, <c>admitted_women</c>, <c>applicants_men</c> and <c>applicants_women</c>. Use the function <c>unite</c> to create a new column called <c>column_name</c>.</p></li>
-            <li><p>Now use the <c>pivot_wider</c> function to generate the tidy data with four variables for each major.</p></li>
-            <li><p>Now use the pipe to write a line of code that turns <c>admissions</c> to the table produced in the previous exercise.</p></li>
-          </ol>
+          <exercise>
+            <p>Now you have an object <c>tmp</c> with columns <c>major</c>, <c>gender</c>, <c>name</c> and <c>value</c>. Note that if you combine the <c>name</c> and <c>gender</c>, we get the column names we want: <c>admitted_men</c>, <c>admitted_women</c>, <c>applicants_men</c> and <c>applicants_women</c>. Use the function <c>unite</c> to create a new column called <c>column_name</c>.</p>
+            <p>Now use the <c>pivot_wider</c> function to generate the tidy data with four variables for each major.</p>
+            <p>Now use the pipe to write a line of code that turns <c>admissions</c> to the table produced in the previous exercise.</p>
+          </exercise>
 
-        </section>
+        </exercises>
         
       </chapter>
 
@@ -1030,12 +1030,10 @@ tab &lt;- merge(murders, results_us_election_2016, by = "state", all.x = TRUE)
 
         </section>
 
-        <section xml:id="sec-joining-tables-exercises">
+        <exercises xml:id="sec-joining-tables-exercises">
           <title>Exercises</title>
-
-          <ol>
-            <li><p>Install and load the <alert>Lahman</alert> library. This database includes data related to baseball teams. It includes summary statistics about how the players performed on offense and defense for several years. It also includes personal information about the players.</p></li>
-          </ol>
+          <exercise>
+            <p>Install and load the <alert>Lahman</alert> library. This database includes data related to baseball teams. It includes summary statistics about how the players performed on offense and defense for several years. It also includes personal information about the players.</p>
 
           <p>The <c>Batting</c> data frame contains the offensive statistics for all players for many years. You can see, for example, the top 10 hitters by running this code:</p>
 
@@ -1062,10 +1060,10 @@ People |&gt; as_tibble()
           </program>
 
           <p>We can see column names <c>nameFirst</c> and <c>nameLast</c>. Use the <c>left_join</c> function to create a table of the top home run hitters. The table should have <c>playerID</c>, first name, last name, and number of home runs (HR).  Rewrite the object <c>top</c> with this new table.</p>
-
-          <ol>
-            <li><p>Now use the <c>Salaries</c> data frame to add each player's salary to the table you created in exercise 1. Note that salaries are different every year so make sure to filter for the year 2016, then use <c>right_join</c>. This time show first name, last name, team, HR, and salary.</p></li>
-            <li><p>In a previous exercise, we created a tidy version of the <c>co2</c> dataset:</p></li>
+</exercise>
+          <exercise>
+            <p>Now use the <c>Salaries</c> data frame to add each player's salary to the table you created in exercise 1. Note that salaries are different every year so make sure to filter for the year 2016, then use <c>right_join</c>. This time show first name, last name, team, HR, and salary.</p>
+            <p>In a previous exercise, we created a tidy version of the <c>co2</c> dataset:</p>
           <program language="r">
             <input>
 co2_wide &lt;- data.frame(matrix(co2, ncol = 12, byrow = TRUE)) |&gt; 
@@ -1076,16 +1074,16 @@ co2_wide &lt;- data.frame(matrix(co2, ncol = 12, byrow = TRUE)) |&gt;
             </input>
           </program>
 
-          </ol>
+          </exercise>
 
           <p>We want to see if the monthly trend is changing, so we are going to remove the year effects and then plot the results. We will first compute the year averages. Use the <c>group_by</c> and <c>summarize</c> to compute the average co2 for each year. Save in an object called <c>yearly_avg</c>.</p>
 
-          <ol>
-            <li><p>Now use the <c>left_join</c> function to add the yearly average to the <c>co2_wide</c> dataset. Then compute the residuals: observed co2 measure - yearly average.</p></li>
-            <li><p>Make a plot of the seasonal trends by year but only after removing the year effect.</p></li>
-          </ol>
+          <exercise>
+            <p>Now use the <c>left_join</c> function to add the yearly average to the <c>co2_wide</c> dataset. Then compute the residuals: observed co2 measure - yearly average.</p>
+            <p>Make a plot of the seasonal trends by year but only after removing the year effect.</p>
+          </exercise>
 
-        </section>
+</exercises>
         
       </chapter>
 
@@ -1369,21 +1367,20 @@ object.size(as.IDate(polls_us_election_2016$startdate))
 
         </section>
 
-        <section xml:id="sec-parsing-dates-and-times-exercises">
+        <exercises xml:id="sec-parsing-dates-and-times-exercises">
           <title>Exercises</title>
 
           <p>For these exercises we will use the following dataset:</p>
 
           <program language="r">
             <input>
-#| eval: false
-if (!requireNamespace("dslabs", quietly = TRUE)) tryCatch(install.packages("dslabs", repos = "https://cloud.r-project.org"), error = function(e) invisible(NULL))
 library(dslabs)
 head(pr_death_counts)
             </input>
           </program>
 
-          <ol>
+          <exercise>
+<ol>
             <li><p>We want to make a plot of death counts versus date. Confirm that the <c>date</c> variable are in fact dates and not strings.</p></li>
             <li><p>Plot deaths versus date. </p></li>
             <li><p>What time period is represented in these data?</p></li>
@@ -1393,8 +1390,8 @@ head(pr_death_counts)
             <li><p>Show the deaths per days for July and for September. What do you notice?</p></li>
             <li><p>Compute deaths per week and make a plot.</p></li>
           </ol>
-
-        </section>
+</exercise>
+        </exercises>
         
       </chapter>
 
