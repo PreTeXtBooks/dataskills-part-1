@@ -2892,16 +2892,16 @@ pattern &lt;- "^[4-7]'\\d{1,2}\"$"
               </input>
             </program>
 
-            <p>The pattern is now getting complex, but you can look at it carefully and break it down:</p>
+            <p>The pattern is now getting complex, but you can look at it carefully and break it down:
 
 <ul>
-<li><p><c>^</c> = start of the string</p></li>
-<li><p><c>[4-7]</c> = one digit, either 4,5,6 or 7</p></li>
-<li><p><c>'</c> = feet symbol</p></li>
-<li><p><c>\\d{1,2}</c> = one or two digits</p></li>
-<li><p><c>\"</c> = inches symbol</p></li>
-<li><p><c>$</c> = end of the string</p></li>
-</ul>
+<li><c>^</c> = start of the string</li>
+<li><c>[4-7]</c> = one digit, either 4,5,6 or 7</li>
+<li><c>'</c> = feet symbol</li>
+<li><c>\\d{1,2}</c> = one or two digits</li>
+<li><c>\"</c> = inches symbol</li>
+<li><c>$</c> = end of the string</li>
+</ul></p>
 
             <p>Let's test it out:</p>
 
