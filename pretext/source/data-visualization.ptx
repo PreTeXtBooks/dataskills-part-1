@@ -2323,7 +2323,6 @@ library(dslabs)
           <figure>
             <image source="images/baplot-not-from-zero-exercises-1.png" width="70%"/>
           </figure>
-          </exercise>
 
 <ol>
 <li><p>The values are wrong. The final vote was 306 to 232</p></li>
@@ -2331,6 +2330,7 @@ library(dslabs)
 <li><p>The colors should be the same</p></li>
 <li><p>Percentages should be shown as a pie chart.</p></li>
 </ol>
+          </exercise>
 
           <exercise>
             <p>Take a look at the following two plots. They show the same information: 1928 rates of measles across the 50 states.</p>
