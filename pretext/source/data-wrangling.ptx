@@ -768,7 +768,7 @@ anti_join(tab_1, tab_2, by = "state")
               <image source="wrangling/img/joins.png"/>
             </figure>
 
-            <p>(Image courtesy of RStudio. CC-BY-4.0 license. Cropped from original.)</p>
+            <p>(Image courtesy of <url href = "https://github.com/rstudio/cheatsheets">RStudio</url>. <url href = "https://github.com/rstudio/cheatsheets/blob/master/LICENSE">CC-BY-4.0 license</url>. Cropped from original.)</p>
 
           </subsection>
 
@@ -786,6 +786,7 @@ anti_join(tab_1, tab_2, by = "state")
 
             <sage language="r">
               <input>
+library(dplyr)
 bind_cols(a = 1:3, b = 4:6)
               </input>
             </sage>
