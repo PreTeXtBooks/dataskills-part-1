@@ -9,6 +9,7 @@
 
   <book xml:id="intro-data-science">
     <title>Introduction to Data Science</title>
+    <subtitle>Data Wrangling and Visualization with R</subtitle>
 
     <!-- Preface -->
     <xi:include href="preface.ptx"/>
