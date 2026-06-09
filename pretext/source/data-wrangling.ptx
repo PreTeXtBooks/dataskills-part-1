@@ -2050,7 +2050,7 @@ response &lt;- request(url) |&gt;
   req_url_query(`$limit` = 100000) |&gt;
   req_perform() 
 
-tab <- response |&gt; resp_body_string() |&gt; read_csv()
+tab &lt;- response |&gt; resp_body_string() |&gt; read_csv()
               </input>
             </program>
 <pre>
