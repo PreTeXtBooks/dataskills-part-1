@@ -1385,8 +1385,7 @@ head(pr_death_counts)
             </input>
           </program>
 
-          <exercise>
-
+          <exercises>
             <exercise><p>We want to make a plot of death counts versus date. Confirm that the <c>date</c> variable are in fact dates and not strings.</p></exercise>
             <exercise><p>Plot deaths versus date. </p></exercise>
             <exercise><p>What time period is represented in these data?</p></exercise>
