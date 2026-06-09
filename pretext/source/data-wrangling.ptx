@@ -1222,8 +1222,8 @@ month(dates, label = TRUE)
 
           <p>Another useful set of functions are the <em>parsers</em> that convert strings into dates. The function <c>ymd</c> assumes the dates are in the format YYYY-MM-DD and tries to parse as well as possible.</p>
 
-          <program language="r">
-            <sage>
+          <sage language="r">
+            <input>
 library(lubridate)
 x &lt;- c(20090101, "2009-01-02", "2009 01 03", "2009-1-4",
        "2009-1, 5", "Created on 2009 1 6", "200901 !!! 07")
