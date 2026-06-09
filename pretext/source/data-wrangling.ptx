@@ -2187,9 +2187,7 @@ tab_1 &lt;- tab_1 |&gt;
 
           <program language="r">
             <input>
-if (!requireNamespace("tidyverse", quietly = TRUE)) tryCatch(install.packages("tidyverse", repos = "https://cloud.r-project.org"), error = function(e) invisible(NULL))
 library(tidyverse)
-if (!requireNamespace("stringr", quietly = TRUE)) tryCatch(install.packages("stringr", repos = "https://cloud.r-project.org"), error = function(e) invisible(NULL))
 library(stringr)
             </input>
           </program>
@@ -2200,7 +2198,6 @@ library(stringr)
 
           <p>Finally, we mention <em>groups</em> in this table. These will be explained in <xref ref="sec-groups"/>.</p>
 
-          <p>| stringr           | Task       | Description                                                                                      | Base R                         | |--------------|--------------|-------------------------------|--------------| | <c>str_detect</c>      | Detect     | Is the pattern in the string?                                                                    | <c>grepl</c>                        | | <c>str_which</c>       | Detect     | Returns the index of entries that contain the pattern.                                           | <c>grep</c>                         | | <c>str_subset</c>      | Detect     | Returns the subset of strings that contain the pattern.                                          | <c>grep</c> with <c>value = TRUE</c>     | | <c>str_locate</c>      | Locate     | Returns positions of first occurrence of the pattern in a string.                                    | <c>regexpr</c>                      | | <c>str_locate_all</c>  | Locate     | Returns position of all occurrences of the pattern in a string.                                      | <c>gregexpr</c>                     | | <c>str_view</c>        | Locate     | Show the first part of the string that matches the pattern.                                          |                                | | <c>str_view_all</c>    | Locate     | Show all the parts of the string that match the pattern.                                      |                                | | <c>str_extract</c>     | Extract    | Extract the first part of the string that matches the pattern.                                   |                                | | <c>str_extract_all</c> | Extract    | Extract all parts of the string that match the pattern.                                          |                                | | <c>str_match</c>       | Extract    | Extract first part of the string that matches the pattern and the groups defined by the pattern. |                                | | <c>str_match_all</c>   | Extract    | Extract all parts of the string that match the pattern and the groups defined by the pattern.  |                                | | <c>str_sub</c>         | Extract    | Extract a substring.                                                                             | <c>substring</c>                    | | <c>str_split</c>       | Extract    | Split a string into a list with parts separated by a pattern.                                      | <c>strsplit</c>                     | | <c>str_split_fixed</c> | Extract    | Split a string into a matrix with a fixed number of parts separated by a pattern.                                    | <c>strsplit</c> with <c>fixed = TRUE</c> | | <c>str_count</c>       | Describe   | Count number of times a pattern appears in a string.                                             |                                | | <c>str_length</c>      | Describe   | Number of character in string.                                                                   | <c>nchar</c>                        | | <c>str_replace</c>     | Replace    | Replace first part of a string matching a pattern with another.                                  |                                | | <c>str_replace_all</c> | Replace    | Replace all parts of a string matching a pattern with another.                                   | <c>gsub</c>                         | | <c>str_to_upper</c>    | Replace    | Change all characters to upper case.                                                             | <c>toupper</c>                      | | <c>str_to_lower</c>    | Replace    | Change all characters to lower case.                                                             | <c>tolower</c>                      | | <c>str_to_title</c>    | Replace    | Change first character of each word to upper and rest to lower case.                                               |                                | | <c>str_replace_na</c>  | Replace    | Replace all <c>NA</c>s with a new value.                                                                |                                | | <c>str_trim</c>        | Replace    | Remove white space from start and end of string.                                                 |                                | | <c>str_c</c>           | Manipulate | Join multiple strings.                                                                           | <c>paste0</c>                       | | <c>str_conv</c>        | Manipulate | Change the encoding of the string.                                                               |                                | | <c>str_sort</c>        | Manipulate | Sort the vector in alphabetical order.                                                           | <c>sort</c>                         | | <c>str_order</c>       | Manipulate | Provide index needed to order the vector in alphabetical order.                                          | <c>order</c>                        | | <c>str_trunc</c>       | Manipulate | Truncate a string to a fixed size.                                                               |                                | | <c>str_pad</c>         | Manipulate | Add white space to string to make it a fixed size.                                               |                                | | <c>str_dup</c>         | Manipulate | Repeat a string.                                                                                 | <c>rep</c> then <c>paste</c>             | | <c>str_wrap</c>        | Manipulate | Wrap things into formatted paragraphs.                                                           |                                | | <c>str_interp</c>      | Manipulate | String interpolation.                                                                            | <c>sprintf</c>                      |</p>
 
         </section>
 
@@ -2211,11 +2208,19 @@ library(stringr)
 
           <program language="r">
             <input>
-if (!requireNamespace("dslabs", quietly = TRUE)) tryCatch(install.packages("dslabs", repos = "https://cloud.r-project.org"), error = function(e) invisible(NULL))
 library(dslabs)
 head(reported_heights)
             </input>
           </program>
+<pre>
+#>            time_stamp    sex height
+#> 1 2014-09-02 13:40:36   Male     75
+#> 2 2014-09-02 13:46:59   Male     70
+#> 3 2014-09-02 13:59:20   Male     68
+#> 4 2014-09-02 14:51:53   Male     74
+#> 5 2014-09-02 15:16:15   Male     61
+#> 6 2014-09-02 15:16:16 Female     65
+</pre>
 
           <p>These heights were obtained using a web form in which students were asked to enter their heights. They could enter anything, but the instructions asked for <em>height in inches</em>, a number. We compiled <c>prettyNum(nrow(reported_heights), big.mark=",")</c> submissions, but unfortunately the column vector with the reported heights had several non-numeric entries and as a result became a character vector:</p>
 
@@ -2224,7 +2229,9 @@ head(reported_heights)
 class(reported_heights$height)
             </input>
           </program>
-
+<pre>
+#> [1] "character"
+</pre>
           <p>If we try to parse it into numbers, we get a warning:</p>
 
           <program language="r">
@@ -2232,7 +2239,9 @@ class(reported_heights$height)
 x &lt;- as.numeric(reported_heights$height)
             </input>
           </program>
-
+<pre>
+#> Warning: NAs introduced by coercion
+</pre>
           <p>Although most values appear to be height in inches as requested we do end up with many <c>NA</c>s:</p>
 
           <program language="r">
@@ -2240,7 +2249,9 @@ x &lt;- as.numeric(reported_heights$height)
 sum(is.na(x))
             </input>
           </program>
-
+<pre>
+#> [1] 81
+</pre>
           <p>Here are some of the entries that are not successfully converted:</p>
 
           <program language="r">
@@ -2251,7 +2262,19 @@ reported_heights |&gt;
   head(n = 10)
             </input>
           </program>
-
+<pre>
+#>             time_stamp    sex                 height new_height
+#> 1  2014-09-02 15:16:28   Male                  5' 4"         NA
+#> 2  2014-09-02 15:16:37 Female                  165cm         NA
+#> 3  2014-09-02 15:16:52   Male                    5'7         NA
+#> 4  2014-09-02 15:16:56   Male                  >9000         NA
+#> 5  2014-09-02 15:16:56   Male                   5'7"         NA
+#> 6  2014-09-02 15:17:09 Female                   5'3"         NA
+#> 7  2014-09-02 15:18:00   Male 5 feet and 8.11 inches         NA
+#> 8  2014-09-02 15:19:48   Male                   5'11         NA
+#> 9  2014-09-04 00:46:45   Male                  5'9''         NA
+#> 10 2014-09-04 10:29:44   Male                 5'10''         NA
+</pre>
           <p>We immediately see what is happening. Some of the students did not report their heights in inches as requested. We could discard these data and continue. However, many of the entries follow patterns that, in principle, we can easily convert to inches. For example, in the output above, we see various cases that use the format <c>x'y"</c> or <c>x'y''</c> with <c>x</c> and <c>y</c> representing feet and inches, respectively. Each one of these cases can be read and converted to inches by a human, for example <c>5'4"</c> is <c>5*12 + 4 = 64</c>. So we could fix all the problematic entries <em>by hand</em>. However, humans are prone to making mistakes, so an automated approach is preferable. Also, because we plan on continuing to collect data, it will be convenient to write code that automatically corrects entries entered in error.</p>
 
           <p>A first step in this type of task is to survey the problematic entries and try to define specific patterns followed by a large groups of entries. The larger these groups, the more entries we can fix with a single programmatic approach. We want to find patterns that can be accurately described with a rule, such as "a digit, followed by a feet symbol, followed by one or two digits, followed by an inches symbol".</p>
@@ -2277,74 +2300,58 @@ problems &lt;- reported_heights |&gt;
 length(problems)
             </input>
           </program>
+<pre>
+#> [1] 292
+</pre>
 
           <p>We can now view all the cases by simply printing them. If we do, we see that three patterns can be used to define three large groups within these exceptions.</p>
 
           <ol>
-            <li><p>A pattern of the form <c>x'y</c> or <c>x' y''</c> or <c>x'y"</c> with <c>x</c> and <c>y</c></p></li>
-          </ol>
+            <li><p>A pattern of the form <c>x'y</c> or <c>x' y''</c> or <c>x'y"</c> with <c>x</c> and <c>y</c></p>
 
           <p>representing feet and inches, respectively. Here are ten examples:</p>
 
           <program language="r">
             <input>
-pattern &lt;- "^\\d\\s*'\\s*\\d{1,2}\\.*\\d*'*\"*$"
-str_subset(problems, pattern) |&gt; head(n = 10) |&gt; cat()
+#> 5' 4" 5'7 5'7" 5'3" 5'11 5'9'' 5'10'' 5' 10 5'5" 5'2"
             </input>
           </program>
-
-          <ol>
-            <li><p>A pattern of the form <c>x.y</c> or <c>x,y</c> with <c>x</c> feet and <c>y</c> inches.</p></li>
-          </ol>
+</li>
+            <li><p>A pattern of the form <c>x.y</c> or <c>x,y</c> with <c>x</c> feet and <c>y</c> inches.</p>
 
           <p>Here are ten examples:</p>
 
           <program language="r">
             <input>
-pattern &lt;- "^[4-6]\\s*[\\.|,]\\s*([0-9]|10|11)$"
-str_subset(problems, pattern) |&gt; head(n = 10) |&gt; cat()
+#> 5.3 5.5 6.5 5.8 5.6 5,3 5.9 6,8 5.5 6.2
             </input>
           </program>
-
-          <ol>
-            <li><p>Entries that were reported in centimeters rather than inches. Here</p></li>
-          </ol>
+</li>
+            <li><p>Entries that were reported in centimeters rather than inches. Here</p>
 
           <p>are ten examples:</p>
 
           <program language="r">
             <input>
-ind &lt;- which(between(suppressWarnings(as.numeric(problems))/2.54, 54, 81) )
-ind &lt;- ind[!is.na(ind)]
-problems[ind] |&gt; head(n = 10) |&gt; cat()
+#> 150 175 177 178 163 175 178 165 165 180
             </input>
           </program>
+</li>
+          </ol>
 
           <p>Once we see these large groups following specific patterns, we can develop a plan of attack.</p>
 
           <ol>
-            <li><p>Convert entries fitting the first two patterns into one standardized</p></li>
-          </ol>
-
-          <p>one.</p>
-
-          <ol>
-            <li><p>Leverage the standardization to extract the feet and inches and</p></li>
-          </ol>
-
-          <p>convert to inches.</p>
-
-          <ol>
-            <li><p>Define a procedure for identifying entries that are in centimeters</p></li>
-          </ol>
-
-          <p>and convert them to inches.</p>
-
-          <ol>
-            <li><p>Check again to see what entries were not fixed and see if we can</p></li>
-          </ol>
-
-          <p>tweak our approach to be more comprehensive.</p>
+            <li><p>Convert entries fitting the first two patterns into one standardized one.</p>
+</li>
+            <li><p>Leverage the standardization to extract the feet and inches and convert to inches.</p>
+</li>
+            <li><p>Define a procedure for identifying entries that are in centimeters and convert them to inches.</p>
+</li>
+            <li><p>Check again to see what entries were not fixed and see if we can
+          tweak our approach to be more comprehensive.</p>
+</li>
+</ol>
 
           <p>At the end, we hope to have a script that makes web-based data collection methods robust to the most common user mistakes.</p>
 
@@ -2407,6 +2414,9 @@ s &lt;- "10\""
 cat(s)
             </input>
           </program>
+<pre>
+#> 10"
+</pre>
 
           <p>Now, what if we want our string to be 5 feet written like this <c>5'</c>? In this case, we can use the double quotes or escape the single quote</p>
 
@@ -2435,7 +2445,7 @@ s &lt;- "5'10\""
         <section xml:id="sec-regex">
           <title>Regular expressions</title>
 
-          <p>A regular expression (regex) is a way to describe specific patterns of characters of text. They can be used to determine if a given string matches the pattern. A set of rules has been defined to do this efficiently and precisely and here we show some examples. We can learn more about these rules by reading a detailed tutorials . The RStudio cheat sheet for <alert>stringr</alert> and regular expression is also very useful.</p>
+          <p>A regular expression (regex) is a way to describe specific patterns of characters of text. They can be used to determine if a given string matches the pattern. A set of rules has been defined to do this efficiently and precisely and here we show some examples. We can learn more about these rules by reading a detailed tutorials<fn><url href = "https://www.regular-expressions.info/tutorial.html"/>; <url href = "http://r4ds.had.co.nz/strings.html#matching-patterns-with-regular-expressions"/></fn>. The RStudio cheat sheet for <alert>stringr</alert> and <url href = "https://rstudio.github.io/cheatsheets/strings.pdf">regular expression</url> is also very useful.</p>
 
           <p>The patterns supplied to the <alert>stringr</alert> functions can be a regex rather than a standard string. We will learn how this works through a series of examples.</p>
 
@@ -2452,6 +2462,9 @@ pattern &lt;- ","
 str_detect(c("1", "10", "100", "1,000", "10,000"), pattern) 
               </input>
             </program>
+<pre>
+#> [1] FALSE FALSE FALSE  TRUE  TRUE
+</pre>
 
             <p>Above, we noted that an entry included a <c>cm</c>. This is also a simple example of a regex. We can show all the entries that used <c>cm</c> like this:</p>
 
@@ -2460,6 +2473,9 @@ str_detect(c("1", "10", "100", "1,000", "10,000"), pattern)
 str_subset(reported_heights$height, "cm")
               </input>
             </program>
+<pre>
+#> [1] "165cm"  "170 cm"
+</pre>
 
           </subsection>
 
@@ -2483,7 +2499,9 @@ s &lt;- c(yes, no)
 str_detect(s, "cm") | str_detect(s, "inches")
               </input>
             </program>
-
+<pre>
+#> [1]  TRUE  TRUE FALSE FALSE
+</pre>
             <p>However, we don't need to do this. The main feature that distinguishes the regex <em>language</em> from plain strings is that we can use special characters. These are characters with a meaning. We start by introducing <c>|</c> which means <em>or</em>. So if we want to know if either <c>cm</c> or <c>inches</c> appears in the strings, we can use the regex <c>cm|inches</c>:</p>
 
             <program language="r">
@@ -2491,6 +2509,9 @@ str_detect(s, "cm") | str_detect(s, "inches")
 str_detect(s, "cm|inches")
               </input>
             </program>
+<pre>
+#> [1]  TRUE  TRUE FALSE FALSE
+</pre>
 
             <p>and obtain the correct answer.</p>
 
@@ -2511,6 +2532,9 @@ pattern &lt;- "\\d"
 str_detect(s, pattern)
               </input>
             </program>
+<pre>
+#> [1]  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE
+</pre>
 
             <p>We take this opportunity to introduce the <c>str_view</c> function, which is helpful for troubleshooting as it shows us all matches for each string that has matches. Each match is surrounded by the characters <c>&lt;</c> and <c>&gt;</c>. Below, we see that <c>5</c> has one match and <c>5'10</c> has three matches.</p>
 
@@ -2567,6 +2591,9 @@ s &lt;- c(yes, no)
 str_detect(s, "[4-7]")
               </input>
             </program>
+<pre>
+#> [1]  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE
+</pre>
 
             <p>However, it is important to know that in regex everything is a character; there are no numbers. So <c>4</c> is the character <c>4</c> not the number four. Notice, for example, that <c>[1-20]</c> does <alert>not</alert> mean 1 through 20, it means the characters 1 through 2 or the character 0. So <c>[1-20]</c> simply means the character class composed of 0, 1, and 2.</p>
 
@@ -2637,14 +2664,15 @@ pattern &lt;- "^[4-7]'\\d{1,2}\"$"
 
             <p>Let's test it out:</p>
 
-            <program language="r">
+            <sage language="r">
               <input>
+library(stringr)
 yes &lt;- c("5'7\"", "6'2\"",  "5'12\"")
 no &lt;- c("6,2\"", "6.2\"","I am 5'11\"", "3'2\"", "64")
 str_detect(yes, pattern)
 str_detect(no, pattern)
               </input>
-            </program>
+            </sage>
 
             <p>For now, we are permitting the inches to be 12 or larger. We will add a restriction later as the regex for this is a bit more complex than we are ready to show.</p>
 
@@ -2655,20 +2683,20 @@ str_detect(no, pattern)
 
             <p>Another problem we have is spaces. For example, our pattern does not match <c>5' 4"</c> because there is a space between <c>'</c> and <c>4</c> which our pattern does not permit. Spaces are characters and R does not ignore them:</p>
 
-            <program language="r">
+            <sage language="r">
               <input>
 identical("Hi", "Hi ")
               </input>
-            </program>
+            </sage>
 
             <p>In regex, <c>\s</c> represents white space. To find patterns like <c>5' 4</c>, we can change our pattern to:</p>
 
-            <program language="r">
+            <sage language="r">
               <input>
 pattern_2 &lt;- "^[4-7]'\\s\\d{1,2}\"$"
 str_subset(problems, pattern_2)
               </input>
-            </program>
+            </sage>
 
             <p>However, this will not match the patterns with no space. So do we need more than one regex pattern? It turns out we can use a quantifier for this as well.</p>
 
@@ -2679,27 +2707,27 @@ str_subset(problems, pattern_2)
 
             <p>We want the pattern to permit spaces but not require them. Even if there are several spaces, like in this example <c>5'   4</c>, we still want it to match. There is a quantifier for exactly this purpose. In regex, the character <c>*</c> means zero or more instances of the previous character. Here is an example:</p>
 
-            <program language="r">
+            <sage language="r">
               <input>
 yes &lt;- c("AB", "A1B", "A11B", "A111B", "A1111B")
 no &lt;- c("A2B", "A21B")
 str_detect(yes, "A1*B")
 str_detect(no, "A1*B")
               </input>
-            </program>
+            </sage>
 
             <p>The above matches the first string which has zero 1s and all the strings with one or more 1s. We can then improve our pattern by adding the <c>*</c> after the space character <c>\s</c>.</p>
 
             <p>There are two other similar quantifiers. For none or once, we can use <c>?</c>, and for one or more, we can use <c>+</c>. You can see how they differ with this example:</p>
 
-            <program language="r">
+            <sage language="r">
               <input>
 data.frame(string = c("AB", "A1B", "A11B", "A111B", "A1111B"),
            none_or_more = str_detect(yes, "A1*B"),
            nore_or_once = str_detect(yes, "A1?B"),
            once_or_more = str_detect(yes, "A1+B"))
               </input>
-            </program>
+            </sage>
 
             <p>We will actually use all three in our reported heights example, but we will see these in a later section.</p>
 
@@ -2710,7 +2738,7 @@ data.frame(string = c("AB", "A1B", "A11B", "A111B", "A1111B"),
 
             <p>To specify patterns that we do <alert>not</alert> want to detect, we can use the <c>^</c> symbol but only <alert>inside</alert> square brackets. Remember that outside the square bracket <c>^</c> means the start of the string. So, for example, if we want to detect digits that are preceded by anything except a letter we can do the following:</p>
 
-            <program language="r">
+            <sage language="r">
               <input>
 pattern &lt;- "[^a-zA-Z]\\d"
 yes &lt;- c(".3", "+2", "-0","*4")
@@ -2718,7 +2746,7 @@ no &lt;- c("A3", "B2", "C0", "E4")
 str_detect(yes, pattern)
 str_detect(no, pattern)
               </input>
-            </program>
+            </sage>
 
             <p>Another way to generate a pattern that searches for <em>everything except</em> is to use the upper case of the special character. For example <c>\\D</c> means anything other than a digit, <c>\\S</c> means anything except a space, and so on.</p>
 
@@ -2733,39 +2761,40 @@ str_detect(no, pattern)
 
             <p>To avoid changing patterns such as <c>70.2</c>, we will require that the first digit be between 4 and 7 <c>[4-7]</c> and that the second be none or more digits <c>\\d*</c>. Let's start by defining a simple pattern that matches this:</p>
 
-            <program language="r">
+            <sage language="r">
               <input>
 pattern_without_groups &lt;- "^[4-7],\\d*$"
               </input>
-            </program>
+            </sage>
 
             <p>We want to extract the digits so we can then form the new version using a period. These are our two groups, so we encapsulate them with parentheses:</p>
 
-            <program language="r">
+            <sage language="r">
               <input>
 pattern_with_groups &lt;-  "^([4-7]),(\\d*)$"
               </input>
-            </program>
+            </sage>
 
             <p>We encapsulate the part of the pattern that matches the parts we want to keep for later use. Adding groups does not affect the detection, since it only signals that we want to save what is captured by the groups. Note that both patterns return the same result when using <c>str_detect</c>:</p>
 
-            <program language="r">
+            <sage language="r">
               <input>
+library(stringr)
 yes &lt;- c("5,9", "5,11", "6,", "6,1")
 no &lt;- c("5'9", ",", "2,8", "6.1.1")
 s &lt;- c(yes, no)
 str_detect(s, pattern_without_groups)
 str_detect(s, pattern_with_groups)
               </input>
-            </program>
+            </sage>
 
             <p>Once we define groups, we can use the function <c>str_match</c> to extract the values these groups define:</p>
 
-            <program language="r">
+            <sage language="r">
               <input>
 str_match(s, pattern_with_groups)
               </input>
-            </program>
+            </sage>
 
             <p>Notice that the second and third columns contain feet and inches, respectively. The first column is the part of the string matching the pattern. If no match occurred, we see an <c>NA</c>.</p>
 
@@ -2784,12 +2813,12 @@ str_extract(s, pattern_with_groups)
 
             <p>Earlier we defined the object <c>problems</c> containing the strings that do not appear to be in inches. We can see that not too many of our problematic strings match the pattern:</p>
 
-            <program language="r">
+            <sage language="r">
               <input>
 pattern &lt;- "^[4-7]'\\d{1,2}\"$"
 sum(str_detect(problems, pattern))
               </input>
-            </program>
+            </sage>
 
             <p>To see why this is, we show some examples that expose why we don't have more matches:</p>
 
@@ -2810,6 +2839,11 @@ problems[c(2, 10, 11, 12, 15)] |&gt; str_view(pattern)
 str_subset(problems, "inches")
               </input>
             </program>
+<pre>
+#> [1] "5 feet and 8.11 inches" "Five foot eight inches"
+#> [3] "5 feet 7inches"         "5ft 9 inches"          
+#> [5] "5 ft 9 inches"          "5 feet 6 inches"
+</pre>
 
             <p>We also see that some entries used two single quotes <c>''</c> instead of a double quote <c>"</c>.</p>
 
@@ -2818,6 +2852,10 @@ str_subset(problems, "inches")
 str_subset(problems, "''")
               </input>
             </program>
+<pre>
+#>  [1] "5'9''"   "5'10''"  "5'10''"  "5'3''"   "5'7''"   "5'6''"  
+#>  [7] "5'7.5''" "5'7.5''" "5'10''"  "5'11''"  "5'10''"  "5'5''"
+</pre>
 
             <p>To correct this, we can replace the different ways of representing inches and feet with a uniform symbol. We will use <c>'</c> for feet, whereas for inches we will simply not use a symbol since some entries were of the form <c>x'y</c>. Now, if we no longer use the inches symbol, we have to change our pattern accordingly:</p>
 
@@ -2838,7 +2876,9 @@ problems |&gt;
   sum()
               </input>
             </program>
-
+<pre>
+#> [1] 48
+</pre>
             <p>However, we still have many cases to go.</p>
 
             <p>Note that in the code above, we leveraged the <alert>stringr</alert> consistency and used the pipe.</p>
@@ -2855,6 +2895,9 @@ problems |&gt;
   sum()
               </input>
             </program>
+<pre>
+#> [1] 53
+</pre>
 
             <p>We might be tempted to avoid doing this by removing all the spaces with <c>str_replace_all</c>. However, when doing such an operation we need to make sure that it does not have unintended effects. In our reported heights examples, this will be a problem because some entries are of the form <c>x y</c> with space separating the feet from the inches. If we remove all spaces, we will incorrectly turn <c>x y</c> into <c>xy</c> which implies that a <c>6 1</c> would become <c>61</c> inches instead of <c>73</c> inches.</p>
 
@@ -2869,25 +2912,26 @@ problems |&gt;
 
             <p>The regex special character for the <c>i</c>-th group is <c>\\i</c>. So <c>\\1</c> is the value extracted from the first group, <c>\\2</c> the value from the second and so on. As a simple example, note that the following code will replace a comma with period, but only if it is after a digit between 4 and 7, and followed by zero or more digits:</p>
 
-            <program language="r">
+            <sage language="r">
               <input>
+library(stringr)
 pattern_with_groups &lt;-  "^([4-7]),(\\d*)$"
 yes &lt;- c("5,9", "5,11", "6,", "6,1")
 no &lt;- c("5'9", ",", "2,8", "6.1.1")
 s &lt;- c(yes, no)
 str_replace(s, pattern_with_groups, "\\1'\\2")
               </input>
-            </program>
+            </sage>
 
             <p>We can use this to convert cases in our reported heights.</p>
 
             <p>We are now ready to define a pattern that helps us convert all the <c>x.y</c>, <c>x,y</c> and <c>x y</c> to our preferred format. We need to adapt <c>pattern_with_groups</c> to be a bit more flexible and capture all the cases.</p>
 
-            <program language="r">
+            <sage language="r">
               <input>
 pattern_with_groups &lt;- "^([4-7])\\s*[,\\.\\s+]\\s*(\\d*)$"
               </input>
-            </program>
+            </sage>
 
             <p>Let's break this one down:</p>
 
@@ -2900,6 +2944,9 @@ pattern_with_groups &lt;- "^([4-7])\\s*[,\\.\\s+]\\s*(\\d*)$"
 str_subset(problems, pattern_with_groups) |&gt; head()
               </input>
             </program>
+<pre>
+#> [1] "5.3"  "5.25" "5.5"  "6.5"  "5.8"  "5.6"
+</pre>
 
             <p>and will be able to perform the search and replace:</p>
 
@@ -2909,7 +2956,9 @@ str_subset(problems, pattern_with_groups) |&gt;
   str_replace(pattern_with_groups, "\\1'\\2") |&gt; head()
               </input>
             </program>
-
+<pre>
+#> [1] "5'3"  "5'25" "5'5"  "6'5"  "5'8"  "5'6"
+</pre>
             <p>Again, we will deal with the inches-larger-than-twelve challenge later.</p>
 
           </subsection>
@@ -2931,12 +2980,12 @@ pattern &lt;- "(?=\\w{8,16})(?=^[a-z|A-Z].*)(?=.*\\d+.*)"
 
             <p>A simpler example is changing all <c>superman</c> to <c>supergirl</c> without changing all the men to girl. We could use a lookaround like this:</p>
 
-            <program language="r">
+            <sage language="r">
               <input>
 s &lt;- "Superman saved a man. The man thanked superman."
 str_replace_all(s, "(?&lt;=[Ss]uper)man", "girl")
               </input>
-            </program>
+            </sage>
 
           </subsection>
 
@@ -2947,11 +2996,11 @@ str_replace_all(s, "(?&lt;=[Ss]uper)man", "girl")
 
             <p>Suppose we have data frame like this:</p>
 
-            <program language="r">
+            <sage language="r">
               <input>
 tab &lt;- data.frame(x = c("5'10", "6' 1", "5 ' 9", "5'11\""))
               </input>
-            </program>
+            </sage>
 
             <p>Note that using <c>separate_wider_delim</c> won't work here because the delimiter can varies across entries. With <c>separate_wider_regex</c> we can define flexible patterns that are matched to define each column.</p>
 
@@ -2961,6 +3010,15 @@ patterns &lt;- c(feet = "\\d", "\\s*'\\s*", inches = "\\d{1,2}", ".*")
 tab |&gt; separate_wider_regex(x, patterns = patterns)
               </input>
             </program>
+<pre>
+#> # A tibble: 4 × 2
+#>   feet  inches
+#>   <chr> <chr> 
+#> 1 5     10    
+#> 2 6     1     
+#> 3 5     9     
+#> 4 5     11
+</pre>
 
             <p>By not naming the second and fourth entries of <c>patterns</c> we tell the function not to keep the values that match that pattern.</p>
 
@@ -2973,21 +3031,26 @@ tab |&gt; separate_wider_regex(x, patterns = patterns)
 
           <p>In general, spaces at the start or end of the string are uninformative. These can be particularly deceptive because sometimes they can be hard to see:</p>
 
-          <program language="r">
+          <sage language="r">
             <input>
 s &lt;- "Hi "
 cat(s)
+            </input>
+          </sage>
+
+          <sage language="r">
+            <input>
 identical(s, "Hi")
             </input>
-          </program>
+          </sage>
 
           <p>This is a general enough problem that there is a function dedicated to removing them: <c>str_trim</c>.</p>
 
-          <program language="r">
+          <sage language="r">
             <input>
 str_trim("5 ' 9 ")
             </input>
-          </program>
+          </sage>
 
         </section>
 
@@ -2996,12 +3059,12 @@ str_trim("5 ' 9 ")
 
           <p>Notice that regex is case sensitive. Often we want to match a word regardless of case. One approach to doing this is to first change everything to lower case and then proceeding ignoring case. As an example, note that one of the entries writes out numbers as words <c>Five foot eight inches</c>. Although not efficient, we could add 13 extra <c>str_replace</c> calls to convert <c>zero</c> to <c>0</c>, <c>one</c> to <c>1</c>, and so on. To avoid having to write two separate operations for <c>Zero</c> and <c>zero</c>, <c>One</c> and <c>one</c>, etc., we can use the <c>str_to_lower</c> function to make all works lower case first:</p>
 
-          <program language="r">
+          <sage language="r">
             <input>
 s &lt;- c("Five feet eight inches")
 str_to_lower(s)
             </input>
-          </program>
+          </sage>
 
           <p>Other related functions are <c>str_to_upper</c> and <c>str_to_title</c>. We are now ready to define a procedure that converts all the problematic cases to inches.</p>
 
@@ -3035,6 +3098,9 @@ problems &lt;- reported_heights |&gt;
 length(problems)
             </input>
           </program>
+<pre>
+#> [1] 200
+</pre>
 
           <p>Let's see how many feet<c>'</c>inches format we can recover applying the finding from <xref ref="sec-regex"/>. Specifically we replace feet/foot/ft with <c>'</c>, we remove the word inches and its abbreviations, then rewrite similar patterns into the desired feet<c>'</c>inches pattern. Once this is done we see what proportion don't fit the desired pattern</p>
 
@@ -3048,7 +3114,9 @@ index &lt;- str_detect(converted, "^[4-7]\\s*'\\s*\\d{1,2}$")
 mean(!index)
             </input>
           </program>
-
+<pre>
+#> [1] 0.385
+</pre>
           <p>We see that a substantial proportion has not yet been fixed. Trial and error is a common approach to finding the regex pattern that satisfies all desired conditions. We can examine the remaining cases to try to decipher if new patterns we can use to fix them:</p>
 
           <program language="r">
@@ -3056,6 +3124,28 @@ mean(!index)
 converted[!index]
             </input>
           </program>
+<pre>
+#>  [1] "6"             "165cm"         "511"           "6"            
+#>  [5] "2"             ">9000"         "5 ' and 8.11 " "11111"        
+#>  [9] "6"             "103.2"         "19"            "5"            
+#> [13] "300"           "6'"            "6"             "Five ' eight "
+#> [17] "7"             "214"           "6"             "0.7"          
+#> [21] "6"             "2'33"          "612"           "1,70"         
+#> [25] "87"            "5'7.5"         "5'7.5"         "111"          
+#> [29] "5' 7.78"       "12"            "6"             "yyy"          
+#> [33] "89"            "34"            "25"            "6"            
+#> [37] "6"             "22"            "684"           "6"            
+#> [41] "1"             "1"             "6*12"          "87"           
+#> [45] "6"             "1.6"           "120"           "120"          
+#> [49] "23"            "1.7"           "6"             "5"            
+#> [53] "69"            "5' 9 "         "5 ' 9 "        "6"            
+#> [57] "6"             "86"            "708,661"       "5 ' 6 "       
+#> [61] "6"             "649,606"       "10000"         "1"            
+#> [65] "728,346"       "0"             "6"             "6"            
+#> [69] "6"             "100"           "88"            "6"            
+#> [73] "170 cm"        "7,283,465"     "5"             "5"            
+#> [77] "34"
+</pre>
 
           <p>We noticed that two students added <c>cm</c> and some entries have space at the end so we write incorporate this into our cleanup stage. We also notice that at least one entry wrote out numbers such as <c>Five foot eight inches</c>. We can use  the <c>words()</c> function in the <alert>english</alert> package to change these to actual numbers. In preparation for our final product, we define a function that cleans up previously noticed problems and these new ones:</p>
 
@@ -3131,12 +3221,22 @@ new_heights &lt;- reported_heights |&gt;
 new_heights |&gt; filter(is.na(height)) |&gt; pull(original)
             </input>
           </program>
+<pre>
+#>  [1] "511"       ">9000"     "5.25"      "11111"     "103.2"    
+#>  [6] "19"        "300"       "5.75"      "7"         "214"      
+#> [11] "0.7"       "2'33"      "612"       "87"        "111"      
+#> [16] "12"        "yyy"       "89"        "34"        "25"       
+#> [21] "22"        "684"       "1"         "1"         "6*12"     
+#> [26] "87"        "120"       "120"       "23"        "5.51"     
+#> [31] "5.69"      "86"        "708,661"   "5.25"      "649,606"  
+#> [36] "10000"     "1"         "728,346"   "0"         "100"      
+#> [41] "5.57"      "88"        "7,283,465" "34"
+</pre>
 
           <p>You can review the ones we did fix by typing:</p>
 
           <program language="r">
             <input>
-#| eval: false
 new_heights |&gt;
   filter(not_inches_or_cm(original)) |&gt;
   select(original, height) |&gt; 
@@ -3152,7 +3252,17 @@ new_heights |&gt;
 new_heights |&gt; arrange(height) |&gt; head(n = 6)
             </input>
           </program>
-
+<pre>
+#> # A tibble: 6 × 4
+#>   time_stamp          sex    height original
+#>   <chr>               <chr>   <dbl> <chr>   
+#> 1 2017-07-04 01:30:25 Male       50 50      
+#> 2 2017-09-07 10:40:35 Male       50 50      
+#> 3 2014-09-02 15:18:30 Female     51 51      
+#> 4 2016-06-05 14:07:20 Female     52 52      
+#> 5 2016-06-05 14:07:38 Female     52 52      
+#> # ℹ 1 more row
+</pre>
           <p>We see heights of 50, 51, 52, and so on. These short heights are rare and it is likely that the students actually meant 5'0,  5'1, 5'2 and so on. Because we are not completely sure, we will leave them as reported. The object new_heights contains our final solution for this case study.</p>
 
         </section>
@@ -3164,12 +3274,23 @@ new_heights |&gt; arrange(height) |&gt; head(n = 6)
 
           <program language="r">
             <input>
-if (!requireNamespace("dslabs", quietly = TRUE)) tryCatch(install.packages("dslabs", repos = "https://cloud.r-project.org"), error = function(e) invisible(NULL))
 library(dslabs)
 research_funding_rates |&gt; 
   select("discipline", "success_rates_men", "success_rates_women")
             </input>
           </program>
+<pre>
+#>            discipline success_rates_men success_rates_women
+#> 1   Chemical sciences              26.5                25.6
+#> 2   Physical sciences              19.3                23.1
+#> 3             Physics              26.9                22.2
+#> 4          Humanities              14.3                19.3
+#> 5  Technical sciences              15.9                21.0
+#> 6   Interdisciplinary              11.4                21.8
+#> 7 Earth/life sciences              24.4                14.3
+#> 8     Social sciences              15.3                11.5
+#> 9    Medical sciences              18.8                11.2
+</pre>
 
           <p>The data comes from a paper published in the Proceedings of the National Academy of Science (PNAS), a widely read scientific journal. However, the data is not provided in a spreadsheet; it is in a table in a PDF document. Here is a screenshot of the table:</p>
 
@@ -3177,7 +3298,7 @@ research_funding_rates |&gt;
             <image source="wrangling/img/pnas-table-s1.png"/>
           </figure>
 
-          <p>(Source: Romy van der Lee and Naomi Ellemers, PNAS 2015 112 (40) 12349-12353.)</p>
+          <p>(Source: <url href = "http://www.pnas.org/content/112/40/12349">Romy van der Lee and Naomi Ellemers, PNAS 2015 112 (40) 12349-12353.</url>)</p>
 
           <p>We could extract the numbers by hand, but this could lead to human error. Instead, we can try to wrangle the data using R. We start by downloading the pdf document, then importing into R:</p>
 
@@ -3260,6 +3381,10 @@ the_names_1 &lt;- the_names_1 |&gt;
 the_names_1 
             </input>
           </program>
+<pre>
+#>      [,1]           [,2]     [,3]           
+#> [1,] "Applications" "Awards" "Success rates"
+</pre>
 
           <p>Now we will look at <c>the_names_2</c>:</p>
 
@@ -3280,6 +3405,12 @@ the_names_2 &lt;- the_names_2 |&gt;
 the_names_2
             </input>
           </program>
+<pre>
+#>      [,1]         [,2]    [,3]  [,4]    [,5]    [,6]  [,7]    [,8]   
+#> [1,] "Discipline" "Total" "Men" "Women" "Total" "Men" "Women" "Total"
+#>      [,9]  [,10]  
+#> [1,] "Men" "Women"
+</pre>
 
           <p>We can then join these to generate one name for each column:</p>
 
@@ -3292,6 +3423,12 @@ the_names &lt;- c(the_names_2[1], tmp_names) |&gt;
 the_names
             </input>
           </program>
+<pre>
+#>  [1] "discipline"          "applications_total"  "applications_men"   
+#>  [4] "applications_women"  "awards_total"        "awards_men"         
+#>  [7] "awards_women"        "success_rates_total" "success_rates_men"  
+#> [10] "success_rates_women"
+</pre>
 
           <p>Now we are ready to get the actual data. By examining the <c>tab</c> object, we notice that the information is in lines 6 through 14. We can use <c>str_split</c> again to achieve our goal:</p>
 
@@ -3306,6 +3443,20 @@ new_research_funding_rates &lt;- tab[6:14] |&gt;
 new_research_funding_rates |&gt; as_tibble()
             </input>
           </program>
+<pre>
+#> # A tibble: 9 × 10
+#>   discipline      applications_total applications_men applications_women
+#>   <chr>                        <dbl>            <dbl>              <dbl>
+#> 1 Chemical scien…                122               83                 39
+#> 2 Physical scien…                174              135                 39
+#> 3 Physics                         76               67                  9
+#> 4 Humanities                     396              230                166
+#> 5 Technical scie…                251              189                 62
+#> # ℹ 4 more rows
+#> # ℹ 6 more variables: awards_total <dbl>, awards_men <dbl>,
+#> #   awards_women <dbl>, success_rates_total <dbl>,
+#> #   success_rates_men <dbl>, success_rates_women <dbl>
+</pre>
 
           <p>We can see that the objects are identical:</p>
 
@@ -3314,6 +3465,9 @@ new_research_funding_rates |&gt; as_tibble()
 identical(research_funding_rates, new_research_funding_rates)
             </input>
           </program>
+<pre>
+#> [1] TRUE
+</pre>
 
         </section>
 
@@ -3344,6 +3498,10 @@ gapminder |&gt;
             </input>
           </program>
 
+            <figure>
+              <image source="images/caribbean-1.png"/>
+            </figure>
+
           <p>we see that the legend takes up much of the plot because we have four countries with names longer than 12 characters. We can rename these levels using the <c>case_when</c> function:</p>
 
           <program language="r">
@@ -3362,6 +3520,10 @@ gapminder |&gt;
             </input>
           </program>
 
+            <figure>
+              <image source="images/country-long-names-1.png"/>
+            </figure>
+
           <p>We can instead use the <c>fct_recode</c> function in the <alert>forcats</alert> package:</p>
 
           <program language="r">
@@ -3379,19 +3541,18 @@ gapminder$country &lt;-
           </program>
 
         </section>
-
-        <section xml:id="sec-string-processing-exercises">
+        <exercises xml:id="sec-string-processing-exercises">
           <title>Exercises</title>
 
-          <ol>
-            <li><p>Complete all lessons and exercises in the RegexOne</p></li>
-          </ol>
+          <exercise>
+            <p>Complete all lessons and exercises in the <url href = "https://regexone.com/">RegexOne</url></p>
+          </exercise>
 
           <p>online interactive tutorial.</p>
 
-          <ol>
-            <li><p>In the <c>extdata</c> directory of the <alert>dslabs</alert> package, you will find</p></li>
-          </ol>
+          <exercise>
+            <p>In the <c>extdata</c> directory of the <alert>dslabs</alert> package, you will find</p>
+          </exercise>
 
           <p>a PDF file containing daily mortality data for Puerto Rico from Jan 1, 2015 to May 31, 2018. You can find the file like this:</p>
 
@@ -3422,9 +3583,9 @@ system("cmd.exe", input = paste("start", fn))
 
           <p>a.  It is a table. Extracting the data will be easy. b.  It is a report written in prose. Extracting the data will be impossible. c.  It is a report combining graphs and tables. Extracting the data seems possible. d.  It shows graphs of the data. Extracting the data will be difficult.</p>
 
-          <ol>
-            <li><p>We are going to create a tidy dataset with each row representing one</p></li>
-          </ol>
+          <exercise>
+            <p>We are going to create a tidy dataset with each row representing one</p>
+          </exercise>
 
           <p>observation. The variables in this dataset will be year, month, day, and deaths. Start by installing and loading the <alert>pdftools</alert> package:</p>
 
@@ -3439,95 +3600,96 @@ library(pdftools)
 
           <p>a.  A table with the mortality data. b.  A character string of length 12. Each entry represents the text in each page. The mortality data is in there somewhere. c.  A character string with one entry containing all the information in the PDF file. d.  An html document.</p>
 
-          <ol>
-            <li><p>Extract the ninth page of the PDF file from the object <c>txt</c>, then</p></li>
-          </ol>
+          <exercise>
+            <p>Extract the ninth page of the PDF file from the object <c>txt</c>, then</p>
+          </exercise>
 
           <p>use the <c>str_split</c> from the <alert>stringr</alert> package so that you have each line in a different entry. Call this string vector <c>s</c>. Then look at the result and choose the one that best describes what you see.</p>
 
           <p>a.  It is an empty string. b.  I can see the figure shown in page 1. c.  It is a tidy table. d.  I can see the table! But there is a bunch of other stuff we need to get rid of.</p>
 
-          <ol>
-            <li><p>What kind of object is <c>s</c> and how many entries does it have?</p></li>
-            <li><p>We see that the output is a list with one component. Redefine <c>s</c> to</p></li>
-          </ol>
+          <exercise>
+            <p>What kind of object is <c>s</c> and how many entries does it have?</p>
+            <p>We see that the output is a list with one component. Redefine <c>s</c> to</p>
+          </exercise>
 
           <p>be the first entry of the list. What kind of object is <c>s</c> and how many entries does it have?</p>
 
-          <ol>
-            <li><p>When inspecting the string we obtained above, we see a common</p></li>
-          </ol>
+          <exercise>
+            <p>When inspecting the string we obtained above, we see a common</p>
+          </exercise>
 
           <p>problem: white space before and after the other characters. Trimming is a common first step in string processing. These extra spaces will eventually make splitting the strings hard so we start by removing them. We learned about the command <c>str_trim</c> that removes spaces at the start or end of the strings. Use this function to trim <c>s</c>.</p>
 
-          <ol>
-            <li><p>We want to extract the numbers from the strings stored in <c>s</c>.</p></li>
-          </ol>
+          <exercise>
+            <p>We want to extract the numbers from the strings stored in <c>s</c>.</p>
+          </exercise>
 
           <p>However, there are many non-numeric characters that will get in the way. We can remove these, but before doing this we want to preserve the string with the column header, which includes the month abbreviation. Use the <c>str_which</c> function to find the rows with a header. Save these results to <c>header_index</c>. Hint: find the first string that matches the pattern <c>2015</c> using the <c>str_which</c> function.</p>
 
-          <ol>
-            <li><p>Now we are going to define two objects: <c>month</c> will store the month</p></li>
-          </ol>
+          <exercise>
+            <p>Now we are going to define two objects: <c>month</c> will store the month</p>
+          </exercise>
 
           <p>and <c>header</c> will store the column names. Identify which row contains the header of the table. Save the content of the row into an object called <c>header</c>, then use <c>str_split</c> to help define the two objects we need. Hints: the separator here is one or more spaces. Also, consider using the <c>simplify</c> argument.</p>
 
-          <ol>
-            <li><p>Notice that towards the end of the page you see a <em>totals</em> row</p></li>
-          </ol>
+          <exercise>
+            <p>Notice that towards the end of the page you see a <em>totals</em> row</p>
+          </exercise>
 
           <p>followed by rows with other summary statistics. Create an object called <c>tail_index</c> with the index of the <em>totals</em> entry.</p>
 
-          <ol>
-            <li><p>Because our PDF page includes graphs with numbers, some of our rows</p></li>
-          </ol>
+          <exercise>
+            <p>Because our PDF page includes graphs with numbers, some of our rows</p>
+          </exercise>
 
           <p>have just one number (from the y-axis of the plot). Use the <c>str_count</c> function to create an object <c>n</c> with the number of numbers in each each row. Hint: you can write a regex for number like this <c>\\d+</c>.</p>
 
-          <ol>
-            <li><p>We are now ready to remove entries from rows that we know we don't</p></li>
-          </ol>
+          <exercise>
+            <p>We are now ready to remove entries from rows that we know we don't</p>
+          </exercise>
 
           <p>need. The entry <c>header_index</c> and everything before it should be removed. Entries for which <c>n</c> is 1 should also be removed, and the entry <c>tail_index</c> and everything that comes after it should be removed as well.</p>
 
-          <ol>
-            <li><p>Now we are ready to remove all the non-numeric entries. Do this</p></li>
-          </ol>
+          <exercise>
+            <p>Now we are ready to remove all the non-numeric entries. Do this</p>
+          </exercise>
 
           <p>using regex and the <c>str_remove_all</c> function. Hint: remember that in regex, using the upper case version of a special character usually means the opposite. So <c>\\D</c> means "not a digit". Remember you also want to keep spaces.</p>
 
-          <ol>
-            <li><p>To convert the strings into a table, use the <c>str_split_fixed</c></p></li>
-          </ol>
+          <exercise>
+            <p>To convert the strings into a table, use the <c>str_split_fixed</c></p>
+          </exercise>
 
           <p>function. Convert <c>s</c> into a data matrix with just the day and death count data. Hints: note that the separator is one or more spaces. Make the argument <c>n</c> a value that limits the number of columns to the values in the 4 columns and the last column captures all the extra stuff. Then keep only the first four columns.</p>
 
-          <ol>
-            <li><p>Now you are almost ready to finish. Add column names to the matrix,</p></li>
-          </ol>
+          <exercise>
+            <p>Now you are almost ready to finish. Add column names to the matrix,</p>
+          </exercise>
 
           <p>including one called <c>day</c>. Also, add a column with the month. Call the resulting object <c>dat</c>. Finally, make sure the day is an integer not a character. Hint: use only the first five columns.</p>
 
-          <ol>
-            <li><p>Now finish it up by tidying <c>tab</c> with the <c>pivot_longer</c></p></li>
-          </ol>
+          <exercise>
+            <p>Now finish it up by tidying <c>tab</c> with the <c>pivot_longer</c></p>
+          </exercise>
 
           <p>function.</p>
 
-          <ol>
-            <li><p>Make a plot of deaths versus day with color to denote year. Exclude</p></li>
-            <li><p>Now that we have wrangled this data step-by-step, put it all</p></li>
-          </ol>
+          <exercise>
+            <p>Make a plot of deaths versus day with color to denote year. Exclude</p>
+            <p>Now that we have wrangled this data step-by-step, put it all</p>
+          </exercise>
 
           <p>together in one R chunk, using the pipe as much as possible. Hint: first define the indexes, then write one line of code that does all the string processing.</p>
 
-          <ol>
-            <li><p>Advanced: let's return to the MLB Payroll example from the web</p></li>
-          </ol>
+          <exercise>
+            <p>Advanced: let's return to the MLB Payroll example from the web</p>
+          </exercise>
 
-          <p>scraping section. Use what you have learned in the web scraping and string processing chapters to extract the payroll for the New York Yankees, Boston Red Sox, and Oakland A's and plot them as a function of time.</p>
+          <p>scraping exercises. Use what you have learned in the web scraping and string processing chapters to extract the payroll for the New York Yankees, Boston Red Sox, and Oakland A's and plot them as a function of time.</p>
 
-        </section>
+        </exercises>
+
         
       </chapter>
 
