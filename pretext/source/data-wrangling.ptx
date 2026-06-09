@@ -3912,7 +3912,7 @@ tweet_words |&gt;
 <pre>
 #&gt; # A tibble: 6,264 × 2
 #&gt;   word      n
-#&gt;   &lt;chr&gt; <int>
+#&gt;   &lt;chr&gt; &lt;int&gt;
 #&gt; 1 the    2330
 #&gt; 2 to     1413
 #&gt; 3 and    1245
@@ -3964,7 +3964,7 @@ tweet_words |&gt;
 <pre>
 #&gt; # A tibble: 10 × 2
 #&gt;   word                      n
-#&gt;   &lt;chr&gt;                 <int>
+#&gt;   &lt;chr&gt;                 &lt;int&gt;
 #&gt; 1 trump2016               415
 #&gt; 2 hillary                 407
 #&gt; 3 people                  304
@@ -4011,7 +4011,7 @@ android_vs_iphone |&gt; filter(Android + iPhone &gt;= 100) |&gt; arrange(desc(ra
 <pre>
 #&gt; # A tibble: 30 × 6
 #&gt;   word        Android iPhone     p_a     p_i ratio
-#&gt;   &lt;chr&gt;         <int>  <int>   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
+#&gt;   &lt;chr&gt;         &lt;int&gt;  &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 bad             104     26 0.00648 0.00191  3.39
 #&gt; 2 crooked         156     49 0.00971 0.00357  2.72
 #&gt; 3 cnn             116     37 0.00723 0.00271  2.67
@@ -4030,7 +4030,7 @@ android_vs_iphone |&gt; filter(Android + iPhone &gt;= 100) |&gt;  arrange(ratio)
 <pre>
 #&gt; # A tibble: 30 × 6
 #&gt;   word                  Android iPhone       p_a     p_i   ratio
-#&gt;   &lt;chr&gt;                   <int>  <int>     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+#&gt;   &lt;chr&gt;                   &lt;int&gt;  &lt;int&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
 #&gt; 1 makeamericagreatagain       0    298 0.0000310 0.0216  0.00144
 #&gt; 2 trump2016                   3    412 0.000217  0.0298  0.00729
 #&gt; 3 join                        1    157 0.0000930 0.0114  0.00818
@@ -4076,7 +4076,7 @@ get_sentiments("nrc") |&gt; count(sentiment)
 <pre>
 #&gt; # A tibble: 10 × 2
 #&gt;   sentiment        n
-#&gt;   &lt;chr&gt;        <int>
+#&gt;   &lt;chr&gt;        &lt;int&gt;
 #&gt; 1 anger         1245
 #&gt; 2 anticipation   837
 #&gt; 3 disgust       1056
@@ -4142,7 +4142,7 @@ sentiment_counts
 <pre>
 #&gt; # A tibble: 11 × 6
 #&gt;   sentiment Android iPhone    p_a    p_i ratio
-#&gt;   &lt;chr&gt;       <int>  <int>  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+#&gt;   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 disgust       639    314 0.0290 0.0178  1.63
 #&gt; 2 anger         962    527 0.0437 0.0298  1.47
 #&gt; 3 negative     1657    931 0.0753 0.0527  1.43
