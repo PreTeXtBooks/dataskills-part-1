@@ -2898,13 +2898,23 @@ pattern &lt;- "^[4-7]'\\d{1,2}\"$"
 
             <p>The pattern is now getting complex, but you can look at it carefully and break it down:</p>
 
-            <p>-   <c>^</c> = start of the string -   <c>[4-7]</c> = one digit, either 4,5,6 or 7 -   <c>'</c> = feet symbol -   <c>\\d{1,2}</c> = one or two digits -   <c>\"</c> = inches symbol -   <c>$</c> = end of the string</p>
+<ul>
+<li><p><c>^</c> = start of the string</p></li>
+<li><p><c>[4-7]</c> = one digit, either 4,5,6 or 7</p></li>
+<li><p><c>'</c> = feet symbol</p></li>
+<li><p><c>\\d{1,2}</c> = one or two digits</p></li>
+<li><p><c>\"</c> = inches symbol</p></li>
+<li><p><c>$</c> = end of the string</p></li>
+<li><p>
+</ul>
 
             <p>Let's test it out:</p>
 
             <sage language="r">
               <input>
 library(stringr)
+pattern <- "^[4-7]'\\d{1,2}\"$"
+
 yes &lt;- c("5'7\"", "6'2\"",  "5'12\"")
 no &lt;- c("6,2\"", "6.2\"","I am 5'11\"", "3'2\"", "64")
 str_detect(yes, pattern)
