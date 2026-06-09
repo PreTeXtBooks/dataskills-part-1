@@ -500,7 +500,11 @@ dat &lt;- admissions |&gt; select(-applicants)
 
           <exercise>
             <p>Now you have an object <c>tmp</c> with columns <c>major</c>, <c>gender</c>, <c>name</c> and <c>value</c>. Note that if you combine the <c>name</c> and <c>gender</c>, we get the column names we want: <c>admitted_men</c>, <c>admitted_women</c>, <c>applicants_men</c> and <c>applicants_women</c>. Use the function <c>unite</c> to create a new column called <c>column_name</c>.</p>
+          </exercise>
+          <exercise>
             <p>Now use the <c>pivot_wider</c> function to generate the tidy data with four variables for each major.</p>
+          </exercise>
+          <exercise>
             <p>Now use the pipe to write a line of code that turns <c>admissions</c> to the table produced in the previous exercise.</p>
           </exercise>
 
