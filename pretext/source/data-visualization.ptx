@@ -2320,7 +2320,7 @@ library(dslabs)
 <li><p>Barplots and tables are always better.</p></li>
 </ol>
           </exercise>
-<p>What is the problem with the plot below:
+<p>What is the problem with the plot below:</p>
           <figure>
             <image source="images/baplot-not-from-zero-exercises-1.png" width="70%"/>
           </figure>
