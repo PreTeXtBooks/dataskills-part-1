@@ -2230,6 +2230,212 @@ library(stringr)
 
           <p>Finally, we mention <em>groups</em> in this table. These will be explained in <xref ref="sec-groups"/>.</p>
 
+<table xml:id="table-stringr-functions">
+  <title><c>stringr</c> functions and their explanations</title>
+  <tabular halign="left">
+    <row header="yes">
+      <cell>stringr</cell>
+      <cell>Task</cell>
+      <cell>Description</cell>
+      <cell>Base R</cell>
+    </row>
+    <row>
+      <cell><c>str_detect</c></cell>
+      <cell>Detect</cell>
+      <cell>Is the pattern in the string?</cell>
+      <cell><c>grepl</c></cell>
+    </row>
+    <row>
+      <cell><c>str_which</c></cell>
+      <cell>Detect</cell>
+      <cell>Returns the index of entries that contain the pattern.</cell>
+      <cell><c>grep</c></cell>
+    </row>
+    <row>
+      <cell><c>str_subset</c></cell>
+      <cell>Detect</cell>
+      <cell>Returns the subset of strings that contain the pattern.</cell>
+      <cell><c>grep</c> with <c>value = TRUE</c></cell>
+    </row>
+    <row>
+      <cell><c>str_locate</c></cell>
+      <cell>Locate</cell>
+      <cell>Returns positions of first occurrence of the pattern in a string.</cell>
+      <cell><c>regexpr</c></cell>
+    </row>
+    <row>
+      <cell><c>str_locate_all</c></cell>
+      <cell>Locate</cell>
+      <cell>Returns position of all occurrences of the pattern in a string.</cell>
+      <cell><c>gregexpr</c></cell>
+    </row>
+    <row>
+      <cell><c>str_view</c></cell>
+      <cell>Locate</cell>
+      <cell>Show the first part of the string that matches the pattern.</cell>
+      <cell></cell>
+    </row>
+    <row>
+      <cell><c>str_view_all</c></cell>
+      <cell>Locate</cell>
+      <cell>Show all the parts of the string that match the pattern.</cell>
+      <cell></cell>
+    </row>
+    <row>
+      <cell><c>str_extract</c></cell>
+      <cell>Extract</cell>
+      <cell>Extract the first part of the string that matches the pattern.</cell>
+      <cell></cell>
+    </row>
+    <row>
+      <cell><c>str_extract_all</c></cell>
+      <cell>Extract</cell>
+      <cell>Extract all parts of the string that match the pattern.</cell>
+      <cell></cell>
+    </row>
+    <row>
+      <cell><c>str_match</c></cell>
+      <cell>Extract</cell>
+      <cell>Extract first part of the string that matches the pattern and the groups 
+      defined by the pattern.</cell>
+      <cell></cell>
+    </row>
+    <row>
+      <cell><c>str_match_all</c></cell>
+      <cell>Extract</cell>
+      <cell>Extract all parts of the string that match the pattern and the groups 
+      defined by the pattern.</cell>
+      <cell></cell>
+    </row>
+    <row>
+      <cell><c>str_sub</c></cell>
+      <cell>Extract</cell>
+      <cell>Extract a substring.</cell>
+      <cell><c>substring</c></cell>
+    </row>
+    <row>
+      <cell><c>str_split</c></cell>
+      <cell>Extract</cell>
+      <cell>Split a string into a list with parts separated by a pattern.</cell>
+      <cell><c>strsplit</c></cell>
+    </row>
+    <row>
+      <cell><c>str_split_fixed</c></cell>
+      <cell>Extract</cell>
+      <cell>Split a string into a matrix with a fixed number of parts separated by a 
+      pattern.</cell>
+      <cell><c>strsplit</c> with <c>fixed = TRUE</c></cell>
+    </row>
+    <row>
+      <cell><c>str_count</c></cell>
+      <cell>Describe</cell>
+      <cell>Count number of times a pattern appears in a string.</cell>
+      <cell></cell>
+    </row>
+    <row>
+      <cell><c>str_length</c></cell>
+      <cell>Describe</cell>
+      <cell>Number of characters in string.</cell>
+      <cell><c>nchar</c></cell>
+    </row>
+    <row>
+      <cell><c>str_replace</c></cell>
+      <cell>Replace</cell>
+      <cell>Replace first part of a string matching a pattern with another.</cell>
+      <cell></cell>
+    </row>
+    <row>
+      <cell><c>str_replace_all</c></cell>
+      <cell>Replace</cell>
+      <cell>Replace all parts of a string matching a pattern with another.</cell>
+      <cell><c>gsub</c></cell>
+    </row>
+    <row>
+      <cell><c>str_to_upper</c></cell>
+      <cell>Replace</cell>
+      <cell>Change all characters to upper case.</cell>
+      <cell><c>toupper</c></cell>
+    </row>
+    <row>
+      <cell><c>str_to_lower</c></cell>
+      <cell>Replace</cell>
+      <cell>Change all characters to lower case.</cell>
+      <cell><c>tolower</c></cell>
+    </row>
+    <row>
+      <cell><c>str_to_title</c></cell>
+      <cell>Replace</cell>
+      <cell>Change first character of each word to upper and rest to lower case.</cell>
+      <cell></cell>
+    </row>
+    <row>
+      <cell><c>str_replace_na</c></cell>
+      <cell>Replace</cell>
+      <cell>Replace all NAs with a new value.</cell>
+      <cell></cell>
+    </row>
+    <row>
+      <cell><c>str_trim</c></cell>
+      <cell>Replace</cell>
+      <cell>Remove white space from start and end of string.</cell>
+      <cell></cell>
+    </row>
+    <row>
+      <cell><c>str_c</c></cell>
+      <cell>Manipulate</cell>
+      <cell>Join multiple strings.</cell>
+      <cell><c>paste0</c></cell>
+    </row>
+    <row>
+      <cell><c>str_conv</c></cell>
+      <cell>Manipulate</cell>
+      <cell>Change the encoding of the string.</cell>
+      <cell></cell>
+    </row>
+    <row>
+      <cell><c>str_sort</c></cell>
+      <cell>Manipulate</cell>
+      <cell>Sort the vector in alphabetical order.</cell>
+      <cell><c>sort</c></cell>
+    </row>
+    <row>
+      <cell><c>str_order</c></cell>
+      <cell>Manipulate</cell>
+      <cell>Provide index needed to order the vector in alphabetical order.</cell>
+      <cell><c>order</c></cell>
+    </row>
+    <row>
+      <cell><c>str_trunc</c></cell>
+      <cell>Manipulate</cell>
+      <cell>Truncate a string to a fixed size.</cell>
+      <cell></cell>
+    </row>
+    <row>
+      <cell><c>str_pad</c></cell>
+      <cell>Manipulate</cell>
+      <cell>Add white space to string to make it a fixed size.</cell>
+      <cell></cell>
+    </row>
+    <row>
+      <cell><c>str_dup</c></cell>
+      <cell>Manipulate</cell>
+      <cell>Repeat a string.</cell>
+      <cell><c>rep</c> then <c>paste</c></cell>
+    </row>
+    <row>
+      <cell><c>str_wrap</c></cell>
+      <cell>Manipulate</cell>
+      <cell>Wrap things into formatted paragraphs.</cell>
+      <cell></cell>
+    </row>
+    <row>
+      <cell><c>str_interp</c></cell>
+      <cell>Manipulate</cell>
+      <cell>String interpolation.</cell>
+      <cell><c>sprintf</c></cell>
+    </row>
+  </tabular>
+</table>
 
         </section>
 
