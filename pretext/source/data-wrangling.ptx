@@ -1721,7 +1721,7 @@ url &lt;- paste0("https://en.wikipedia.org/w/index.php?title=",
             <image source="wrangling/img/murders-data-wiki-page.png"/>
           </figure>
 
-          <p>(Web page courtesy of <url href = "https://en.wikipedia.org/w/index.php?title=Gun_violence_in_the_United_States_by_state&direction=prev&oldid=810166167">Wikipedia</url>. <url href = "https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License">CC-BY-SA-3.0 license</url>. Screenshot of part of the page.)</p>
+          <p>(Web page courtesy of <url href = "https://en.wikipedia.org/w/index.php?title=Gun_violence_in_the_United_States_by_state&amp;direction=prev&amp;oldid=810166167">Wikipedia</url>. <url href = "https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License">CC-BY-SA-3.0 license</url>. Screenshot of part of the page.)</p>
 
           <p><em>Web scraping</em>, or <em>web harvesting</em>, is the term we use to describe the process of extracting data from a website. The reason we can do this is because the information used by a browser to render webpages is received as a text file from a server. The text is code written in hyper text markup language (HTML). Every browser has a way to show the html source code for a page, each one different. On Chrome, you can use Control-U on a PC and command+alt+U on a Mac. You will see something like this:</p>
 
