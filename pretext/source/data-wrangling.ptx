@@ -1386,17 +1386,15 @@ head(pr_death_counts)
           </program>
 
           <exercise>
-<ol>
-            <li><p>We want to make a plot of death counts versus date. Confirm that the <c>date</c> variable are in fact dates and not strings.</p></li>
-            <li><p>Plot deaths versus date. </p></li>
-            <li><p>What time period is represented in these data?</p></li>
-            <li><p>Note that after May 31, 2018, the deaths are all 0. The data is probably not entered yet. We also see a drop off starting around May 1. Redefine <c>dat</c> to exclude observations taken on or after May 1, 2018. Then, remake the plot.</p></li>
-            <li><p>Repeat the plot but use the day of the year on the x-axis instead of date.</p></li>
-            <li><p>Compute the deaths per day by month.</p></li>
-            <li><p>Show the deaths per days for July and for September. What do you notice?</p></li>
-            <li><p>Compute deaths per week and make a plot.</p></li>
-          </ol>
-</exercise>
+
+            <exercise><p>We want to make a plot of death counts versus date. Confirm that the <c>date</c> variable are in fact dates and not strings.</p></exercise>
+            <exercise><p>Plot deaths versus date. </p></exercise>
+            <exercise><p>What time period is represented in these data?</p></exercise>
+            <exercise><p>Note that after May 31, 2018, the deaths are all 0. The data is probably not entered yet. We also see a drop off starting around May 1. Redefine <c>dat</c> to exclude observations taken on or after May 1, 2018. Then, remake the plot.</p></exercise>
+            <exercise><p>Repeat the plot but use the day of the year on the x-axis instead of date.</p></exercise>
+            <exercise><p>Compute the deaths per day by month.</p></exercise>
+            <exercise><p>Show the deaths per days for July and for September. What do you notice?</p></exercise>
+            <exercise><p>Compute deaths per week and make a plot.</p></exercise>
         </exercises>
         
       </chapter>
