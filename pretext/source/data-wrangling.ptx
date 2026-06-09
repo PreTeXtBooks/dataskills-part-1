@@ -1794,6 +1794,9 @@ h &lt;- read_html(url)
 class(h)
               </input>
             </program>
+<pre>
+#&gt; [1] "xml_document" "xml_node"
+</pre>
 
             <p>The <alert>rvest</alert> package is actually more general; it handles XML documents. XML is a general markup language (that's what the ML stands for) that can be used to represent any kind of data. HTML is a specific type of XML specifically developed for representing webpages. Here we focus on HTML documents.</p>
 
@@ -1820,6 +1823,11 @@ tab &lt;- h |&gt; html_nodes("table")
 tab
               </input>
             </program>
+<pre>
+#&gt; {xml_nodeset (2)}
+#&gt; [1] &lt;table class="wikitable sortable"&gt;&lt;tbody&gt;\n&lt;tr&gt;\n&lt;th&gt;State\n&lt;/th&gt; ...
+#&gt; [2] &lt;table class="nowraplinks hlist mw-collapsible mw-collapsed navbo ...
+</pre>
 
             <p>The table we are interested is the first one:</p>
 
@@ -1828,6 +1836,12 @@ tab
 tab[[1]]
               </input>
             </program>
+<pre>
+tab[[1]]
+#&gt; {html_node}
+#&gt; &lt;table class="wikitable sortable"&gt;
+#&gt; [1] &lt;tbody&gt;\n&lt;tr&gt;\n&lt;th&gt;State\n&lt;/th&gt;\n&lt;th&gt;\n&lt;a href="/wiki/List_of_U.S ...
+</pre>
 
             <p>This is clearly not a tidy dataset, not even a data frame. In the code above, you can definitely see a pattern and writing code to extract just the data is very doable. In fact, <alert>rvest</alert> includes a function just for converting HTML tables into data frames:</p>
 
@@ -1837,6 +1851,9 @@ tab &lt;- tab[[1]] |&gt; html_table()
 class(tab)
               </input>
             </program>
+<pre>
+#&gt; [1] "tbl_df"     "tbl"        "data.frame"
+</pre>
 
             <p>We are now much closer to having a usable data table:</p>
 
@@ -1846,6 +1863,17 @@ tab &lt;- tab |&gt; setNames(c("state", "population", "total", "murder_rate"))
 head(tab)
               </input>
             </program>
+<pre>
+#&gt; # A tibble: 6 × 4
+#&gt;   state      population total murder_rate
+#&gt;   <chr>      <chr>      <chr>       &lt;dbl&gt;
+#&gt; 1 Alabama    4,853,875  348           7.2
+#&gt; 2 Alaska     737,709    59            8  
+#&gt; 3 Arizona    6,817,565  309           4.5
+#&gt; 4 Arkansas   2,977,853  181           6.1
+#&gt; 5 California 38,993,940 1,861         4.8
+#&gt; # ℹ 1 more row
+</pre>
 
             <p>We still have some wrangling to do. For example, we need to remove the commas and turn characters into numbers. Before continuing with this, we will learn a more general approach to extracting information from web sites.</p>
 
@@ -1871,12 +1899,32 @@ head(tab)
 
           <program language="r">
             <input>
-if (!requireNamespace("jsonlite", quietly = TRUE)) tryCatch(install.packages("jsonlite", repos = "https://cloud.r-project.org"), error = function(e) invisible(NULL))
-library(jsonlite)
-example &lt;- data.frame(name = c("Miguel", "Sofia", "Aya", "Cheng"), 
-                      student_id = 1:4, exam_1 = c(85, 94, 87, 90), exam_2 = c(86, 93, 88, 91))
-json &lt;- toJSON(example, pretty = TRUE) 
-json
+#&gt; [
+#&gt;   {
+#&gt;     "name": "Miguel",
+#&gt;     "student_id": 1,
+#&gt;     "exam_1": 85,
+#&gt;     "exam_2": 86
+#&gt;   },
+#&gt;   {
+#&gt;     "name": "Sofia",
+#&gt;     "student_id": 2,
+#&gt;     "exam_1": 94,
+#&gt;     "exam_2": 93
+#&gt;   },
+#&gt;   {
+#&gt;     "name": "Aya",
+#&gt;     "student_id": 3,
+#&gt;     "exam_1": 87,
+#&gt;     "exam_2": 88
+#&gt;   },
+#&gt;   {
+#&gt;     "name": "Cheng",
+#&gt;     "student_id": 4,
+#&gt;     "exam_1": 90,
+#&gt;     "exam_2": 91
+#&gt;   }
+#&gt; ]
             </input>
           </program>
 
@@ -1901,7 +1949,10 @@ nobel$prizes |&gt;
   select(id, firstname, surname)
             </input>
           </program>
-
+<pre>
+#&gt;    id firstname surname
+#&gt; 1 645     Pablo  Neruda
+</pre>
           <p>You can learn much more by examining tutorials and help files from the <alert>jsonlite</alert> package. This package is intended for relatively simple tasks such as converting data into tables. For more flexibility, we recommend the <alert>rjson</alert> package.</p>
 
         </section>
@@ -1972,6 +2023,13 @@ response &lt;- request(url) |&gt; req_perform()
 response
               </input>
             </program>
+<pre>
+#&gt; &lt;httr2_response&gt;
+#&gt; GET https://data.cdc.gov/resource/muzy-jte6.csv
+#&gt; Status: 200 OK
+#&gt; Content-Type: text/csv
+#&gt; Body: In memory (210922 bytes)
+</pre>
 
             <p>To extract the body, which is where the data are, we can use <c>resp_body_string</c> and send the result, a comma delimited string, to <c>read_csv</c></p>
 
@@ -1991,9 +2049,24 @@ tab &lt;- response |&gt; resp_body_string() |&gt; read_csv()
 response &lt;- request(url) |&gt; 
   req_url_query(`$limit` = 100000) |&gt;
   req_perform() 
+
+tab <- response |&gt; resp_body_string() |&gt; read_csv()
               </input>
             </program>
-
+<pre>
+#&gt; Rows: 10476 Columns: 35
+#&gt; ── Column specification ────────────────────────────────────────────────
+#&gt; Delimiter: ","
+#&gt; chr  (14): jurisdiction_of_occurrence, flag_sept, flag_neopl, flag_d...
+#&gt; dbl  (17): mmwryear, mmwrweek, all_cause, natural_cause, septicemia_...
+#&gt; lgl   (2): flag_allcause, flag_natcause
+#&gt; dttm  (1): data_as_of
+#&gt; date  (1): week_ending_date
+#&gt; 
+#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.
+#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+</pre>
+<p>We now get 10476 entries.</p>
             <p>The CDC service returns data in csv format but a more common format used by web services is JSON. The CDC also provides data in json format through a the url:</p>
 
             <program language="r">
