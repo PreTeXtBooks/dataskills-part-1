@@ -2413,7 +2413,8 @@ ylab("Murder Rate Average")
           <p>and decide to move to a state in the western region. What is the main problem with this interpretation?</p>
 
           <ol>
-<li><p>The categories are ordered alphabetically.</p></li>The graph does not show standard errors.</p></li>
+<li><p>The categories are ordered alphabetically.</p></li>
+<li><p>The graph does not show standard errors.</p></li>
 <li><p>It does not show all the data. We do not see the variability within a region and it's possible that the safest states are not in the West.</p></li>
 <li><p>The Northeast has the lowest average.</p></li>
 </ol>
