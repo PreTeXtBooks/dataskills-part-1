@@ -996,11 +996,14 @@ setequal(1:5, 5:1)
 
             <p>The <alert>dplyr</alert> version checks whether data frames are equal, regardless of order of rows <em>or</em> columns:</p>
 
-            <sage language="r">
+            <program language="r">
               <input>
 dplyr::setequal(tab_1, tab_2)
               </input>
-            </sage>
+            </program>
+<pre>
+#&gt; [1] FALSE
+</pre>
 
           </subsection>
 
@@ -1023,9 +1026,6 @@ tab &lt;- left_join(murders, results_us_election_2016, by = "state")
 
           <program language="r">
             <input>
-#| message: false
-#| warning: false
-if (!requireNamespace("data.table", quietly = TRUE)) tryCatch(install.packages("data.table", repos = "https://cloud.r-project.org"), error = function(e) invisible(NULL))
 library(data.table)
 tab &lt;- merge(murders, results_us_election_2016, by = "state", all.x = TRUE)
             </input>
@@ -1068,7 +1068,9 @@ People |&gt; as_tibble()
 </exercise>
           <exercise>
             <p>Now use the <c>Salaries</c> data frame to add each player's salary to the table you created in exercise 1. Note that salaries are different every year so make sure to filter for the year 2016, then use <c>right_join</c>. This time show first name, last name, team, HR, and salary.</p>
-            <p>In a previous exercise, we created a tidy version of the <c>co2</c> dataset:</p>
+            </exercise>
+          <exercise>
+<p>In a previous exercise, we created a tidy version of the <c>co2</c> dataset:</p>
           <program language="r">
             <input>
 co2_wide &lt;- data.frame(matrix(co2, ncol = 12, byrow = TRUE)) |&gt; 
@@ -1079,13 +1081,14 @@ co2_wide &lt;- data.frame(matrix(co2, ncol = 12, byrow = TRUE)) |&gt;
             </input>
           </program>
 
-          </exercise>
-
           <p>We want to see if the monthly trend is changing, so we are going to remove the year effects and then plot the results. We will first compute the year averages. Use the <c>group_by</c> and <c>summarize</c> to compute the average co2 for each year. Save in an object called <c>yearly_avg</c>.</p>
 
+</exercise>
           <exercise>
-            <p>Now use the <c>left_join</c> function to add the yearly average to the <c>co2_wide</c> dataset. Then compute the residuals: observed co2 measure - yearly average.</p>
-            <p>Make a plot of the seasonal trends by year but only after removing the year effect.</p>
+<p>Now use the <c>left_join</c> function to add the yearly average to the <c>co2_wide</c> dataset. Then compute the residuals: observed co2 measure - yearly average.</p>
+            </exercise>
+          <exercise>
+<p>Make a plot of the seasonal trends by year but only after removing the year effect.</p>
           </exercise>
 
 </exercises>
