@@ -1866,7 +1866,7 @@ head(tab)
 <pre>
 #&gt; # A tibble: 6 × 4
 #&gt;   state      population total murder_rate
-#&gt;   <chr>      <chr>      <chr>       &lt;dbl&gt;
+#&gt;   &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;       &lt;dbl&gt;
 #&gt; 1 Alabama    4,853,875  348           7.2
 #&gt; 2 Alaska     737,709    59            8  
 #&gt; 3 Arizona    6,817,565  309           4.5
@@ -2092,66 +2092,66 @@ tab &lt;- request(url) |&gt;
 
         </section>
 
-        <section xml:id="sec-extracting-data-from-web-exercises">
+        <exercises xml:id="sec-extracting-data-from-web-exercises">
           <title>Exercises</title>
 
-          <ol>
-            <li><p>Visit the following web page: <url href="https://web.archive.org/web/20181024132313/http://www.stevetheump.com/Payrolls.htm">https://web.archive.org/web/20181024132313/http://www.stevetheump.com/Payrolls.htm</url></p></li>
-          </ol>
+          <exercise>
+            <p>Visit the following web page: <url href="https://web.archive.org/web/20181024132313/http://www.stevetheump.com/Payrolls.htm">https://web.archive.org/web/20181024132313/http://www.stevetheump.com/Payrolls.htm</url></p>
+          </exercise>
 
           <p>Notice there are several tables. Say we are interested in comparing the payrolls of teams across the years. The next few exercises take us through the steps needed to do this.</p>
 
           <p>Start by applying what you learned to read in the website into an object called <c>h</c>.</p>
 
-          <ol>
-            <li><p>Note that, although not very useful, we can actually see the content of the page by typing:</p></li>
+          <exercise>
+            <p>Note that, although not very useful, we can actually see the content of the page by typing:</p>
           <program language="r">
             <input>
 html_text(h)
             </input>
           </program>
 
-          </ol>
+          </exercise>
 
           <p>The next step is to extract the tables. For this, we can use the <c>html_nodes</c> function. We learned that tables in html are associated with the <c>table</c> node.  Use the <c>html_nodes</c> function to extract all tables. Store it in an object <c>nodes</c>.</p>
 
-          <ol>
-            <li><p>The <c>html_nodes</c> function returns a list of objects of class <c>xml_node</c>. We can see the content of each one using, for example, the <c>html_text</c> function. You can see the content for an arbitrarily picked component like this:</p></li>
+          <exercise>
+            <p>The <c>html_nodes</c> function returns a list of objects of class <c>xml_node</c>. We can see the content of each one using, for example, the <c>html_text</c> function. You can see the content for an arbitrarily picked component like this:</p>
           <program language="r">
             <input>
 html_text(nodes[[8]])
             </input>
           </program>
 
-          </ol>
+          </exercise>
 
           <p>If the content of this object is an html table, we can use the <c>html_table</c> function to convert it to a data frame. Use the <c>html_table</c> function to convert the 8th entry of <c>nodes</c> into a table.</p>
 
-          <ol>
-            <li><p>Repeat the above for the first 4 components of <c>nodes</c>. Which of the following are payroll tables:</p></li>
-          </ol>
+          <exercise>
+            <p>Repeat the above for the first 4 components of <c>nodes</c>. Which of the following are payroll tables:</p>
+          </exercise>
 
           <p>a. All of them. b. 1 c. 2 d. 2-4</p>
 
-          <ol>
-            <li><p>Repeat the above for the first <alert>last</alert> 3 components of <c>nodes</c>. Which of the following is true:</p></li>
-          </ol>
+          <exercise>
+            <p>Repeat the above for the first <alert>last</alert> 3 components of <c>nodes</c>. Which of the following is true:</p>
+          </exercise>
 
           <p>a. The last entry in <c>nodes</c> shows the average across all teams through time, not payroll per team. b. All three are payroll per team tables. c. All three are like the first entry, not a payroll table. d. All of the above.</p>
 
-          <ol>
-            <li><p>We have learned that the first and last entries of <c>nodes</c> are not payroll tables. Redefine <c>nodes</c> so that these two are removed.</p></li>
-            <li><p>We saw in the previous analysis that the first table node is not actually a table. This happens sometimes in html because tables are used to make text look a certain way, as opposed to storing numeric values. </p></li>
-          </ol>
+          <exercise>
+            <p>We have learned that the first and last entries of <c>nodes</c> are not payroll tables. Redefine <c>nodes</c> so that these two are removed.</p>
+            <p>We saw in the previous analysis that the first table node is not actually a table. This happens sometimes in html because tables are used to make text look a certain way, as opposed to storing numeric values. </p>
+          </exercise>
 
           <p>Remove the first component and then use <c>sapply</c> and <c>html_table</c> to convert each node in <c>nodes</c> into a table. Note that in this case, <c>sapply</c> will return a list of tables. You can also use <c>lapply</c> to assure that a list is applied.</p>
 
-          <ol>
-            <li><p>Look through the resulting tables. Are they all the same? Could we just join them with <c>bind_rows</c>? </p></li>
-            <li><p>Create two tables, call them <c>tab_1</c> and <c>tab_2</c> using the 10th and 19th tables in <c>nodes</c>.</p></li>
-            <li><p>Use a <c>full_join</c> function to combine these two tables. Before you do this you will have to fix the missing header problem. You will also need to make the names match.</p></li>
-            <li><p>After joining the tables, you see several <c>NA</c>s. This is because some teams are in one table and not the other. Use the <c>anti_join</c> function to get a better idea of why this is happening.</p></li>
-            <li><p>We see see that one of the problems is that Yankees are listed as both <em>N.Y. Yankees</em> and <em>NY Yankees</em>. In the next section, we will learn efficient approaches to fixing problems like this. Here we can do it "by hand" as follows:</p></li>
+          <exercise>
+            <p>Look through the resulting tables. Are they all the same? Could we just join them with <c>bind_rows</c>? </p>
+            <p>Create two tables, call them <c>tab_1</c> and <c>tab_2</c> using the 10th and 19th tables in <c>nodes</c>.</p>
+            <p>Use a <c>full_join</c> function to combine these two tables. Before you do this you will have to fix the missing header problem. You will also need to make the names match.</p>
+            <p>After joining the tables, you see several <c>NA</c>s. This is because some teams are in one table and not the other. Use the <c>anti_join</c> function to get a better idea of why this is happening.</p>
+            <p>We see see that one of the problems is that Yankees are listed as both <em>N.Y. Yankees</em> and <em>NY Yankees</em>. In the next section, we will learn efficient approaches to fixing problems like this. Here we can do it "by hand" as follows:</p>
           <program language="r">
             <input>
 tab_1 &lt;- tab_1 |&gt;
@@ -2159,15 +2159,15 @@ tab_1 &lt;- tab_1 |&gt;
             </input>
           </program>
 
-          </ol>
+          </exercise>
 
           <p>Now join the tables and show only Oakland and the Yankees and the payroll columns.</p>
 
-          <ol>
-            <li><p>Advanced: extract the titles of the movies that won Best Picture from IMDB.</p></li>
-          </ol>
+          <exercise>
+            <p>Advanced: extract the titles of the movies that won Best Picture from IMDB.</p>
+          </exercise>
 
-        </section>
+        </exercises>
         
       </chapter>
 
