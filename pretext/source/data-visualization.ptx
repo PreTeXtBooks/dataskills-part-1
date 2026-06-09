@@ -1950,7 +1950,7 @@ Source: The 2011 State of the Union Address</url>)</p>
           <figure>
             <image source="images/area-not-radius-1.png" width="70%"/>
           </figure>
-          <p>Not surprisingly, __ggplot2__ defaults to using area rather than radius. Of course, in this case, we really should not be using area at all since we can use position and length:</p>
+          <p>Not surprisingly, <alert>ggplot2</alert> defaults to using area rather than radius. Of course, in this case, we really should not be using area at all since we can use position and length:</p>
 
           <figure>
             <image source="images/barplot-better-than-area-1.png" width="70%"/>
@@ -1960,7 +1960,7 @@ Source: The 2011 State of the Union Address</url>)</p>
         <section xml:id="sec-order-categories-by-a-meaningful-value">
           <title>Order categories by a meaningful value</title>
 
-          <p>When one of the axes is used to show categories, as is done in barplots and boxplots, the default __ggplot2__ behavior is to order the categories alphabetically when they are defined by character strings. If they are defined by factors, they are ordered by the factor levels. We rarely want to use alphabetical order. Instead, we should order by a meaningful quantity. In all the cases above, the barplots were ordered by the values being displayed. The exception was the graph showing barplots comparing browsers. In this case, we kept the order the same across the barplots to ease the comparison. Specifically, instead of ordering the browsers separately in the two years, we ordered both years by the average value of 2000 and 2015.</p>
+          <p>When one of the axes is used to show categories, as is done in barplots and boxplots, the default <alert>ggplot2</alert> behavior is to order the categories alphabetically when they are defined by character strings. If they are defined by factors, they are ordered by the factor levels. We rarely want to use alphabetical order. Instead, we should order by a meaningful quantity. In all the cases above, the barplots were ordered by the values being displayed. The exception was the graph showing barplots comparing browsers. In this case, we kept the order the same across the barplots to ease the comparison. Specifically, instead of ordering the browsers separately in the two years, we ordered both years by the average value of 2000 and 2015.</p>
 
           <p>To appreciate how the right order can help convey a message, suppose we want to create a plot to compare the murder rate across states. We are particularly interested in the most dangerous and safest states. Note the difference when we order alphabetically (the default) versus when we order by the actual rate:</p>
 
@@ -1988,7 +1988,7 @@ Source: The 2011 State of the Union Address</url>)</p>
           </figure>
           <p>The average of each group is represented by the top of each bar and the antennae extend out from the average to the average plus two standard errors.  If all ET receives is this plot, he will have little information on what to expect if he meets a group of human males and females. The bars go to 0: does this mean there are tiny humans measuring less than one foot? Are all males taller than the tallest females? Is there a range of heights? ET can't answer these questions since we have provided almost no information on the height distribution.</p>
 
-          <p>This brings us the "show the data" principle. This simple __ggplot2__ code already generates a more informative plot than the barplot by simply showing all the data points:</p>
+          <p>This brings us the "show the data" principle. This simple <alert>ggplot2</alert> code already generates a more informative plot than the barplot by simply showing all the data points:</p>
 
           <figure>
             <image source="images/show-data-2-1.png" width="70%"/>
@@ -2118,7 +2118,7 @@ Source: The 2011 State of the Union Address</url>)</p>
           <figure>
             <image source="images/boxplots-not-adjacent-1.png" width="70%"/>
           </figure>
-          <p>The default in __ggplot2__ is to order labels alphabetically so the labels with 1970 come before the labels with 2010, making the comparisons challenging because a continent's distribution in 1970 is visually far from its distribution in 2010. It is much easier to make the comparison between 1970 and 2010 for each continent when the boxplots for that continent are next to each other:</p>
+          <p>The default in <alert>ggplot2</alert> is to order labels alphabetically so the labels with 1970 come before the labels with 2010, making the comparisons challenging because a continent's distribution in 1970 is visually far from its distribution in 2010. It is much easier to make the comparison between 1970 and 2010 for each continent when the boxplots for that continent are next to each other:</p>
 
           <figure>
             <image source="images/boxplot-adjacent-comps-1.png" width="70%"/>
@@ -2133,7 +2133,7 @@ Source: The 2011 State of the Union Address</url>)</p>
         <section xml:id="sec-think-of-the-color-blind">
           <title>Think of the color blind</title>
 
-          <p>About 10% of the population is color blind. Unfortunately, the default colors used in __ggplot2__ are not optimal for this group. However, __ggplot2__ does make it easy to change the color palette used in the plots. An example of how we can use a color blind friendly palette is described in the R cookbook:</p>
+          <p>About 10% of the population is color blind. Unfortunately, the default colors used in <alert>ggplot2</alert> are not optimal for this group. However, <alert>ggplot2</alert> does make it easy to change the color palette used in the plots. An example of how we can use a color blind friendly palette is described in the R cookbook:</p>
 
           <program language="r">
             <input>
@@ -2162,7 +2162,7 @@ color_blind_friendly_cols &lt;-
 
             <p>One exception where another type of plot may be more informative is when you are comparing variables of the same type, but at different time points and for a relatively small number of comparisons. For example, comparing life expectancy between 2010 and 2015. In this case, we might recommend a <em>slope chart</em>.</p>
 
-            <p>There is no geometry for slope charts in __ggplot2__, but we can construct one using <c>geom_line</c>. We need to do some tinkering to add labels. Below is an example comparing 2010 to 2015 for large western countries:</p>
+            <p>There is no geometry for slope charts in <alert>ggplot2</alert>, but we can construct one using <c>geom_line</c>. We need to do some tinkering to add labels. Below is an example comparing 2010 to 2015 for large western countries:</p>
 
           <figure>
             <image source="images/slope-plot-1.png" width="70%"/>
@@ -2297,11 +2297,10 @@ California	Polio     	 0.8	 2.0	 0.3	  NA	  NA
 
         </section>
 
-
         <exercises xml:id="sec-dataviz-principles-exercises">
           <title>Exercises</title>
 
-          <p>For these exercises, we will be using the vaccines data in the __dslabs__ package:</p>
+          <p>For these exercises, we will be using the vaccines data in the <alert>dslabs</alert> package:</p>
 
           <program language="r">
             <input>
@@ -2314,7 +2313,7 @@ library(dslabs)
 
 <ol>
 <li><p>When we want to display percentages</p></li>
-<li><p>When __ggplot2__ is not available</p></li>
+<li><p>When <alert>ggplot2</alert> is not available</p></li>
 <li><p>When I am in a bakery</p></li>
 <li><p>Never</p></li>
 <li><p>Barplots and tables are always better.</p></li>
@@ -3403,7 +3402,7 @@ f(p) = \log \left( \frac{p}{1-p} \right)
           <subsection xml:id="subsec-vaccine-data">
             <title>Vaccine data</title>
 
-            <p>The data used for these plots were collected, organized, and distributed by the Tycho Project. They include weekly reported counts for seven diseases from 1928 to 2011, from all fifty states. We include the yearly totals in the __dslabs__ package:</p>
+            <p>The data used for these plots were collected, organized, and distributed by the Tycho Project. They include weekly reported counts for seven diseases from 1928 to 2011, from all fifty states. We include the yearly totals in the <alert>dslabs</alert> package:</p>
 
             <program language="r">
               <input>
