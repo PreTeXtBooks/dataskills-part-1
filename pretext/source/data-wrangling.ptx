@@ -1209,7 +1209,7 @@ month(dates, label = TRUE)
           </program>
 <pre>
 #&gt;  [1] May Aug Aug Sep Sep Oct Oct Oct Oct Oct
-#&gt; 12 Levels: Jan < Feb < Mar < Apr < May < Jun < Jul < Aug < ... < Dec
+#&gt; 12 Levels: Jan &lt; Feb &lt; Mar &lt; Apr &lt; May &lt; Jun &lt; Jul &lt; Aug &lt; ... &lt; Dec
 </pre>
 
           <p>Another useful set of functions are the <em>parsers</em> that convert strings into dates. The function <c>ymd</c> assumes the dates are in the format YYYY-MM-DD and tries to parse as well as possible.</p>
@@ -1424,6 +1424,9 @@ head(pr_death_counts)
 Sys.getlocale()
             </input>
           </program>
+<pre>
+#&gt; [1] "en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8"
+</pre>
 
           <p>To set a specific locale, use the <c>Sys.setlocale()</c> function. For example, to set the locale to US English:</p>
 
@@ -1432,6 +1435,9 @@ Sys.getlocale()
 Sys.setlocale("LC_ALL", "en_US.UTF-8")
             </input>
           </program>
+<pre>
+#&gt; [1] "en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8"
+</pre>
 
           <p>The exact string to use for setting the locale (like "en_US.UTF-8") can depend on your operating system and its configuration.</p>
 
@@ -1461,19 +1467,25 @@ library(readr)
 locale()
             </input>
           </program>
-
-          <program language="r">
-            <input>
-#| echo: false
-options(readr.show_col_types = FALSE)
-            </input>
-          </program>
+<pre>
+#&gt; &lt;locale&gt;
+#&gt; Numbers:  123,456.78
+#&gt; Formats:  %AD / %AT
+#&gt; Timezone: UTC
+#&gt; Encoding: UTF-8
+#&gt; &lt;date_names&gt;
+#&gt; Days:   Sunday (Sun), Monday (Mon), Tuesday (Tue), Wednesday (Wed),
+#&gt;         Thursday (Thu), Friday (Fri), Saturday (Sat)
+#&gt; Months: January (Jan), February (Feb), March (Mar), April (Apr), May
+#&gt;         (May), June (Jun), July (Jul), August (Aug), September
+#&gt;         (Sep), October (Oct), November (Nov), December (Dec)
+#&gt; AM/PM:  AM/PM
+</pre>
 
           <p>You can see all the locales available on your system by typing:</p>
 
           <program language="r">
             <input>
-#| eval: false
 system("locale -a")
             </input>
           </program>
@@ -1485,7 +1497,21 @@ system("locale -a")
 locale(date_names = "es")
             </input>
           </program>
-
+<pre>
+#&gt; &lt;locale&gt;
+#&gt; Numbers:  123,456.78
+#&gt; Formats:  %AD / %AT
+#&gt; Timezone: UTC
+#&gt; Encoding: UTF-8
+#&gt; &lt;date_names&gt;
+#&gt; Days:   domingo (dom.), lunes (lun.), martes (mar.), miércoles (mié.),
+#&gt;         jueves (jue.), viernes (vie.), sábado (sáb.)
+#&gt; Months: enero (ene.), febrero (feb.), marzo (mar.), abril (abr.), mayo
+#&gt;         (may.), junio (jun.), julio (jul.), agosto (ago.),
+#&gt;         septiembre (sept.), octubre (oct.), noviembre (nov.),
+#&gt;         diciembre (dic.)
+#&gt; AM/PM:  a. m./p. m.
+</pre>
         </section>
 
         <section xml:id="sec-example-wrangling-a-spanish-dataset">
@@ -1506,12 +1532,14 @@ fn &lt;- file.path(system.file("extdata", package = "dslabs"), "calificaciones.c
 guess_encoding(fn)$encoding[1]
             </input>
           </program>
+<pre>
+#&gt; [1] "ISO-8859-1"
+</pre>
 
           <p>and used the <c>locale</c> function to change this and read in this encoding instead:</p>
 
           <program language="r">
             <input>
-#| eval: false
 dat &lt;- read_csv(fn, locale = locale(encoding = "ISO-8859-1"))
             </input>
           </program>
@@ -1523,7 +1551,16 @@ dat &lt;- read_csv(fn, locale = locale(encoding = "ISO-8859-1"))
 read_lines(fn, locale = locale(encoding = "ISO-8859-1"))
             </input>
           </program>
-
+<pre>
+#&gt; [1] "\"nombre\",\"f.n.\",\"estampa\",\"puntuación\""                       
+#&gt; [2] "\"Beyoncé\",\"04 de septiembre de 1981\",2023-09-22 02:11:02,\"87,5\""
+#&gt; [3] "\"Blümchen\",\"20 de abril de 1980\",2023-09-22 03:23:05,\"99,0\""    
+#&gt; [4] "\"João\",\"10 de junio de 1931\",2023-09-21 22:43:28,\"98,9\""        
+#&gt; [5] "\"López\",\"24 de julio de 1969\",2023-09-22 01:06:59,\"88,7\""       
+#&gt; [6] "\"Ñengo\",\"15 de diciembre de 1981\",2023-09-21 23:35:37,\"93,1\""   
+#&gt; [7] "\"Plácido\",\"24 de enero de 1941\",2023-09-21 23:17:21,\"88,7\""     
+#&gt; [8] "\"Thalía\",\"26 de agosto de 1971\",2023-09-21 23:08:02,\"83,0\""
+</pre>
           <p>As an illustrative example, we will write code to compute the students age and check if they turned in their assignment by the deadline of September 21, 2023, before midnight.</p>
 
           <p>We can read in the file with correct encoding like this:</p>
@@ -1541,7 +1578,9 @@ dat &lt;- read_csv(fn, locale = locale(encoding = "ISO-8859-1"))
 dat$puntuación
             </input>
           </program>
-
+<pre>
+#&gt; [1] 875 990 989 887 931 887 830
+</pre>
           <p>This happens because the scores in the file use the European decimal point, which confuses <c>read_csv</c>.</p>
 
           <p>To address this issue, we can also change the encoding to use European decimals, which fixes the problem:</p>
@@ -1553,17 +1592,24 @@ dat &lt;- read_csv(fn, locale = locale(decimal_mark = ",",
 dat$puntuación
             </input>
           </program>
-
+<pre>
+#&gt; [1] 87.5 99.0 98.9 88.7 93.1 88.7 83.0
+</pre>
           <p>Now, to compute the student ages, let's try changing the submission times to date format:</p>
 
           <program language="r">
             <input>
-if (!requireNamespace("lubridate", quietly = TRUE)) tryCatch(install.packages("lubridate", repos = "https://cloud.r-project.org"), error = function(e) invisible(NULL))
 library(lubridate)
 dmy(dat$f.n.)
             </input>
           </program>
+<pre>
+#&gt; [1] "1981-09-04" "1980-04-20" "1931-06-10" "1969-07-24" "1981-12-15"
+#&gt; [6] "1941-01-24" "1971-08-26"
 
+#&gt; Warning: All formats failed to parse. No formats found.
+#&gt; [1] NA NA NA NA NA NA NA
+</pre>
           <p>Nothing gets converted correctly. This is because the dates are in Spanish. We can change the locale to use Spanish as the language for dates:</p>
 
           <program language="r">
@@ -1571,7 +1617,10 @@ dmy(dat$f.n.)
 parse_date(dat$f.n., format = "%d de %B de %Y", locale = locale(date_names = "es"))
             </input>
           </program>
-
+<pre>
+#&gt; [1] "1981-09-04" "1980-04-20" "1931-06-10" "1969-07-24" "1981-12-15"
+#&gt; [6] "1941-01-24" "1971-08-26"
+</pre>
           <p>We can also reread the file using the correct locales:</p>
 
           <program language="r">
@@ -1590,6 +1639,9 @@ dat &lt;- read_csv(fn, locale = locale(date_names = "es",
 time_length(today() - dat$f.n., unit = "years") |&gt; floor()
             </input>
           </program>
+<pre>
+#&gt; [1] 44 46 94 56 44 85 54
+</pre>
 
           <p>Finally, let's check which students turned in their homework past the deadline of September 22:</p>
 
@@ -1598,7 +1650,9 @@ time_length(today() - dat$f.n., unit = "years") |&gt; floor()
 dat$estampa &gt;= make_date(2023, 9, 22)
             </input>
           </program>
-
+<pre>
+#&gt; [1]  TRUE  TRUE FALSE  TRUE FALSE FALSE FALSE
+</pre>
           <p>We see that two students where late. However, with times we have to be particularly careful as some functions default to the UTC timezone:</p>
 
           <program language="r">
@@ -1606,7 +1660,9 @@ dat$estampa &gt;= make_date(2023, 9, 22)
 tz(dat$estampa)
             </input>
           </program>
-
+<pre>
+#&gt; [1] "UTC"
+</pre>
           <p>If we change to the timezone to Eastern Standard Time (EST), we see no one was late:</p>
 
           <program language="r">
@@ -1614,7 +1670,9 @@ tz(dat$estampa)
 with_tz(dat$estampa, tz =  "EST") &gt;= make_date(2023, 9, 22)
             </input>
           </program>
-
+<pre>
+#&gt; [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+</pre>
         </section>
 
         <section xml:id="sec-locales-exercises">
