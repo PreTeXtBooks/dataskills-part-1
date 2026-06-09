@@ -258,7 +258,7 @@ dat
 </pre>
           <p>The data is now in tidy format with one row for each observation with three variables: year, fertility, and life expectancy.</p>
 
-          <p>Three related function are <c>separate_wider_position</c>, <c>separate_wider_regex</c>, and <c>unite</c>. <c>separate_wider_position</c> takes a width instead of delimiter. <c>separate_wider_regex</c>, described in <xref ref="sec-separate"/>_regex, provides much more control over how we separate and what we keep. The <c>unite</c> function can be thought of as the inverse of the <c>separate</c> function: it combines two columns into one.</p>
+          <p>Three related function are <c>separate_wider_position</c>, <c>separate_wider_regex</c>, and <c>unite</c>. <c>separate_wider_position</c> takes a width instead of delimiter. <c>separate_wider_regex</c>, described in <xref ref="sec-separate_regex"/>, provides much more control over how we separate and what we keep. The <c>unite</c> function can be thought of as the inverse of the <c>separate</c> function: it combines two columns into one.</p>
 
         </section>
 
