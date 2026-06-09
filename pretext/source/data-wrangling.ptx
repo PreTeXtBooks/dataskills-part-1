@@ -2213,13 +2213,13 @@ head(reported_heights)
             </input>
           </program>
 <pre>
-#>            time_stamp    sex height
-#> 1 2014-09-02 13:40:36   Male     75
-#> 2 2014-09-02 13:46:59   Male     70
-#> 3 2014-09-02 13:59:20   Male     68
-#> 4 2014-09-02 14:51:53   Male     74
-#> 5 2014-09-02 15:16:15   Male     61
-#> 6 2014-09-02 15:16:16 Female     65
+#&gt;            time_stamp    sex height
+#&gt; 1 2014-09-02 13:40:36   Male     75
+#&gt; 2 2014-09-02 13:46:59   Male     70
+#&gt; 3 2014-09-02 13:59:20   Male     68
+#&gt; 4 2014-09-02 14:51:53   Male     74
+#&gt; 5 2014-09-02 15:16:15   Male     61
+#&gt; 6 2014-09-02 15:16:16 Female     65
 </pre>
 
           <p>These heights were obtained using a web form in which students were asked to enter their heights. They could enter anything, but the instructions asked for <em>height in inches</em>, a number. We compiled <c>prettyNum(nrow(reported_heights), big.mark=",")</c> submissions, but unfortunately the column vector with the reported heights had several non-numeric entries and as a result became a character vector:</p>
@@ -2230,7 +2230,7 @@ class(reported_heights$height)
             </input>
           </program>
 <pre>
-#> [1] "character"
+#&gt; [1] "character"
 </pre>
           <p>If we try to parse it into numbers, we get a warning:</p>
 
@@ -2240,7 +2240,7 @@ x &lt;- as.numeric(reported_heights$height)
             </input>
           </program>
 <pre>
-#> Warning: NAs introduced by coercion
+#&gt; Warning: NAs introduced by coercion
 </pre>
           <p>Although most values appear to be height in inches as requested we do end up with many <c>NA</c>s:</p>
 
@@ -2250,7 +2250,7 @@ sum(is.na(x))
             </input>
           </program>
 <pre>
-#> [1] 81
+#&gt; [1] 81
 </pre>
           <p>Here are some of the entries that are not successfully converted:</p>
 
@@ -2263,17 +2263,17 @@ reported_heights |&gt;
             </input>
           </program>
 <pre>
-#>             time_stamp    sex                 height new_height
-#> 1  2014-09-02 15:16:28   Male                  5' 4"         NA
-#> 2  2014-09-02 15:16:37 Female                  165cm         NA
-#> 3  2014-09-02 15:16:52   Male                    5'7         NA
-#> 4  2014-09-02 15:16:56   Male                  >9000         NA
-#> 5  2014-09-02 15:16:56   Male                   5'7"         NA
-#> 6  2014-09-02 15:17:09 Female                   5'3"         NA
-#> 7  2014-09-02 15:18:00   Male 5 feet and 8.11 inches         NA
-#> 8  2014-09-02 15:19:48   Male                   5'11         NA
-#> 9  2014-09-04 00:46:45   Male                  5'9''         NA
-#> 10 2014-09-04 10:29:44   Male                 5'10''         NA
+#&gt;             time_stamp    sex                 height new_height
+#&gt; 1  2014-09-02 15:16:28   Male                  5' 4"         NA
+#&gt; 2  2014-09-02 15:16:37 Female                  165cm         NA
+#&gt; 3  2014-09-02 15:16:52   Male                    5'7         NA
+#&gt; 4  2014-09-02 15:16:56   Male                  >9000         NA
+#&gt; 5  2014-09-02 15:16:56   Male                   5'7"         NA
+#&gt; 6  2014-09-02 15:17:09 Female                   5'3"         NA
+#&gt; 7  2014-09-02 15:18:00   Male 5 feet and 8.11 inches         NA
+#&gt; 8  2014-09-02 15:19:48   Male                   5'11         NA
+#&gt; 9  2014-09-04 00:46:45   Male                  5'9''         NA
+#&gt; 10 2014-09-04 10:29:44   Male                 5'10''         NA
 </pre>
           <p>We immediately see what is happening. Some of the students did not report their heights in inches as requested. We could discard these data and continue. However, many of the entries follow patterns that, in principle, we can easily convert to inches. For example, in the output above, we see various cases that use the format <c>x'y"</c> or <c>x'y''</c> with <c>x</c> and <c>y</c> representing feet and inches, respectively. Each one of these cases can be read and converted to inches by a human, for example <c>5'4"</c> is <c>5*12 + 4 = 64</c>. So we could fix all the problematic entries <em>by hand</em>. However, humans are prone to making mistakes, so an automated approach is preferable. Also, because we plan on continuing to collect data, it will be convenient to write code that automatically corrects entries entered in error.</p>
 
@@ -2301,7 +2301,7 @@ length(problems)
             </input>
           </program>
 <pre>
-#> [1] 292
+#&gt; [1] 292
 </pre>
 
           <p>We can now view all the cases by simply printing them. If we do, we see that three patterns can be used to define three large groups within these exceptions.</p>
@@ -2313,7 +2313,7 @@ length(problems)
 
           <program language="r">
             <input>
-#> 5' 4" 5'7 5'7" 5'3" 5'11 5'9'' 5'10'' 5' 10 5'5" 5'2"
+#&gt; 5' 4" 5'7 5'7" 5'3" 5'11 5'9'' 5'10'' 5' 10 5'5" 5'2"
             </input>
           </program>
 </li>
@@ -2323,7 +2323,7 @@ length(problems)
 
           <program language="r">
             <input>
-#> 5.3 5.5 6.5 5.8 5.6 5,3 5.9 6,8 5.5 6.2
+#&gt; 5.3 5.5 6.5 5.8 5.6 5,3 5.9 6,8 5.5 6.2
             </input>
           </program>
 </li>
@@ -2333,7 +2333,7 @@ length(problems)
 
           <program language="r">
             <input>
-#> 150 175 177 178 163 175 178 165 165 180
+#&gt; 150 175 177 178 163 175 178 165 165 180
             </input>
           </program>
 </li>
@@ -2415,7 +2415,7 @@ cat(s)
             </input>
           </program>
 <pre>
-#> 10"
+#&gt; 10"
 </pre>
 
           <p>Now, what if we want our string to be 5 feet written like this <c>5'</c>? In this case, we can use the double quotes or escape the single quote</p>
@@ -2463,7 +2463,7 @@ str_detect(c("1", "10", "100", "1,000", "10,000"), pattern)
               </input>
             </program>
 <pre>
-#> [1] FALSE FALSE FALSE  TRUE  TRUE
+#&gt; [1] FALSE FALSE FALSE  TRUE  TRUE
 </pre>
 
             <p>Above, we noted that an entry included a <c>cm</c>. This is also a simple example of a regex. We can show all the entries that used <c>cm</c> like this:</p>
@@ -2474,7 +2474,7 @@ str_subset(reported_heights$height, "cm")
               </input>
             </program>
 <pre>
-#> [1] "165cm"  "170 cm"
+#&gt; [1] "165cm"  "170 cm"
 </pre>
 
           </subsection>
@@ -2500,7 +2500,7 @@ str_detect(s, "cm") | str_detect(s, "inches")
               </input>
             </program>
 <pre>
-#> [1]  TRUE  TRUE FALSE FALSE
+#&gt; [1]  TRUE  TRUE FALSE FALSE
 </pre>
             <p>However, we don't need to do this. The main feature that distinguishes the regex <em>language</em> from plain strings is that we can use special characters. These are characters with a meaning. We start by introducing <c>|</c> which means <em>or</em>. So if we want to know if either <c>cm</c> or <c>inches</c> appears in the strings, we can use the regex <c>cm|inches</c>:</p>
 
@@ -2510,7 +2510,7 @@ str_detect(s, "cm|inches")
               </input>
             </program>
 <pre>
-#> [1]  TRUE  TRUE FALSE FALSE
+#&gt; [1]  TRUE  TRUE FALSE FALSE
 </pre>
 
             <p>and obtain the correct answer.</p>
@@ -2533,7 +2533,7 @@ str_detect(s, pattern)
               </input>
             </program>
 <pre>
-#> [1]  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE
+#&gt; [1]  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE
 </pre>
 
             <p>We take this opportunity to introduce the <c>str_view</c> function, which is helpful for troubleshooting as it shows us all matches for each string that has matches. Each match is surrounded by the characters <c>&lt;</c> and <c>&gt;</c>. Below, we see that <c>5</c> has one match and <c>5'10</c> has three matches.</p>
@@ -2592,7 +2592,7 @@ str_detect(s, "[4-7]")
               </input>
             </program>
 <pre>
-#> [1]  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE
+#&gt; [1]  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE
 </pre>
 
             <p>However, it is important to know that in regex everything is a character; there are no numbers. So <c>4</c> is the character <c>4</c> not the number four. Notice, for example, that <c>[1-20]</c> does <alert>not</alert> mean 1 through 20, it means the characters 1 through 2 or the character 0. So <c>[1-20]</c> simply means the character class composed of 0, 1, and 2.</p>
@@ -2840,9 +2840,9 @@ str_subset(problems, "inches")
               </input>
             </program>
 <pre>
-#> [1] "5 feet and 8.11 inches" "Five foot eight inches"
-#> [3] "5 feet 7inches"         "5ft 9 inches"          
-#> [5] "5 ft 9 inches"          "5 feet 6 inches"
+#&gt; [1] "5 feet and 8.11 inches" "Five foot eight inches"
+#&gt; [3] "5 feet 7inches"         "5ft 9 inches"          
+#&gt; [5] "5 ft 9 inches"          "5 feet 6 inches"
 </pre>
 
             <p>We also see that some entries used two single quotes <c>''</c> instead of a double quote <c>"</c>.</p>
@@ -2853,8 +2853,8 @@ str_subset(problems, "''")
               </input>
             </program>
 <pre>
-#>  [1] "5'9''"   "5'10''"  "5'10''"  "5'3''"   "5'7''"   "5'6''"  
-#>  [7] "5'7.5''" "5'7.5''" "5'10''"  "5'11''"  "5'10''"  "5'5''"
+#&gt;  [1] "5'9''"   "5'10''"  "5'10''"  "5'3''"   "5'7''"   "5'6''"  
+#&gt;  [7] "5'7.5''" "5'7.5''" "5'10''"  "5'11''"  "5'10''"  "5'5''"
 </pre>
 
             <p>To correct this, we can replace the different ways of representing inches and feet with a uniform symbol. We will use <c>'</c> for feet, whereas for inches we will simply not use a symbol since some entries were of the form <c>x'y</c>. Now, if we no longer use the inches symbol, we have to change our pattern accordingly:</p>
@@ -2877,7 +2877,7 @@ problems |&gt;
               </input>
             </program>
 <pre>
-#> [1] 48
+#&gt; [1] 48
 </pre>
             <p>However, we still have many cases to go.</p>
 
@@ -2896,7 +2896,7 @@ problems |&gt;
               </input>
             </program>
 <pre>
-#> [1] 53
+#&gt; [1] 53
 </pre>
 
             <p>We might be tempted to avoid doing this by removing all the spaces with <c>str_replace_all</c>. However, when doing such an operation we need to make sure that it does not have unintended effects. In our reported heights examples, this will be a problem because some entries are of the form <c>x y</c> with space separating the feet from the inches. If we remove all spaces, we will incorrectly turn <c>x y</c> into <c>xy</c> which implies that a <c>6 1</c> would become <c>61</c> inches instead of <c>73</c> inches.</p>
@@ -2945,7 +2945,7 @@ str_subset(problems, pattern_with_groups) |&gt; head()
               </input>
             </program>
 <pre>
-#> [1] "5.3"  "5.25" "5.5"  "6.5"  "5.8"  "5.6"
+#&gt; [1] "5.3"  "5.25" "5.5"  "6.5"  "5.8"  "5.6"
 </pre>
 
             <p>and will be able to perform the search and replace:</p>
@@ -2957,7 +2957,7 @@ str_subset(problems, pattern_with_groups) |&gt;
               </input>
             </program>
 <pre>
-#> [1] "5'3"  "5'25" "5'5"  "6'5"  "5'8"  "5'6"
+#&gt; [1] "5'3"  "5'25" "5'5"  "6'5"  "5'8"  "5'6"
 </pre>
             <p>Again, we will deal with the inches-larger-than-twelve challenge later.</p>
 
@@ -3011,13 +3011,13 @@ tab |&gt; separate_wider_regex(x, patterns = patterns)
               </input>
             </program>
 <pre>
-#> # A tibble: 4 × 2
-#>   feet  inches
-#>   <chr> <chr> 
-#> 1 5     10    
-#> 2 6     1     
-#> 3 5     9     
-#> 4 5     11
+#&gt; # A tibble: 4 × 2
+#&gt;   feet  inches
+#&gt;   &lt;chr&gt; &lt;chr&gt; 
+#&gt; 1 5     10    
+#&gt; 2 6     1     
+#&gt; 3 5     9     
+#&gt; 4 5     11
 </pre>
 
             <p>By not naming the second and fourth entries of <c>patterns</c> we tell the function not to keep the values that match that pattern.</p>
@@ -3099,7 +3099,7 @@ length(problems)
             </input>
           </program>
 <pre>
-#> [1] 200
+#&gt; [1] 200
 </pre>
 
           <p>Let's see how many feet<c>'</c>inches format we can recover applying the finding from <xref ref="sec-regex"/>. Specifically we replace feet/foot/ft with <c>'</c>, we remove the word inches and its abbreviations, then rewrite similar patterns into the desired feet<c>'</c>inches pattern. Once this is done we see what proportion don't fit the desired pattern</p>
@@ -3115,7 +3115,7 @@ mean(!index)
             </input>
           </program>
 <pre>
-#> [1] 0.385
+#&gt; [1] 0.385
 </pre>
           <p>We see that a substantial proportion has not yet been fixed. Trial and error is a common approach to finding the regex pattern that satisfies all desired conditions. We can examine the remaining cases to try to decipher if new patterns we can use to fix them:</p>
 
@@ -3125,26 +3125,26 @@ converted[!index]
             </input>
           </program>
 <pre>
-#>  [1] "6"             "165cm"         "511"           "6"            
-#>  [5] "2"             ">9000"         "5 ' and 8.11 " "11111"        
-#>  [9] "6"             "103.2"         "19"            "5"            
-#> [13] "300"           "6'"            "6"             "Five ' eight "
-#> [17] "7"             "214"           "6"             "0.7"          
-#> [21] "6"             "2'33"          "612"           "1,70"         
-#> [25] "87"            "5'7.5"         "5'7.5"         "111"          
-#> [29] "5' 7.78"       "12"            "6"             "yyy"          
-#> [33] "89"            "34"            "25"            "6"            
-#> [37] "6"             "22"            "684"           "6"            
-#> [41] "1"             "1"             "6*12"          "87"           
-#> [45] "6"             "1.6"           "120"           "120"          
-#> [49] "23"            "1.7"           "6"             "5"            
-#> [53] "69"            "5' 9 "         "5 ' 9 "        "6"            
-#> [57] "6"             "86"            "708,661"       "5 ' 6 "       
-#> [61] "6"             "649,606"       "10000"         "1"            
-#> [65] "728,346"       "0"             "6"             "6"            
-#> [69] "6"             "100"           "88"            "6"            
-#> [73] "170 cm"        "7,283,465"     "5"             "5"            
-#> [77] "34"
+#&gt;  [1] "6"             "165cm"         "511"           "6"            
+#&gt;  [5] "2"             ">9000"         "5 ' and 8.11 " "11111"        
+#&gt;  [9] "6"             "103.2"         "19"            "5"            
+#&gt; [13] "300"           "6'"            "6"             "Five ' eight "
+#&gt; [17] "7"             "214"           "6"             "0.7"          
+#&gt; [21] "6"             "2'33"          "612"           "1,70"         
+#&gt; [25] "87"            "5'7.5"         "5'7.5"         "111"          
+#&gt; [29] "5' 7.78"       "12"            "6"             "yyy"          
+#&gt; [33] "89"            "34"            "25"            "6"            
+#&gt; [37] "6"             "22"            "684"           "6"            
+#&gt; [41] "1"             "1"             "6*12"          "87"           
+#&gt; [45] "6"             "1.6"           "120"           "120"          
+#&gt; [49] "23"            "1.7"           "6"             "5"            
+#&gt; [53] "69"            "5' 9 "         "5 ' 9 "        "6"            
+#&gt; [57] "6"             "86"            "708,661"       "5 ' 6 "       
+#&gt; [61] "6"             "649,606"       "10000"         "1"            
+#&gt; [65] "728,346"       "0"             "6"             "6"            
+#&gt; [69] "6"             "100"           "88"            "6"            
+#&gt; [73] "170 cm"        "7,283,465"     "5"             "5"            
+#&gt; [77] "34"
 </pre>
 
           <p>We noticed that two students added <c>cm</c> and some entries have space at the end so we write incorporate this into our cleanup stage. We also notice that at least one entry wrote out numbers such as <c>Five foot eight inches</c>. We can use  the <c>words()</c> function in the <alert>english</alert> package to change these to actual numbers. In preparation for our final product, we define a function that cleans up previously noticed problems and these new ones:</p>
@@ -3222,15 +3222,15 @@ new_heights |&gt; filter(is.na(height)) |&gt; pull(original)
             </input>
           </program>
 <pre>
-#>  [1] "511"       ">9000"     "5.25"      "11111"     "103.2"    
-#>  [6] "19"        "300"       "5.75"      "7"         "214"      
-#> [11] "0.7"       "2'33"      "612"       "87"        "111"      
-#> [16] "12"        "yyy"       "89"        "34"        "25"       
-#> [21] "22"        "684"       "1"         "1"         "6*12"     
-#> [26] "87"        "120"       "120"       "23"        "5.51"     
-#> [31] "5.69"      "86"        "708,661"   "5.25"      "649,606"  
-#> [36] "10000"     "1"         "728,346"   "0"         "100"      
-#> [41] "5.57"      "88"        "7,283,465" "34"
+#&gt;  [1] "511"       ">9000"     "5.25"      "11111"     "103.2"    
+#&gt;  [6] "19"        "300"       "5.75"      "7"         "214"      
+#&gt; [11] "0.7"       "2'33"      "612"       "87"        "111"      
+#&gt; [16] "12"        "yyy"       "89"        "34"        "25"       
+#&gt; [21] "22"        "684"       "1"         "1"         "6*12"     
+#&gt; [26] "87"        "120"       "120"       "23"        "5.51"     
+#&gt; [31] "5.69"      "86"        "708,661"   "5.25"      "649,606"  
+#&gt; [36] "10000"     "1"         "728,346"   "0"         "100"      
+#&gt; [41] "5.57"      "88"        "7,283,465" "34"
 </pre>
 
           <p>You can review the ones we did fix by typing:</p>
@@ -3253,15 +3253,15 @@ new_heights |&gt; arrange(height) |&gt; head(n = 6)
             </input>
           </program>
 <pre>
-#> # A tibble: 6 × 4
-#>   time_stamp          sex    height original
-#>   <chr>               <chr>   <dbl> <chr>   
-#> 1 2017-07-04 01:30:25 Male       50 50      
-#> 2 2017-09-07 10:40:35 Male       50 50      
-#> 3 2014-09-02 15:18:30 Female     51 51      
-#> 4 2016-06-05 14:07:20 Female     52 52      
-#> 5 2016-06-05 14:07:38 Female     52 52      
-#> # ℹ 1 more row
+#&gt; # A tibble: 6 × 4
+#&gt;   time_stamp          sex    height original
+#&gt;   &lt;chr&gt;               &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;   
+#&gt; 1 2017-07-04 01:30:25 Male       50 50      
+#&gt; 2 2017-09-07 10:40:35 Male       50 50      
+#&gt; 3 2014-09-02 15:18:30 Female     51 51      
+#&gt; 4 2016-06-05 14:07:20 Female     52 52      
+#&gt; 5 2016-06-05 14:07:38 Female     52 52      
+#&gt; # ℹ 1 more row
 </pre>
           <p>We see heights of 50, 51, 52, and so on. These short heights are rare and it is likely that the students actually meant 5'0,  5'1, 5'2 and so on. Because we are not completely sure, we will leave them as reported. The object new_heights contains our final solution for this case study.</p>
 
@@ -3280,16 +3280,16 @@ research_funding_rates |&gt;
             </input>
           </program>
 <pre>
-#>            discipline success_rates_men success_rates_women
-#> 1   Chemical sciences              26.5                25.6
-#> 2   Physical sciences              19.3                23.1
-#> 3             Physics              26.9                22.2
-#> 4          Humanities              14.3                19.3
-#> 5  Technical sciences              15.9                21.0
-#> 6   Interdisciplinary              11.4                21.8
-#> 7 Earth/life sciences              24.4                14.3
-#> 8     Social sciences              15.3                11.5
-#> 9    Medical sciences              18.8                11.2
+#&gt;            discipline success_rates_men success_rates_women
+#&gt; 1   Chemical sciences              26.5                25.6
+#&gt; 2   Physical sciences              19.3                23.1
+#&gt; 3             Physics              26.9                22.2
+#&gt; 4          Humanities              14.3                19.3
+#&gt; 5  Technical sciences              15.9                21.0
+#&gt; 6   Interdisciplinary              11.4                21.8
+#&gt; 7 Earth/life sciences              24.4                14.3
+#&gt; 8     Social sciences              15.3                11.5
+#&gt; 9    Medical sciences              18.8                11.2
 </pre>
 
           <p>The data comes from a paper published in the Proceedings of the National Academy of Science (PNAS), a widely read scientific journal. However, the data is not provided in a spreadsheet; it is in a table in a PDF document. Here is a screenshot of the table:</p>
@@ -3382,8 +3382,8 @@ the_names_1
             </input>
           </program>
 <pre>
-#>      [,1]           [,2]     [,3]           
-#> [1,] "Applications" "Awards" "Success rates"
+#&gt;      [,1]           [,2]     [,3]           
+#&gt; [1,] "Applications" "Awards" "Success rates"
 </pre>
 
           <p>Now we will look at <c>the_names_2</c>:</p>
@@ -3406,10 +3406,10 @@ the_names_2
             </input>
           </program>
 <pre>
-#>      [,1]         [,2]    [,3]  [,4]    [,5]    [,6]  [,7]    [,8]   
-#> [1,] "Discipline" "Total" "Men" "Women" "Total" "Men" "Women" "Total"
-#>      [,9]  [,10]  
-#> [1,] "Men" "Women"
+#&gt;      [,1]         [,2]    [,3]  [,4]    [,5]    [,6]  [,7]    [,8]   
+#&gt; [1,] "Discipline" "Total" "Men" "Women" "Total" "Men" "Women" "Total"
+#&gt;      [,9]  [,10]  
+#&gt; [1,] "Men" "Women"
 </pre>
 
           <p>We can then join these to generate one name for each column:</p>
@@ -3424,10 +3424,10 @@ the_names
             </input>
           </program>
 <pre>
-#>  [1] "discipline"          "applications_total"  "applications_men"   
-#>  [4] "applications_women"  "awards_total"        "awards_men"         
-#>  [7] "awards_women"        "success_rates_total" "success_rates_men"  
-#> [10] "success_rates_women"
+#&gt;  [1] "discipline"          "applications_total"  "applications_men"   
+#&gt;  [4] "applications_women"  "awards_total"        "awards_men"         
+#&gt;  [7] "awards_women"        "success_rates_total" "success_rates_men"  
+#&gt; [10] "success_rates_women"
 </pre>
 
           <p>Now we are ready to get the actual data. By examining the <c>tab</c> object, we notice that the information is in lines 6 through 14. We can use <c>str_split</c> again to achieve our goal:</p>
@@ -3444,18 +3444,18 @@ new_research_funding_rates |&gt; as_tibble()
             </input>
           </program>
 <pre>
-#> # A tibble: 9 × 10
-#>   discipline      applications_total applications_men applications_women
-#>   <chr>                        <dbl>            <dbl>              <dbl>
-#> 1 Chemical scien…                122               83                 39
-#> 2 Physical scien…                174              135                 39
-#> 3 Physics                         76               67                  9
-#> 4 Humanities                     396              230                166
-#> 5 Technical scie…                251              189                 62
-#> # ℹ 4 more rows
-#> # ℹ 6 more variables: awards_total <dbl>, awards_men <dbl>,
-#> #   awards_women <dbl>, success_rates_total <dbl>,
-#> #   success_rates_men <dbl>, success_rates_women <dbl>
+#&gt; # A tibble: 9 × 10
+#&gt;   discipline      applications_total applications_men applications_women
+#&gt;   &lt;chr&gt;                        &lt;dbl&gt;            &lt;dbl&gt;              &lt;dbl&gt;
+#&gt; 1 Chemical scien…                122               83                 39
+#&gt; 2 Physical scien…                174              135                 39
+#&gt; 3 Physics                         76               67                  9
+#&gt; 4 Humanities                     396              230                166
+#&gt; 5 Technical scie…                251              189                 62
+#&gt; # ℹ 4 more rows
+#&gt; # ℹ 6 more variables: awards_total &lt;dbl&gt;, awards_men &lt;dbl&gt;,
+#&gt; #   awards_women &lt;dbl&gt;, success_rates_total &lt;dbl&gt;,
+#&gt; #   success_rates_men &lt;dbl&gt;, success_rates_women &lt;dbl&gt;
 </pre>
 
           <p>We can see that the objects are identical:</p>
@@ -3466,7 +3466,7 @@ identical(research_funding_rates, new_research_funding_rates)
             </input>
           </program>
 <pre>
-#> [1] TRUE
+#&gt; [1] TRUE
 </pre>
 
         </section>
@@ -3701,27 +3701,16 @@ library(pdftools)
         <section xml:id="sec-case-study-trump-tweets">
           <title>Case study: Trump tweets</title>
 
-          <p>During the 2016 US presidential election, then candidate Donald J. Trump used his twitter account as a way to communicate with potential voters. On August 6, 2016, Todd Vaziri tweeted about Trump that "Every non-hyperbolic tweet is from iPhone (his staff). Every hyperbolic tweet is from Android (from him)." David Robinson conducted an analysis to determine if data supported this assertion. Here, we go through David's analysis to learn some of the basics of text analysis. To learn more about text analysis in R, we recommend the Text Mining with R book by Julia Silge and David Robinson.</p>
-
-          <program language="r">
-            <input>
-set.seed(2002)
-            </input>
-          </program>
+          <p>During the 2016 US presidential election, then candidate Donald J. Trump used his twitter account as a way to communicate with potential voters. On August 6, 2016, <url href = "https://twitter.com/tvaziri/status/762005541388378112/photo/1">Todd Vaziri tweeted</url> about Trump that "Every non-hyperbolic tweet is from iPhone (his staff). Every hyperbolic tweet is from Android (from him)." <url href = "http://varianceexplained.org/r/trump-tweets/">David Robinson conducted an analysis</url> to determine if data supported this assertion. Here, we go through David's analysis to learn some of the basics of text analysis. To learn more about text analysis in R, we recommend the <url href = "https://www.tidytextmining.com/">Text Mining with R</url> book by Julia Silge and David Robinson<fn>For the PreTeXt version: <url href = "https://pretextbooks.github.io/tidy-text-mining/">https://pretextbooks.github.io/tidy-text-mining/</url></fn>.</p>
 
           <p>We will use the following libraries:</p>
 
           <program language="r">
             <input>
-if (!requireNamespace("tidyverse", quietly = TRUE)) tryCatch(install.packages("tidyverse", repos = "https://cloud.r-project.org"), error = function(e) invisible(NULL))
 library(tidyverse)
-if (!requireNamespace("scales", quietly = TRUE)) tryCatch(install.packages("scales", repos = "https://cloud.r-project.org"), error = function(e) invisible(NULL))
 library(scales)
-if (!requireNamespace("tidytext", quietly = TRUE)) tryCatch(install.packages("tidytext", repos = "https://cloud.r-project.org"), error = function(e) invisible(NULL))
 library(tidytext)
-if (!requireNamespace("textdata", quietly = TRUE)) tryCatch(install.packages("textdata", repos = "https://cloud.r-project.org"), error = function(e) invisible(NULL))
 library(textdata)
-if (!requireNamespace("dslabs", quietly = TRUE)) tryCatch(install.packages("dslabs", repos = "https://cloud.r-project.org"), error = function(e) invisible(NULL))
 library(dslabs)
             </input>
           </program>
@@ -3733,6 +3722,9 @@ library(dslabs)
 range(trump_tweets$created_at)
             </input>
           </program>
+<pre>
+#&gt; [1] "2009-05-04 13:54:25 EST" "2018-01-01 08:37:52 EST"
+</pre>
 
           <p>The data frame includes the the following variables:</p>
 
@@ -3741,6 +3733,12 @@ range(trump_tweets$created_at)
 names(trump_tweets)
             </input>
           </program>
+<pre>
+#&gt; [1] "source"                  "id_str"                 
+#&gt; [3] "text"                    "created_at"             
+#&gt; [5] "retweet_count"           "in_reply_to_user_id_str"
+#&gt; [7] "favorite_count"          "is_retweet"
+</pre>
 
           <p>The help file <c>?trump_tweets</c> provides details on what each variable represents. The actual tweets are in the <c>text</c> variable:</p>
 
@@ -3749,6 +3747,10 @@ names(trump_tweets)
 trump_tweets$text[16413] |&gt; str_wrap(width = options()$width) |&gt; cat()
             </input>
           </program>
+<pre>
+#&gt; Great to be back in Iowa! #TBT with @JerryJrFalwell joining me in
+#&gt; Davenport- this past winter. #MAGA https://t.co/A5IF0QHnic
+</pre>
 
           <p>and the source variable tells us which device was used to compose and upload each tweet:</p>
 
@@ -3757,6 +3759,14 @@ trump_tweets$text[16413] |&gt; str_wrap(width = options()$width) |&gt; cat()
 trump_tweets |&gt; count(source) |&gt; arrange(desc(n)) |&gt; head(5)
             </input>
           </program>
+<pre>
+#&gt;                source     n
+#&gt; 1  Twitter Web Client 10718
+#&gt; 2 Twitter for Android  4652
+#&gt; 3  Twitter for iPhone  3962
+#&gt; 4           TweetDeck   468
+#&gt; 5     TwitLonger Beta   288
+</pre>
 
           <p>We are interested in what happened during the 2016 campaign, so for this analysis we will focus on what was tweeted between the day Trump announced his campaign and election day. We define the following table containing just the tweets from that time period. We remove the <c>Twitter for</c> part of the source, only keep tweets from Android or iPhone, and filter out retweets.</p>
 
@@ -3791,6 +3801,10 @@ campaign_tweets |&gt;
             </input>
           </program>
 
+            <figure>
+              <image source="images/tweets-by-time-by-device-1.png"/>
+            </figure>
+
           <p>We notice a big peak for the Android in the early hours of the morning, between 6 and 8 AM. There seems to be a clear difference in these patterns. We will therefore assume that two different entities are using these two devices.</p>
 
           <p>We will now study how the text of the tweets differ when we compare Android to iPhone. To do this, we introduce the <alert>tidytext</alert> package.</p>
@@ -3814,6 +3828,25 @@ example
 example |&gt; unnest_tokens(word, text)
             </input>
           </program>
+<pre>
+#&gt; # A tibble: 4 × 2
+#&gt;    line text             
+#&gt;   &lt;dbl&gt; &lt;chr&gt;            
+#&gt; 1     1 Roses are red,   
+#&gt; 2     2 Violets are blue,
+#&gt; 3     3 Sugar is sweet,  
+#&gt; 4     4 And so are you.
+
+#&gt; # A tibble: 13 × 2
+#&gt;    line word   
+#&gt;   &lt;dbl&gt; &lt;chr&gt;  
+#&gt; 1     1 roses  
+#&gt; 2     1 are    
+#&gt; 3     1 red    
+#&gt; 4     2 violets
+#&gt; 5     2 are    
+#&gt; # ℹ 8 more rows
+</pre>
 
           <p>Now let's look at Trump's tweets. We will look at tweet number 3008 because it will later permit us to illustrate a couple of points:</p>
 
@@ -3826,6 +3859,17 @@ campaign_tweets[i,] |&gt;
   pull(word) 
             </input>
           </program>
+<pre>
+#&gt; Great to be back in Iowa! #TBT with @JerryJrFalwell joining me in
+#&gt; Davenport- this past winter. #MAGA https://t.co/A5IF0QHnic
+</pre>
+<pre>
+#&gt;  [1] "great"          "to"             "be"             "back"          
+#&gt;  [5] "in"             "iowa"           "tbt"            "with"          
+#&gt;  [9] "jerryjrfalwell" "joining"        "me"             "in"            
+#&gt; [13] "davenport"      "this"           "past"           "winter"        
+#&gt; [17] "maga"           "https"          "t.co"           "a5if0qhnic"
+</pre>
 
           <p>Note that the function tries to convert tokens into words. A minor adjustment is to remove the links to pictures:</p>
 
@@ -3838,6 +3882,13 @@ campaign_tweets[i,] |&gt;
   pull(word)
             </input>
           </program>
+<pre>
+#&gt;  [1] "great"          "to"             "be"             "back"          
+#&gt;  [5] "in"             "iowa"           "tbt"            "with"          
+#&gt;  [9] "jerryjrfalwell" "joining"        "me"             "in"            
+#&gt; [13] "davenport"      "this"           "past"           "winter"        
+#&gt; [17] "maga"
+</pre>
 
           <p>Now we are now ready to extract the words from all our tweets.</p>
 
@@ -3858,6 +3909,17 @@ tweet_words |&gt;
   arrange(desc(n))
             </input>
           </program>
+<pre>
+#&gt; # A tibble: 6,264 × 2
+#&gt;   word      n
+#&gt;   &lt;chr&gt; <int>
+#&gt; 1 the    2330
+#&gt; 2 to     1413
+#&gt; 3 and    1245
+#&gt; 4 in     1190
+#&gt; 5 i      1151
+#&gt; # ℹ 6,259 more rows
+</pre>
 
           <p>It is not surprising that these are the top words, which are not informative. The <em>tidytext</em> package has a database of these commonly used words, referred to as <em>stop words</em>, in text analysis:</p>
 
@@ -3866,6 +3928,17 @@ tweet_words |&gt;
 head(stop_words)
             </input>
           </program>
+<pre
+#&gt; # A tibble: 6 × 2
+#&gt;   word  lexicon
+#&gt;   &lt;chr&gt; &lt;chr&gt;  
+#&gt; 1 a     SMART  
+#&gt; 2 a's   SMART  
+#&gt; 3 able  SMART  
+#&gt; 4 about SMART  
+#&gt; 5 above SMART  
+#&gt; # ℹ 1 more row
+</pre>
 
           <p>If we filter out rows representing stop words with <c>filter(!word %in% stop_words$word)</c>:</p>
 
@@ -3888,6 +3961,17 @@ tweet_words |&gt;
   arrange(desc(n))
             </input>
           </program>
+<pre>
+#&gt; # A tibble: 10 × 2
+#&gt;   word                      n
+#&gt;   &lt;chr&gt;                 <int>
+#&gt; 1 trump2016               415
+#&gt; 2 hillary                 407
+#&gt; 3 people                  304
+#&gt; 4 makeamericagreatagain   298
+#&gt; 5 america                 255
+#&gt; # ℹ 5 more rows
+</pre>
 
           <p>Some exploration of the resulting words (not shown here) reveals a couple of unwanted characteristics in our tokens. First, some of our tokens are just numbers (years, for example). We want to remove these and we can find them using the regex <c>^\d+$</c>. Second, some of our tokens come from a quote and they start with <c>'</c>. We want to remove the <c>'</c> when it is at the start of a word so we will just <c>str_replace</c>. We add these two lines to the code above to generate our final table:</p>
 
@@ -3924,6 +4008,17 @@ android_vs_iphone &lt;- tweet_words |&gt;
 android_vs_iphone |&gt; filter(Android + iPhone &gt;= 100) |&gt; arrange(desc(ratio))
             </input>
           </program>
+<pre>
+#&gt; # A tibble: 30 × 6
+#&gt;   word        Android iPhone     p_a     p_i ratio
+#&gt;   &lt;chr&gt;         <int>  <int>   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1 bad             104     26 0.00648 0.00191  3.39
+#&gt; 2 crooked         156     49 0.00971 0.00357  2.72
+#&gt; 3 cnn             116     37 0.00723 0.00271  2.67
+#&gt; 4 ted              86     28 0.00537 0.00206  2.61
+#&gt; 5 interviewed      76     25 0.00475 0.00184  2.58
+#&gt; # ℹ 25 more rows
+</pre>
 
           <p>and the top for iPhone:</p>
 
@@ -3932,6 +4027,17 @@ android_vs_iphone |&gt; filter(Android + iPhone &gt;= 100) |&gt; arrange(desc(ra
 android_vs_iphone |&gt; filter(Android + iPhone &gt;= 100) |&gt;  arrange(ratio)
             </input>
           </program>
+<pre>
+#&gt; # A tibble: 30 × 6
+#&gt;   word                  Android iPhone       p_a     p_i   ratio
+#&gt;   &lt;chr&gt;                   <int>  <int>     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+#&gt; 1 makeamericagreatagain       0    298 0.0000310 0.0216  0.00144
+#&gt; 2 trump2016                   3    412 0.000217  0.0298  0.00729
+#&gt; 3 join                        1    157 0.0000930 0.0114  0.00818
+#&gt; 4 tomorrow                   24    101 0.00152   0.00733 0.207  
+#&gt; 5 vote                       46     67 0.00288   0.00487 0.592  
+#&gt; # ℹ 25 more rows
+</pre>
 
           <p>We already see somewhat of a pattern in the types of words that are being tweeted more from one device versus the other. However, we are not interested in specific words but rather in the tone. Vaziri's assertion is that the Android tweets are more hyperbolic. So how can we check this with data? <em>Hyperbolic</em> is a hard sentiment to extract from words as it relies on interpreting phrases. However, words can be associated to more basic sentiment such as anger, fear, joy, and surprise. In the next section, we demonstrate basic sentiment analysis.</p>
 
@@ -3967,6 +4073,17 @@ get_sentiments("afinn")
 get_sentiments("nrc") |&gt; count(sentiment)
             </input>
           </program>
+<pre>
+#&gt; # A tibble: 10 × 2
+#&gt;   sentiment        n
+#&gt;   &lt;chr&gt;        <int>
+#&gt; 1 anger         1245
+#&gt; 2 anticipation   837
+#&gt; 3 disgust       1056
+#&gt; 4 fear          1474
+#&gt; 5 joy            687
+#&gt; # ℹ 5 more rows
+</pre>
 
           <p>For our analysis, we are interested in exploring the different sentiments of each tweet so we will use the <c>nrc</c> lexicon:</p>
 
@@ -3985,6 +4102,16 @@ tweet_words |&gt; inner_join(nrc, by = "word", relationship = "many-to-many") |&
   sample_n(5)
             </input>
           </program>
+<pre>
+#&gt; # A tibble: 5 × 3
+#&gt;   source  word     sentiment   
+#&gt;   &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;       
+#&gt; 1 Android enjoy    joy         
+#&gt; 2 iPhone  terrific sadness     
+#&gt; 3 iPhone  tactics  trust       
+#&gt; 4 Android clue     anticipation
+#&gt; 5 iPhone  change   fear
+</pre>
 
           <note>
             <p><c>relationship = "many-to-many"</c> is added to address a warning that arises from <c>left_join</c> detecting an "unexpected many-to-many relationship". However, this behavior is actually expected in this context because many words have multiple sentiments associated with them.</p>
@@ -4012,7 +4139,17 @@ sentiment_counts &lt;- sentiment_counts |&gt;
 sentiment_counts
             </input>
           </program>
-
+<pre>
+#&gt; # A tibble: 11 × 6
+#&gt;   sentiment Android iPhone    p_a    p_i ratio
+#&gt;   &lt;chr&gt;       <int>  <int>  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1 disgust       639    314 0.0290 0.0178  1.63
+#&gt; 2 anger         962    527 0.0437 0.0298  1.47
+#&gt; 3 negative     1657    931 0.0753 0.0527  1.43
+#&gt; 4 sadness       901    514 0.0409 0.0291  1.41
+#&gt; 5 fear          799    486 0.0363 0.0275  1.32
+#&gt; # ℹ 6 more rows
+</pre>
           <p>So we do see some differences and the order is interesting: the largest three sentiments are disgust, anger, and negative!</p>
 
           <p>If we are interested in exploring which specific words are driving these differences, we can refer back to our <c>android_vs_iphone</c> object. For each sentiment we show the 10 largest ratios, in either direction. We exclude words appearing less than 10 times total.</p>
@@ -4037,11 +4174,15 @@ android_vs_iphone |&gt;
             </input>
           </program>
 
+            <figure>
+              <image source="images/percent-diff-by-word-1.png"/>
+            </figure>
+
           <p>This is just a simple example of the many analyses one can perform with tidytext. To learn more, we again recommend the Tidy Text Mining book.</p>
 
         </section>
 
-        <section xml:id="sec-text-analysis-exercises">
+                <exercises xml:id="sec-text-analysis-exercises">
           <title>Exercises</title>
 
           <p>Project Gutenberg is a digital archive of public domain books. The R package <alert>gutenbergr</alert> facilitates the importation of these texts into R.</p>
@@ -4063,20 +4204,20 @@ gutenberg_metadata
             </input>
           </program>
 
-          <ol>
-            <li><p>Use <c>str_detect</c> to find the ID of the novel <em>Pride and Prejudice</em>.</p></li>
-            <li><p>We notice that there are several versions. The <c>gutenberg_works()</c> function filters this table to remove replicates and include only English language works. Read the help file and use this function to find the ID for <em>Pride and Prejudice</em>.</p></li>
-            <li><p>Use the <c>gutenberg_download</c> function to download the text for Pride and Prejudice. Save it to an object called <c>book</c>.</p></li>
-            <li><p>Use the <alert>tidytext</alert> package to create a tidy table with all the words in the text. Save the table in an object called <c>words</c></p></li>
-            <li><p>We will later make a plot of sentiment versus location in the book. For this, it will be useful to add a column with the word number to the table.</p></li>
-            <li><p>Remove the stop words and numbers from the <c>words</c> object. Hint: use the <c>anti_join</c>.</p></li>
-            <li><p>Now use the <c>AFINN</c> lexicon to assign a sentiment value to each word.</p></li>
-            <li><p>Make a plot of sentiment score versus location in the book and add a smoother.</p></li>
-            <li><p>Assume there are 300 words per page. Convert the locations to pages and then compute the average sentiment in each page. Plot that average score by page. Add a smoother that appears to go through data.</p></li>
-          </ol>
+          <exercise>
+            <p>Use <c>str_detect</c> to find the ID of the novel <em>Pride and Prejudice</em>.</p>
+            <p>We notice that there are several versions. The <c>gutenberg_works()</c> function filters this table to remove replicates and include only English language works. Read the help file and use this function to find the ID for <em>Pride and Prejudice</em>.</p>
+            <p>Use the <c>gutenberg_download</c> function to download the text for Pride and Prejudice. Save it to an object called <c>book</c>.</p>
+            <p>Use the <alert>tidytext</alert> package to create a tidy table with all the words in the text. Save the table in an object called <c>words</c></p>
+            <p>We will later make a plot of sentiment versus location in the book. For this, it will be useful to add a column with the word number to the table.</p>
+            <p>Remove the stop words and numbers from the <c>words</c> object. Hint: use the <c>anti_join</c>.</p>
+            <p>Now use the <c>AFINN</c> lexicon to assign a sentiment value to each word.</p>
+            <p>Make a plot of sentiment score versus location in the book and add a smoother.</p>
+            <p>Assume there are 300 words per page. Convert the locations to pages and then compute the average sentiment in each page. Plot that average score by page. Add a smoother that appears to go through data.</p>
+          </exercise>
 
-        </section>
-        
+        </exercises>
+
       </chapter>
 
     </part>
