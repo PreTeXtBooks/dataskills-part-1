@@ -1444,8 +1444,6 @@ Sys.setlocale("LC_ALL", "en_US.UTF-8")
           <p>The exact string to use for setting the locale (like "en_US.UTF-8") can depend on your operating system and its configuration.</p>
 
           <p>The <c>LC_ALL</c> used in the above code refers to all locale categories. R, like many systems, breaks down the locale into categories, each responsible for different aspects listed below.</p>
-</p>
-<p>
           <ul>
 <li><p><c>LC_COLLATE</c>: for string collation</p></li>
 <li><p><c>LC_TIME</c>: date and time formatting</p></li>
