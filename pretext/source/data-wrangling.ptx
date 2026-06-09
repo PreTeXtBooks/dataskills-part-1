@@ -2901,7 +2901,6 @@ pattern &lt;- "^[4-7]'\\d{1,2}\"$"
 <li><p><c>\\d{1,2}</c> = one or two digits</p></li>
 <li><p><c>\"</c> = inches symbol</p></li>
 <li><p><c>$</c> = end of the string</p></li>
-<li><p>
 </ul>
 
             <p>Let's test it out:</p>
