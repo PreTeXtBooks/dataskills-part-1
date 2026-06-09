@@ -1415,7 +1415,7 @@ head(pr_death_counts)
           <p>In R, a <em>locale</em> refers to a suite of settings that dictate how the system should behave with respect to cultural conventions. These settings affect the way data is formatted and presented, encompassing details such as date formatting, currency symbols, decimal separators, and other related aspects.</p>
 
           <p>Locales in R affect several areas, including how character vectors are sorted, and date, number, and currency formatting. Additionally,  errors, warnings, and other messages might be translated into languages other than English based on the locale.</p>
-
+</section>
         <section xml:id="sec-locales-in-r">
           <title>Locales in R</title>
 
