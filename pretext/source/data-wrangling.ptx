@@ -1,7 +1,7 @@
     <part xml:id="part-data-wrangling">
       <title>Data Wrangling</title>
 <introduction>
-<title>Data Wrangling</title>
+<title>Introduction</title>
 <p>
 The datasets used in this book have been made available to you as R objects, specifically as data
 frames. The US murders data, the reported heights data, and the Gapminder data were all data frames. 
@@ -47,7 +47,7 @@ wide_data &lt;- read_csv(filename)
           </program>
 
         <section xml:id="sec-pivot-longer">
-          <title>`pivot_longer`</title>
+          <title><c>pivot_longer</c></title>
 
           <p>One of the most used functions in the <alert>tidyr</alert> package is <c>pivot_longer</c>, which is useful for converting wide data into tidy data.</p>
 
@@ -123,7 +123,7 @@ new_tidy_data |&gt;
         </section>
 
         <section xml:id="sec-pivot-wider">
-          <title>`pivot_wider`</title>
+          <title><c>pivot_wider</c></title>
 
           <p>As we will see in later examples, it is sometimes useful for data wrangling purposes to convert tidy data into wide data. We often use this as an intermediate step in tidying up data. The <c>pivot_wider</c> function is basically the inverse of <c>pivot_longer</c>. The first argument is for the data, but since we are using the pipe, we don't show it. The <c>names_from</c> argument tells <c>pivot_wider</c> which variable will be used as the column names. The <c>values_from</c> argument specifies which variable to use to fill out the cells.</p>
 
@@ -275,7 +275,7 @@ filename &lt;- file.path(path, "fertility-two-countries-example.csv")
           </program>
 
           <subsection xml:id="subsec-pivot-longer-is-melt">
-            <title>`pivot_longer` is `melt`</title>
+            <title><c>pivot_longer</c> is <c>melt</c></title>
 
             <p>If in <alert>tidyverse</alert> we  write</p>
 
@@ -306,7 +306,7 @@ dt_new_tidy_data  &lt;- melt(dt_wide_data,
           </subsection>
 
           <subsection xml:id="subsec-pivot-wider-is-dcast">
-            <title>`pivot_wider` is `dcast`</title>
+            <title><c>pivot_wider</c> is <c>dcast</c></title>
 
             <p>If in <alert>tidyverse</alert> we  write</p>
 
@@ -517,13 +517,20 @@ dat &lt;- admissions |&gt; select(-applicants)
 
           <program language="r">
             <input>
-if (!requireNamespace("tidyverse", quietly = TRUE)) tryCatch(install.packages("tidyverse", repos = "https://cloud.r-project.org"), error = function(e) invisible(NULL))
 library(tidyverse)
-if (!requireNamespace("dslabs", quietly = TRUE)) tryCatch(install.packages("dslabs", repos = "https://cloud.r-project.org"), error = function(e) invisible(NULL))
 library(dslabs)
 head(murders)
             </input>
           </program>
+<pre>
+#&gt;        state abb region population total
+#&gt; 1    Alabama  AL  South    4779736   135
+#&gt; 2     Alaska  AK   West     710231    19
+#&gt; 3    Arizona  AZ   West    6392017   232
+#&gt; 4   Arkansas  AR  South    2915918    93
+#&gt; 5 California  CA   West   37253956  1257
+#&gt; 6   Colorado  CO   West    5029196    65
+</pre>
 
           <p>and electoral votes in this one:</p>
 
@@ -532,6 +539,22 @@ head(murders)
 head(results_us_election_2016)
             </input>
           </program>
+<pre>
+#&gt;          state electoral_votes clinton trump johnson stein mcmullin
+#&gt; 1   California              55    61.7  31.6    3.37 1.965    0.279
+#&gt; 2        Texas              38    43.2  52.2    3.16 0.798    0.472
+#&gt; 3      Florida              29    47.8  49.0    2.20 0.684    0.000
+#&gt; 4     New York              29    59.0  36.5    2.29 1.398    0.134
+#&gt; 5     Illinois              20    55.8  38.8    3.79 1.387    0.211
+#&gt; 6 Pennsylvania              20    47.5  48.2    2.38 0.810    0.105
+#&gt;   others
+#&gt; 1 1.0383
+#&gt; 2 0.0992
+#&gt; 3 0.2732
+#&gt; 4 0.6591
+#&gt; 5 0.0294
+#&gt; 6 1.0571
+</pre>
 
           <p>Just concatenating these two tables together will not work since the order of the states is not the same.</p>
 
@@ -540,13 +563,15 @@ head(results_us_election_2016)
 identical(results_us_election_2016$state, murders$state)
             </input>
           </program>
-
+<pre>
+#&gt; [1] FALSE
+</pre>
           <p>The <em>join</em> functions, described below, are designed to handle this challenge.</p>
 
         <section xml:id="sec-joins">
           <title>Joins</title>
 
-          <p>The <em>join</em> functions in the __dplyr__ package make sure that the tables are combined so that matching rows are together. If you know SQL, you will see that the approach and syntax is very similar. The general idea is that one needs to identify one or more columns that will serve to match the two tables. Then a new table with the combined information is returned. Notice what happens if we join the two tables above by state using <c>left_join</c> (we will remove the <c>others</c> column and rename <c>electoral_votes</c> so that the tables fit on the page):</p>
+          <p>The <em>join</em> functions in the <alert>dplyr</alert> package make sure that the tables are combined so that matching rows are together. If you know SQL, you will see that the approach and syntax is very similar. The general idea is that one needs to identify one or more columns that will serve to match the two tables. Then a new table with the combined information is returned. Notice what happens if we join the two tables above by state using <c>left_join</c> (we will remove the <c>others</c> column and rename <c>electoral_votes</c> so that the tables fit on the page):</p>
 
           <program language="r">
             <input>
@@ -555,7 +580,22 @@ tab &lt;- left_join(murders, results_us_election_2016, by = "state") |&gt;
 head(tab)
             </input>
           </program>
-
+<pre>
+#&gt;        state abb region population total ev clinton trump johnson stein
+#&gt; 1    Alabama  AL  South    4779736   135  9    34.4  62.1    2.09 0.442
+#&gt; 2     Alaska  AK   West     710231    19  3    36.6  51.3    5.88 1.800
+#&gt; 3    Arizona  AZ   West    6392017   232 11    44.6  48.1    4.08 1.319
+#&gt; 4   Arkansas  AR  South    2915918    93  6    33.7  60.6    2.65 0.838
+#&gt; 5 California  CA   West   37253956  1257 55    61.7  31.6    3.37 1.965
+#&gt; 6   Colorado  CO   West    5029196    65  9    48.2  43.3    5.18 1.383
+#&gt;   mcmullin
+#&gt; 1    0.000
+#&gt; 2    0.000
+#&gt; 3    0.670
+#&gt; 4    1.165
+#&gt; 5    0.279
+#&gt; 6    1.040
+</pre>
           <p>The data has been successfully joined and we can now, for example, make a plot to explore the relationship:</p>
 
           <program language="r">
@@ -569,6 +609,10 @@ tab |&gt; ggplot(aes(population/10^6, ev, label = abb)) +
   geom_smooth(method = "lm", se = FALSE)
             </input>
           </program>
+
+<Figure>
+<image></image>
+</Figure>
 
           <p>We see the relationship is close to linear with about 2 electoral votes for every million persons, but with very small states getting higher ratios.</p>
 
@@ -596,7 +640,15 @@ tab_2 &lt;- results_us_election_2016 |&gt;
 left_join(tab_1, tab_2, by = "state")
               </input>
             </program>
-
+<pre>
+#&gt;        state population ev
+#&gt; 1    Alabama    4779736  9
+#&gt; 2     Alaska     710231  3
+#&gt; 3    Arizona    6392017 11
+#&gt; 4   Arkansas    2915918 NA
+#&gt; 5 California   37253956 55
+#&gt; 6   Colorado    5029196 NA
+</pre>
             <p>Note that <c>NA</c>s are added to the two states not appearing in <c>tab_2</c>. Also, notice that this function, as well as all the other joins, can receive the first arguments through the pipe:</p>
 
             <program language="r">
@@ -617,7 +669,15 @@ tab_1 |&gt; left_join(tab_2, by = "state")
 tab_1 |&gt; right_join(tab_2, by = "state")
               </input>
             </program>
-
+<pre>
+#&gt;         state population ev
+#&gt; 1     Alabama    4779736  9
+#&gt; 2      Alaska     710231  3
+#&gt; 3     Arizona    6392017 11
+#&gt; 4  California   37253956 55
+#&gt; 5 Connecticut         NA  7
+#&gt; 6    Delaware         NA  3
+</pre>
             <p>Now the NAs are in the column coming from <c>tab_1</c>.</p>
 
           </subsection>
@@ -632,7 +692,13 @@ tab_1 |&gt; right_join(tab_2, by = "state")
 inner_join(tab_1, tab_2, by = "state")
               </input>
             </program>
-
+<pre>
+#&gt;        state population ev
+#&gt; 1    Alabama    4779736  9
+#&gt; 2     Alaska     710231  3
+#&gt; 3    Arizona    6392017 11
+#&gt; 4 California   37253956 55
+</pre>
           </subsection>
 
           <subsection xml:id="subsec-full-join">
@@ -645,7 +711,17 @@ inner_join(tab_1, tab_2, by = "state")
 full_join(tab_1, tab_2, by = "state")
               </input>
             </program>
-
+<pre>
+#&gt;         state population ev
+#&gt; 1     Alabama    4779736  9
+#&gt; 2      Alaska     710231  3
+#&gt; 3     Arizona    6392017 11
+#&gt; 4    Arkansas    2915918 NA
+#&gt; 5  California   37253956 55
+#&gt; 6    Colorado    5029196 NA
+#&gt; 7 Connecticut         NA  7
+#&gt; 8    Delaware         NA  3
+</pre>
           </subsection>
 
           <subsection xml:id="subsec-semi-join">
@@ -658,7 +734,13 @@ full_join(tab_1, tab_2, by = "state")
 semi_join(tab_1, tab_2, by = "state")
               </input>
             </program>
-
+<pre>
+#&gt;        state population
+#&gt; 1    Alabama    4779736
+#&gt; 2     Alaska     710231
+#&gt; 3    Arizona    6392017
+#&gt; 4 California   37253956
+</pre>
           </subsection>
 
           <subsection xml:id="subsec-anti-join">
@@ -671,7 +753,11 @@ semi_join(tab_1, tab_2, by = "state")
 anti_join(tab_1, tab_2, by = "state")
               </input>
             </program>
-
+<pre>
+#&gt;      state population
+#&gt; 1 Arkansas    2915918
+#&gt; 2 Colorado    5029196
+</pre>
             <p>The following diagram summarizes the above joins:</p>
 
             <figure>
@@ -692,13 +778,13 @@ anti_join(tab_1, tab_2, by = "state")
           <subsection xml:id="subsec-binding-columns">
             <title>Binding columns</title>
 
-            <p>The __dplyr__ function _bind_cols_ binds two objects by making them columns in a tibble. For example, we quickly want to make a data frame consisting of numbers we can use</p>
+            <p>The <alert>dplyr</alert> function <c>bind_cols</c> binds two objects by making them columns in a tibble. For example, we quickly want to make a data frame consisting of numbers we can use</p>
 
-            <program language="r">
+            <sage language="r">
               <input>
 bind_cols(a = 1:3, b = 4:6)
               </input>
-            </program>
+            </sage>
 
             <p>This function requires that we assign names to the columns. Here we chose <c>a</c> and <c>b</c>.</p>
 
@@ -715,6 +801,15 @@ new_tab &lt;- bind_cols(tab_1, tab_2, tab_3)
 head(new_tab)
               </input>
             </program>
+<pre>
+#&gt;        state abb region population total ev clinton trump
+#&gt; 1    Alabama  AL  South    4779736   135  9    34.4  62.1
+#&gt; 2     Alaska  AK   West     710231    19  3    36.6  51.3
+#&gt; 3    Arizona  AZ   West    6392017   232 11    44.6  48.1
+#&gt; 4   Arkansas  AR  South    2915918    93  6    33.7  60.6
+#&gt; 5 California  CA   West   37253956  1257 55    61.7  31.6
+#&gt; 6   Colorado  CO   West    5029196    65  9    48.2  43.3
+</pre>
 
           </subsection>
 
@@ -730,7 +825,18 @@ tab_2 &lt;- tab[3:4,]
 bind_rows(tab_1, tab_2)
               </input>
             </program>
-
+<pre>
+#&gt;      state abb region population total ev clinton trump johnson stein
+#&gt; 1  Alabama  AL  South    4779736   135  9    34.4  62.1    2.09 0.442
+#&gt; 2   Alaska  AK   West     710231    19  3    36.6  51.3    5.88 1.800
+#&gt; 3  Arizona  AZ   West    6392017   232 11    44.6  48.1    4.08 1.319
+#&gt; 4 Arkansas  AR  South    2915918    93  6    33.7  60.6    2.65 0.838
+#&gt;   mcmullin
+#&gt; 1     0.00
+#&gt; 2     0.00
+#&gt; 3     0.67
+#&gt; 4     1.17
+</pre>
             <p>This is based on an R-base function <c>rbind</c>.</p>
 
           </subsection>
@@ -740,28 +846,28 @@ bind_rows(tab_1, tab_2)
         <section xml:id="sec-set-operators">
           <title>Set operators</title>
 
-          <p>Another set of commands useful for combining datasets are the set operators. When applied to vectors, these behave as their names suggest. Examples are <c>intersect</c>, <c>union</c>, <c>setdiff</c>, and <c>setequal</c>. However, if the __tidyverse__, or  more specifically __dplyr__, is loaded, these functions can be used on data frames as opposed to just on vectors.</p>
+          <p>Another set of commands useful for combining datasets are the set operators. When applied to vectors, these behave as their names suggest. Examples are <c>intersect</c>, <c>union</c>, <c>setdiff</c>, and <c>setequal</c>. However, if the <alert>tidyverse</alert>, or  more specifically <alert>dplyr</alert>, is loaded, these functions can be used on data frames as opposed to just on vectors.</p>
 
           <subsection xml:id="subsec-intersect">
             <title>Intersect</title>
 
             <p>You can take intersections of vectors of any type, such as numeric:</p>
 
-            <program language="r">
+            <sage language="r">
               <input>
 intersect(1:10, 6:15)
               </input>
-            </program>
+            </sage>
 
             <p>or characters:</p>
 
-            <program language="r">
+            <sage language="r">
               <input>
 intersect(c("a","b","c"), c("b","c","d"))
               </input>
-            </program>
+            </sage>
 
-            <p>The __dplyr__ package includes an <c>intersect</c> function that can be applied to tables with the same column names. This function returns the rows in common between two tables. To make sure we use the __dplyr__ version of <c>intersect</c> rather than the base R version, we can use <c>dplyr::intersect</c> like this:</p>
+            <p>The <alert>dplyr</alert> package includes an <c>intersect</c> function that can be applied to tables with the same column names. This function returns the rows in common between two tables. To make sure we use the <alert>dplyr</alert> version of <c>intersect</c> rather than the base R version, we can use <c>dplyr::intersect</c> like this:</p>
 
             <program language="r">
               <input>
@@ -770,6 +876,16 @@ tab_2 &lt;- tab[3:7,]
 dplyr::intersect(tab_1, tab_2)
               </input>
             </program>
+<pre>
+#&gt;        state abb region population total ev clinton trump johnson stein
+#&gt; 1    Arizona  AZ   West    6392017   232 11    44.6  48.1    4.08 1.319
+#&gt; 2   Arkansas  AR  South    2915918    93  6    33.7  60.6    2.65 0.838
+#&gt; 3 California  CA   West   37253956  1257 55    61.7  31.6    3.37 1.965
+#&gt;   mcmullin
+#&gt; 1    0.670
+#&gt; 2    1.165
+#&gt; 3    0.279
+</pre>
 
           </subsection>
 
@@ -778,14 +894,18 @@ dplyr::intersect(tab_1, tab_2)
 
             <p>Similarly <em>union</em> takes the union of vectors. For example:</p>
 
-            <program language="r">
+            <sage language="r">
               <input>
 union(1:10, 6:15)
+              </input>
+            </sage>
+            <sage language="r">
+              <input>
 union(c("a","b","c"), c("b","c","d"))
               </input>
-            </program>
+            </sage>
 
-            <p>The __dplyr__ package includes a version of <c>union</c> that combines all the rows of two tables with the same column names.</p>
+            <p>The <alert>dplyr</alert> package includes a version of <c>union</c> that combines all the rows of two tables with the same column names.</p>
 
             <program language="r">
               <input>
@@ -794,22 +914,44 @@ tab_2 &lt;- tab[3:7,]
 dplyr::union(tab_1, tab_2) 
               </input>
             </program>
-
+<pre>
+#&gt;         state abb    region population total ev clinton trump johnson
+#&gt; 1     Alabama  AL     South    4779736   135  9    34.4  62.1    2.09
+#&gt; 2      Alaska  AK      West     710231    19  3    36.6  51.3    5.88
+#&gt; 3     Arizona  AZ      West    6392017   232 11    44.6  48.1    4.08
+#&gt; 4    Arkansas  AR     South    2915918    93  6    33.7  60.6    2.65
+#&gt; 5  California  CA      West   37253956  1257 55    61.7  31.6    3.37
+#&gt; 6    Colorado  CO      West    5029196    65  9    48.2  43.3    5.18
+#&gt; 7 Connecticut  CT Northeast    3574097    97  7    54.6  40.9    2.96
+#&gt;   stein mcmullin
+#&gt; 1 0.442    0.000
+#&gt; 2 1.800    0.000
+#&gt; 3 1.319    0.670
+#&gt; 4 0.838    1.165
+#&gt; 5 1.965    0.279
+#&gt; 6 1.383    1.040
+#&gt; 7 1.389    0.128
+</pre>
           </subsection>
 
           <subsection xml:id="subsec-setdiff">
-            <title>`setdiff`</title>
+            <title><c>setdiff</c></title>
 
             <p>The set difference between a first and second argument can be obtained with <c>setdiff</c>. Unlike <c>intersect</c> and <c>union</c>, this function is not symmetric:</p>
 
-            <program language="r">
+            <sage language="r">
               <input>
 setdiff(1:10, 6:15)
+              </input>
+            </sage>
+
+            <sage language="r">
+              <input>
 setdiff(6:15, 1:10)
               </input>
-            </program>
+            </sage>
 
-            <p>As with the functions shown above, __dplyr__ has a version for data frames:</p>
+            <p>As with the functions shown above, <alert>dplyr</alert> has a version for data frames:</p>
 
             <program language="r">
               <input>
@@ -818,35 +960,42 @@ tab_2 &lt;- tab[3:7,]
 dplyr::setdiff(tab_1, tab_2)
               </input>
             </program>
-
+<pre>
+#&gt;     state abb region population total ev clinton trump johnson stein
+#&gt; 1 Alabama  AL  South    4779736   135  9    34.4  62.1    2.09 0.442
+#&gt; 2  Alaska  AK   West     710231    19  3    36.6  51.3    5.88 1.800
+#&gt;   mcmullin
+#&gt; 1        0
+#&gt; 2        0
+</pre>
           </subsection>
 
           <subsection xml:id="subsec-setequal">
-            <title>`setequal`</title>
+            <title><c>setequal</c></title>
 
             <p>Finally, the function <c>setequal</c> tells us if two sets are the same, regardless of order. So notice that:</p>
 
-            <program language="r">
+            <sage language="r">
               <input>
 setequal(1:5, 1:6)
               </input>
-            </program>
+            </sage>
 
             <p>but:</p>
 
-            <program language="r">
+            <sage language="r">
               <input>
 setequal(1:5, 5:1)
               </input>
-            </program>
+            </sage>
 
-            <p>The __dplyr__ version checks whether data frames are equal, regardless of order of rows <em>or</em> columns:</p>
+            <p>The <alert>dplyr</alert> version checks whether data frames are equal, regardless of order of rows <em>or</em> columns:</p>
 
-            <program language="r">
+            <sage language="r">
               <input>
 dplyr::setequal(tab_1, tab_2)
               </input>
-            </program>
+            </sage>
 
           </subsection>
 
@@ -885,7 +1034,7 @@ tab &lt;- merge(murders, results_us_election_2016, by = "state", all.x = TRUE)
           <title>Exercises</title>
 
           <ol>
-            <li><p>Install and load the __Lahman__ library. This database includes data related to baseball teams. It includes summary statistics about how the players performed on offense and defense for several years. It also includes personal information about the players.</p></li>
+            <li><p>Install and load the <alert>Lahman</alert> library. This database includes data related to baseball teams. It includes summary statistics about how the players performed on offense and defense for several years. It also includes personal information about the players.</p></li>
           </ol>
 
           <p>The <c>Batting</c> data frame contains the offensive statistics for all players for many years. You can see, for example, the top 10 hitters by running this code:</p>
@@ -1003,7 +1152,7 @@ polls_us_election_2016 |&gt; filter(pollster == "Ipsos" &amp; state == "U.S.") |
         <section xml:id="sec-lubridate">
           <title>The lubridate package</title>
 
-          <p>The __lubridate__ package provides tools to work with date and times.</p>
+          <p>The <alert>lubridate</alert> package provides tools to work with date and times.</p>
 
           <program language="r">
             <input>
@@ -1056,7 +1205,7 @@ ymd(x)
 
           <p>A further complication comes from the fact that dates often come in different formats in which the order of year, month, and day are different. The preferred format is to show year (with all four digits), month (two digits), and then day, or what is called the ISO 8601. Specifically we use YYYY-MM-DD so that if we order the string, it will be ordered by date. You can see the function <c>ymd</c> returns them in this format.</p>
 
-          <p>But, what if you encounter dates such as "09/01/02"? This could be September 1, 2002 or January 2, 2009 or January 9, 2002. In these cases, examining the entire vector of dates will help you determine what format it is by process of elimination. Once you know, you can use the many parses provided by __lubridate__.</p>
+          <p>But, what if you encounter dates such as "09/01/02"? This could be September 1, 2002 or January 2, 2009 or January 9, 2002. In these cases, examining the entire vector of dates will help you determine what format it is by process of elimination. Once you know, you can use the many parses provided by <alert>lubridate</alert>.</p>
 
           <p>For example, if the string is:</p>
 
@@ -1090,7 +1239,7 @@ dmy(x)
             </input>
           </program>
 
-          <p>The __lubridate__ package is also useful for dealing with times. In base R, you can get the current time typing <c>Sys.time()</c>. The __lubridate__ package provides a slightly more advanced function, <c>now</c>, that permits you to define the time zone:</p>
+          <p>The <alert>lubridate</alert> package is also useful for dealing with times. In base R, you can get the current time typing <c>Sys.time()</c>. The <alert>lubridate</alert> package provides a slightly more advanced function, <c>now</c>, that permits you to define the time zone:</p>
 
           <program language="r">
             <input>
@@ -1536,7 +1685,7 @@ title="List of U.S. states and territories by population"&gt;Population&lt;/a&gt
           <subsection xml:id="subsec-the-rvest-package">
             <title>The rvest package</title>
 
-            <p>The __tidyverse__ provides a web harvesting package called __rvest__. The first step using this package is to import the webpage into R. The package makes this quite simple:</p>
+            <p>The <alert>tidyverse</alert> provides a web harvesting package called <alert>rvest</alert>. The first step using this package is to import the webpage into R. The package makes this quite simple:</p>
 
             <program language="r">
               <input>
@@ -1556,7 +1705,7 @@ class(h)
               </input>
             </program>
 
-            <p>The __rvest__ package is actually more general; it handles XML documents. XML is a general markup language (that's what the ML stands for) that can be used to represent any kind of data. HTML is a specific type of XML specifically developed for representing webpages. Here we focus on HTML documents.</p>
+            <p>The <alert>rvest</alert> package is actually more general; it handles XML documents. XML is a general markup language (that's what the ML stands for) that can be used to represent any kind of data. HTML is a specific type of XML specifically developed for representing webpages. Here we focus on HTML documents.</p>
 
             <p>Now, how do we extract the table from the object <c>h</c>? If you were to print <c>h</c>,  we would see information about the object that is not very informative. We can see all the code that defines the downloaded webpage using the <c>html_text</c> function like this:</p>
 
@@ -1566,7 +1715,7 @@ html_text(h)
               </input>
             </program>
 
-            <p>We don't show the output here because it includes thousands of characters. But if we look at it, we can see the data we are after are stored in an HTML table: you can see this in this line of the HTML code above <c>&lt;table class="wikitable sortable"&gt;</c>. The different parts of an HTML document, often defined with a message in between  <c>&lt;</c> and <c>&gt;</c>  are referred to as <em>nodes</em>. The __rvest__ package includes functions to extract nodes of an HTML document: <c>html_nodes</c> extracts all nodes of different types and <c>html_node</c> extracts the first one. To extract the tables from the html code we use:</p>
+            <p>We don't show the output here because it includes thousands of characters. But if we look at it, we can see the data we are after are stored in an HTML table: you can see this in this line of the HTML code above <c>&lt;table class="wikitable sortable"&gt;</c>. The different parts of an HTML document, often defined with a message in between  <c>&lt;</c> and <c>&gt;</c>  are referred to as <em>nodes</em>. The <alert>rvest</alert> package includes functions to extract nodes of an HTML document: <c>html_nodes</c> extracts all nodes of different types and <c>html_node</c> extracts the first one. To extract the tables from the html code we use:</p>
 
             <program language="r">
               <input>
@@ -1590,7 +1739,7 @@ tab[[1]]
               </input>
             </program>
 
-            <p>This is clearly not a tidy dataset, not even a data frame. In the code above, you can definitely see a pattern and writing code to extract just the data is very doable. In fact, __rvest__ includes a function just for converting HTML tables into data frames:</p>
+            <p>This is clearly not a tidy dataset, not even a data frame. In the code above, you can definitely see a pattern and writing code to extract just the data is very doable. In fact, <alert>rvest</alert> includes a function just for converting HTML tables into data frames:</p>
 
             <program language="r">
               <input>
@@ -1619,7 +1768,7 @@ head(tab)
 
             <p>If we want to grab data from a webpage and we happen to know a selector that is unique to the part of the page containing this data, we can use the <c>html_nodes</c> function. However, knowing which selector can be quite complicated. In fact, the complexity of webpages has been increasing as they become more sophisticated. For some of the more advanced ones, it seems almost impossible to find the nodes that define a particular piece of data. However, selector gadgets actually make this possible.</p>
 
-            <p>SelectorGadget is piece of software that allows you to interactively determine what CSS selector you need to extract specific components from the webpage. If you plan on scraping data other than tables from html pages, we highly recommend you install it. A Chrome extension is available which permits you to turn on the gadget and then, as you click through the page, it highlights parts and shows you the selector you need to extract these parts. There are various demos of how to do this including __rvest__ author Hadley Wickham's vignette and other tutorials based on the vignette.</p>
+            <p>SelectorGadget is piece of software that allows you to interactively determine what CSS selector you need to extract specific components from the webpage. If you plan on scraping data other than tables from html pages, we highly recommend you install it. A Chrome extension is available which permits you to turn on the gadget and then, as you click through the page, it highlights parts and shows you the selector you need to extract these parts. There are various demos of how to do this including <alert>rvest</alert> author Hadley Wickham's vignette and other tutorials based on the vignette.</p>
 
           </subsection>
 
@@ -1641,7 +1790,7 @@ json
             </input>
           </program>
 
-          <p>The file above actually represents a data frame. To read it, we can use the function <c>fromJSON</c> from the __jsonlite__ package. Note that JSON files are often made available via the internet. Several organizations provide a JSON API or a web service that you can connect directly to and obtain data. Here is an example providing information Nobel prize winners:</p>
+          <p>The file above actually represents a data frame. To read it, we can use the function <c>fromJSON</c> from the <alert>jsonlite</alert> package. Note that JSON files are often made available via the internet. Several organizations provide a JSON API or a web service that you can connect directly to and obtain data. Here is an example providing information Nobel prize winners:</p>
 
           <program language="r">
             <input>
@@ -1663,7 +1812,7 @@ nobel$prizes |&gt;
             </input>
           </program>
 
-          <p>You can learn much more by examining tutorials and help files from the __jsonlite__ package. This package is intended for relatively simple tasks such as converting data into tables. For more flexibility, we recommend the __rjson__ package.</p>
+          <p>You can learn much more by examining tutorials and help files from the <alert>jsonlite</alert> package. This package is intended for relatively simple tasks such as converting data into tables. For more flexibility, we recommend the <alert>rjson</alert> package.</p>
 
         </section>
 
@@ -1822,7 +1971,7 @@ html_text(nodes[[8]])
           <p>a. All of them. b. 1 c. 2 d. 2-4</p>
 
           <ol>
-            <li><p>Repeat the above for the first __last__ 3 components of <c>nodes</c>. Which of the following is true:</p></li>
+            <li><p>Repeat the above for the first <alert>last</alert> 3 components of <c>nodes</c>. Which of the following is true:</p></li>
           </ol>
 
           <p>a. The last entry in <c>nodes</c> shows the average across all teams through time, not payroll per team. b. All three are payroll per team tables. c. All three are like the first entry, not a payroll table. d. All of the above.</p>
@@ -2123,7 +2272,7 @@ s &lt;- "5'10\""
         <section xml:id="sec-regex">
           <title>Regular expressions</title>
 
-          <p>A regular expression (regex) is a way to describe specific patterns of characters of text. They can be used to determine if a given string matches the pattern. A set of rules has been defined to do this efficiently and precisely and here we show some examples. We can learn more about these rules by reading a detailed tutorials . The RStudio cheat sheet for __stringr__ and regular expression is also very useful.</p>
+          <p>A regular expression (regex) is a way to describe specific patterns of characters of text. They can be used to determine if a given string matches the pattern. A set of rules has been defined to do this efficiently and precisely and here we show some examples. We can learn more about these rules by reading a detailed tutorials . The RStudio cheat sheet for <alert>stringr</alert> and regular expression is also very useful.</p>
 
           <p>The patterns supplied to the <alert>stringr</alert> functions can be a regex rather than a standard string. We will learn how this works through a series of examples.</p>
 
@@ -2363,7 +2512,7 @@ str_subset(problems, pattern_2)
           </subsection>
 
           <subsection xml:id="subsec-unbounded-quantifiers">
-            <title>Unbounded quantifiers: `*`, `?`, `+`</title>
+            <title>Unbounded quantifiers: <c>*</c>, <c>?</c>, <c>+</c></title>
 
             <p>We want the pattern to permit spaces but not require them. Even if there are several spaces, like in this example <c>5'   4</c>, we still want it to match. There is a quantifier for exactly this purpose. In regex, the character <c>*</c> means zero or more instances of the previous character. Here is an example:</p>
 
