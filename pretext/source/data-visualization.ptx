@@ -2344,7 +2344,7 @@ library(dslabs)
 <ol>
 <li><p>They provide the same information, so they are both equally as good.
 </p></li>
-<li><p>The plot on the right is better because it orders the states alphabetically.</p></li
+<li><p>The plot on the right is better because it orders the states alphabetically.</p></li>
 <li><p>The plot on the right is better because alphabetical order has nothing to do with the disease and by ordering according to actual rate, we quickly see the states with most and least rates.</p></li>
 <li><p>Both plots should be a pie chart.</p></li>
 </ol>
