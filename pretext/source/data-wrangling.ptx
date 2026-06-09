@@ -3516,8 +3516,8 @@ new_heights &lt;- reported_heights |&gt;
     between(height/2.54, smallest, tallest) ~ height/2.54, #cm
     between(height*100/2.54, smallest, tallest) ~ height*100/2.54, #meters
     TRUE ~ as.numeric(NA))) |&gt;
-  mutate(height = ifelse(is.na(height) & 
-                           inches &lt;= 12 & between(guess, smallest, tallest),
+  mutate(height = ifelse(is.na(height) &amp; 
+                           inches &lt;= 12 &amp; between(guess, smallest, tallest),
                          guess, height)) |&gt;
   select(-feet, -inches, -guess)
 </input>
