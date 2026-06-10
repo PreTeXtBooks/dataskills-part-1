@@ -102,7 +102,6 @@ to make the content available in the PreTeXt format, enabling accessible and str
   </preface>
 
   <preface xml:id="preface-introduction">
-    <xi:include href="introduction.ptx"/>
       <title>Introduction</title>
       
       <p>
@@ -148,7 +147,7 @@ to make the content available in the PreTeXt format, enabling accessible and str
         
       </paragraph>
       
-      <paragraph xml:id="who-will-find-useful">
+      <paragraph>
         <title>Who will find this book useful?</title>
         
         <p>
@@ -157,7 +156,7 @@ to make the content available in the PreTeXt format, enabling accessible and str
         
       </paragraph>
       
-      <paragraph xml:id="what-does-cover">
+      <paragraph>
         <title>What does this book cover?</title>
         
         <p>
@@ -178,7 +177,7 @@ to make the content available in the PreTeXt format, enabling accessible and str
         
       </paragraph>
       
-      <paragraph xml:id="what-not-covered">
+      <paragraph>
         <title>What is not covered by this book?</title>
         
         <p>
