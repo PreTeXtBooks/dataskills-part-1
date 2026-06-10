@@ -788,7 +788,7 @@ Posit</url> <url href = "https://github.com/rstudio/cheatsheets/blob/main/LICENS
       </input>
     </program>
           <figure>
-            <image source="images/ggplot-example-2-1" width="70%"/>
+            <image source="images/ggplot-example-2-1.png" width="70%"/>
           </figure>
 
     <p>
@@ -920,7 +920,7 @@ Posit</url> <url href = "https://github.com/rstudio/cheatsheets/blob/main/LICENS
     </program>
 
           <figure>
-            <image source="imagesggplot-example-5-1.png" width="70%"/>
+            <image source="images/ggplot-example-5-1.png" width="70%"/>
           </figure>
 
     <p>
@@ -1043,7 +1043,7 @@ Posit</url> <url href = "https://github.com/rstudio/cheatsheets/blob/main/LICENS
     </program>
 
           <figure>
-            <image source="images/gggplot-example-8-1.png" width="70%"/>
+            <image source="images/ggplot-example-8-1.png" width="70%"/>
           </figure>
 
     <p>
@@ -1090,8 +1090,11 @@ Posit</url> <url href = "https://github.com/rstudio/cheatsheets/blob/main/LICENS
 
     <p>
       Our desired final plot includes a line that represents the average murder rate for 
-      the entire country. In the log-scale this line turns into a line with slope 1 and 
-      intercept <m>\log_{10}(r)</m>. We can compute <m>r</m> using:
+      the entire country. Once we determine the per million rate to be <m>r</m>, the desired
+      line is defined by the formula: <m>y = rx</m>, with <y> and <x> our axes: total murders
+      and population in millions, respectively. In the log-scale this line turns into: 
+      <m>log(y) = log(r) + log(x)</m>, a line with slope 1 and intercept <m>log(r)</m>. We can
+      compute r using:
     </p>
 
     <program language="r">
@@ -1224,7 +1227,7 @@ Posit</url> <url href = "https://github.com/rstudio/cheatsheets/blob/main/LICENS
       In our illustrative example we introduced the scatterplot geometry 
       <c>geom_point</c>. However, ggplot2 has many others and here we demonstrate how 
       to generate plots related to distributions, specifically the plots shown in 
-      Chapter 7.
+      <xref ref = "ch-visualizing-data-distributions"/>.
     </p>
 
     <subsection xml:id="subsec-ggplot2-barplots">
@@ -1347,7 +1350,7 @@ Posit</url> <url href = "https://github.com/rstudio/cheatsheets/blob/main/LICENS
 
       <p>
         Images were not needed for the concepts described in this chapter, but we will 
-        use images in a later section, so we introduce the two geometries used to plot 
+        use images in <xref ref = "sec-vaccines"/>, so we introduce the two geometries used to plot 
         images: <c>geom_tile</c> and <c>geom_raster</c>. They behave similarly; to see 
         how they differ, please consult the help file. To create an image in ggplot2 we 
         need a data frame with the x and y coordinates as well as the values associated 
@@ -1808,7 +1811,8 @@ Posit</url> <url href = "https://github.com/rstudio/cheatsheets/blob/main/LICENS
       <chapter xml:id="ch-data-visualization-principles">
         <title>Data visualization principles</title>
         
-          <p>In this chapter we aim to provide some general principles we can use as a guide for effective data visualization. Much of this section is based on a talk by Karl Broman<fn><url href="http://kbroman.org/"/></fn> titled "Creating Effective Figures and Tables"<fn><url href="https://www.biostat.wisc.edu/~kbroman/presentations/graphs2017.pdf"/></fn> and includes some of the figures which were made with code that Karl makes available on his GitHub repository<fn><url href="https://github.com/kbroman/Talk_Graphs"/></fn>, as well as class notes from Peter Aldhous' Introduction to Data Visualization course<fn><url href="https://www.peteraldhous.com/ucb/2014/dataviz/index.html"/></fn>. Following Karl's approach, we show some examples of plot styles we should avoid, explain how to improve them, and use these as motivation for a list of principles. We compare and contrast plots that follow these principles to those that don't.</p>
+          <p>In this chapter we aim to provide some general principles we can use as a guide for effective data visualization. Much of this section is based on a talk by <url href = "http://kbroman.org/">Karl Broman</url> titled "Creating Effective Figures and Tables"<fn><url href="https://www.biostat.wisc.edu/~kbroman/presentations/graphs2017.pdf"/></fn> and includes some of the figures which were made with code that Karl makes available on his <url href="https://github.com/kbroman/Talk_Graphs">GitHub repository</url>, as well as class notes from
+Peter Aldhous' <url href="https://www.peteraldhous.com/ucb/2014/dataviz/index.html">Introduction to Data Visualization course</url>. Following Karl's approach, we show some examples of plot styles we should avoid, explain how to improve them, and use these as motivation for a list of principles. We compare and contrast plots that follow these principles to those that don't.</p>
 
           <p>The principles are mostly based on research related to how humans detect patterns and make visual comparisons. The preferred approaches are those that best fit the way our brains process visual information. When deciding on a visualization approach, it is also important to keep our goal in mind. We may be comparing a viewable number of quantities, describing distributions for categories or numeric values, comparing the data from two groups, or describing the relationship between two variables. As a final note, we want to emphasize that it is important to adapt and optimize graphs to the audience. For example, an exploratory plot made for ourselves will be different than a chart intended to communicate a finding to a general audience.</p>
 
@@ -1827,15 +1831,6 @@ library(gridExtra)
 
           <p>We start by describing some principles for encoding data. There are several visual cues at our disposal including position, aligned lengths, angles, area, brightness, and color hue.</p>
 
-          <sage language="r">
-            <input>
-browsers &lt;- data.frame(Browser = rep(c("Opera","Safari","Firefox","IE","Chrome"),2),
-                       Year = rep(c(2000, 2015), each = 5),
-                       Percentage = c(3,21,23,28,26, 2,22,21,27,29)) |&gt;
-  mutate(Browser = reorder(Browser, Percentage))
-            </input>
-          </sage>
-
           <p>To illustrate how some of these visual cues compare, let's suppose we want to report the results from two hypothetical polls regarding browser preference taken in 2000 and then 2015. For each year, we are simply comparing five quantities – the five percentages. A widely used graphical representation of percentages, popularized by Microsoft Excel, is the pie chart:</p>
 
           <figure>
@@ -1853,10 +1848,10 @@ browsers &lt;- data.frame(Browser = rep(c("Opera","Safari","Firefox","IE","Chrom
 <pre>
 Browser	    2000	2015
 Opera	       3	   2
-Safari	      21      22
+Safari	      21	  22
 Firefox	      23	  21
 Chrome	      26	  29
-IE	          28	  27
+IE            28	  27
 </pre>
 
           <p>The preferred way to plot these quantities is to use length and position as visual cues, since humans are much better at judging linear measures. The barplot uses this approach by using bars of length proportional to the quantities of interest. By adding horizontal lines at strategically chosen values, in this case at every multiple of 10, we ease the visual burden of quantifying through the position of the top of the bars. Compare and contrast the information we can extract from the two figures.</p>
@@ -1899,7 +1894,7 @@ IE	          28	  27
             <image source="dataviz/img/Bush-cuts.png"/>
           </figure>
 
-          <p>(Source: Fox News, via Flowing Data.)</p>
+          <p>(Source: Fox News, via <url href = "http://flowingdata.com/2012/08/06/fox-news-continues-charting-excellence/">Flowing Data</url>.)</p>
 
           <p>This plot makes a 13% increase look like a five fold change. Here is the appropriate plot:</p>
 
@@ -2257,23 +2252,23 @@ color_blind_friendly_cols &lt;-
           <p>By default, statistical software like R returns many significant digits. The default behavior in R is to show 7 significant digits. That many digits often adds no information and the added visual clutter can make it hard for the viewer to understand the message. As an example, here are the per 10,000 disease rates, computed from totals and population in R, for California across the five decades:</p>
 
 <pre>
-state	    year	Measles	    Pertussis	Polio
-California	1940	37.8826320	18.3397861	0.8266512
-California	1950	13.9124205	4.7467350	1.9742639
-California	1960	14.1386471	NA	        0.2640419
-California	1970	0.9767889	NA	        NA
-California	1980	0.3743467	0.0515466	NA
+state       year       Measles   Pertussis      Polio
+California	1940    37.8826320  18.3397861  0.8266512
+California	1950    13.9124205   4.7467350  1.9742639
+California	1960    14.1386471          NA  0.2640419
+California	1970     0.9767889          NA         NA
+California	1980     0.3743467   0.0515466         NA
 </pre>
 
           <p>We are reporting precision up to 0.00001 cases per 10,000, a very small value in the context of the changes that are occurring across the dates. In this case, one significant figures is enough and clearly makes the point that rates are decreasing:</p>
 
 <pre>
-state	    year	Measles	Pertussis	Polio
-California	1940	37.9	18.3	    0.8
-California	1950	13.9	 4.7      	2.0
-California	1960	14.1	  NA	    0.3
-California	1970	 1.0      NA	     NA
-California	1980	 0.4     0.1	     NA
+state       year       Measles   Pertussis      Polio
+California	1940          37.9        18.3        0.8
+California	1950          13.9         4.7        2.0
+California	1960          14.1          NA        0.3
+California	1970           1.0          NA         NA
+California	1980           0.4         0.1         NA
 </pre>
 
           <p>Useful ways to change the number of significant digits or to round numbers are <c>signif</c> and <c>round</c>. You can define the number of significant digits globally by setting options like this: <c>options(digits = 3)</c>.</p>
@@ -2281,10 +2276,10 @@ California	1980	 0.4     0.1	     NA
           <p>Another principle related to displaying tables is to place values being compared on columns rather than rows. Note that our table above is easier to read than this one:</p>
 
 <pre>
-State    	Disease	    1940	1950	1960	1970	1980
-California	Measles	    37.9	13.9	14.1	   1	 0.4
-California	Pertussis	18.3	 4.7	  NA	  NA	 0.1
-California	Polio     	 0.8	 2.0	 0.3	  NA	  NA
+State       Disease     1940     1950     1960     1970     1980
+California  Measles     37.9     13.9     14.1        1      0.4
+California  Pertussis   18.3      4.7       NA       NA      0.1
+California  Polio        0.8      2.0      0.3       NA       NA
 </pre>
         </section>
 
@@ -2467,13 +2462,13 @@ murders |&gt; mutate(rate = total/population*100000)
         <section xml:id="sec-case-study-1-new-insights-on-poverty">
           <title>Case study 1: new insights on poverty</title>
 
-          <p>Hans Rosling<fn><url href="https://en.wikipedia.org/wiki/Hans_Rosling"/></fn> was the co-founder of the Gapminder Foundation<fn><url href="http://www.gapminder.org/"/></fn>, an organization dedicated to educating the public by using data to dispel common myths about the so-called developing world. The organization uses data to show how actual trends in health and economics contradict the narratives that emanate from sensationalist media coverage of catastrophes, tragedies, and other unfortunate events. As stated in the Gapminder Foundation's website:</p>
+          <p>Hans Rosling<fn><url href="https://en.wikipedia.org/wiki/Hans_Rosling"/></fn> was the co-founder of the <url href="http://www.gapminder.org/">Gapminder Foundation</url>, an organization dedicated to educating the public by using data to dispel common myths about the so-called developing world. The organization uses data to show how actual trends in health and economics contradict the narratives that emanate from sensationalist media coverage of catastrophes, tragedies, and other unfortunate events. As stated in the Gapminder Foundation's website:</p>
 
           <blockquote>
             <p>Journalists and lobbyists tell dramatic stories. That's their job. They tell stories about extraordinary events and unusual people. The piles of dramatic stories pile up in peoples' minds into an over-dramatic worldview and strong negative stress feelings: "The world is getting worse!", "It's we vs. them!", "Other people are strange!", "The population just keeps growing!" and "Nobody cares!"</p>
           </blockquote>
 
-          <p>Hans Rosling conveyed actual data-based trends in a dramatic way of his own, using effective data visualization. This section is based on two talks that exemplify this approach to education: New Insights on Poverty<fn><url href="https://www.ted.com/talks/hans_rosling_reveals_new_insights_on_poverty?language=en"/></fn> and The Best Stats You've Ever Seen<fn><url href="https://www.ted.com/talks/hans_rosling_shows_the_best_stats_you_ve_ever_seen"/></fn>. Specifically, in this section, we use data to attempt to answer the following two questions:</p>
+          <p>Hans Rosling conveyed actual data-based trends in a dramatic way of his own, using effective data visualization. This section is based on two talks that exemplify this approach to education: <url href="https://www.ted.com/talks/hans_rosling_reveals_new_insights_on_poverty?language=en">New Insights on Poverty</url> and <url href="https://www.ted.com/talks/hans_rosling_shows_the_best_stats_you_ve_ever_seen">The Best Stats You've Ever Seen</url>. Specifically, in this section, we use data to attempt to answer the following two questions:</p>
 
           <ol>
             <li><p>Is it a fair characterization of today's world to say it is divided into western rich nations and the developing world in Africa, Asia, and Latin America?</p></li>
@@ -2497,7 +2492,7 @@ gapminder |&gt; as_tibble()
 #&gt; 2 Algeria     1960            148.             47.5      7.65   11124892
 #&gt; 3 Angola      1960            208              36.0      7.32    5270844
 #&gt; 4 Antigua a…  1960             NA              63.0      4.43      54681
-#&gt; 5 Argentina   1960             59.9            65.4      3.11   20619075
+#&gt; 5 Argentina   1960           59.9              65.4      3.11   20619075
 #&gt; # ℹ 10,540 more rows
 #&gt; # ℹ 3 more variables: gdp &lt;dbl&gt;, continent &lt;fct&gt;, region &lt;fct&gt;
 </pre>
@@ -2888,7 +2883,7 @@ gapminder |&gt;
 
             <p>In general, we do not recommend using the natural log for data exploration and visualization. This is because while <m>2^2, 2^3, 2^4, \dots</m> or <m>10^2, 10^3, \dots</m> are easy to mentally compute, but the same is not true for <m>\mathrm{e}^2, \mathrm{e}^3, \dots</m>. The natural log scale is not intuitive or easy to interpret.</p>
 
-            <p>In the dollars per day example, we used base 2 instead of base 10 because the resulting range is easier to interpret. The range of the untransformed values is <c>with(filter(gapminder, year==past_year), range(dollars_per_day, na.rm=TRUE))</c>.</p>
+            <p>In the dollars per day example, we used base 2 instead of base 10 because the resulting range is easier to interpret. The range of the untransformed values is <m>0.3249426</m>, <m>48.8852142</m>.</p>
 
             <p>In base 10, this turns into a range that includes very few integers: just 0 and 1. With base 2, our range includes -2, -1, 0, 1, 2, 3, 4, and 5. It is easier to compute <m>2^x</m> and <m>10^x</m> when <m>x</m> is an integer and between -10 and 10, so we prefer to have smaller integers in the scale. Another consequence of a limited range is that choosing the binwidth is more challenging. With log base 2, we know that a binwidth of 1 will translate to a bin with range <m>x</m> to <m>2x</m>.</p>
 
@@ -2900,6 +2895,10 @@ filter(gapminder, year == past_year) |&gt;
   summarize(min = min(population), max = max(population))
               </input>
             </program>
+<pre>
+#&gt;     min      max
+#&gt; 1 46075 8.09e+08
+</pre>
 
             <p>Here is the histogram of the transformed values:</p>
 
@@ -3057,21 +3056,6 @@ p + geom_point(alpha = 0.5)
 
             <p>Showing each individual point does not always reveal important characteristics of the distribution. Although not the case here, when the number of data points is so large that there is over-plotting, showing the data can be counterproductive. Boxplots help with this by providing a five-number summary, but this has limitations too. For example, boxplots will not permit us to discover bimodal distributions. To see this, note that the two plots below are summarizing the same dataset:</p>
 
-            <sage language="r">
-              <input>
-set.seed(1987)
-z &lt;- sample(c(0,1), 1000, replace = TRUE, prob = c(0.25, 0.75))
-x &lt;- rnorm(100)*z + rnorm(100, 5)*(1 - z)
-p1 &lt;- data.frame(x=x) |&gt; 
-  ggplot(aes(x)) + 
-  geom_density(fill = 1, show.legend=FALSE, alpha = 0.2) +
-  scale_x_continuous(limits=c(-4,8.5))
-p2 &lt;- data.frame(g= "", x=x) |&gt; ggplot(aes(g, x)) + geom_boxplot() + xlab("") +
-  theme(axis.ticks = element_blank())
-  
-gridExtra::grid.arrange(p1, p2, nrow = 1)
-              </input>
-            </sage>
           <figure>
             <image source="images/boxplot-dont-show-bimodal-1.png" width="70%"/>
           </figure>
@@ -3080,7 +3064,6 @@ gridExtra::grid.arrange(p1, p2, nrow = 1)
 
             <program language="r">
               <input>
-if (!requireNamespace("ggridges", quietly = TRUE)) tryCatch(install.packages("ggridges", repos = "https://cloud.r-project.org"), error = function(e) invisible(NULL))
 library(ggridges)
 p &lt;- gapminder |&gt; 
   filter(year == past_year &amp; !is.na(dollars_per_day)) |&gt;
@@ -3322,19 +3305,6 @@ gapminder |&gt;
 
             <p>As a final point, we note that these distributions weigh every country the same. So if most of the population is improving, but living in a very large country, such as China, we might not appreciate this. We can actually weight the smooth densities using the <c>weight</c> mapping argument. The plot then looks like this:</p>
 
-            <program language="r">
-              <input>
-gapminder |&gt; 
-  filter(year %in% years &amp; country %in% country_list) |&gt;
-  group_by(year) |&gt;
-  mutate(weight = population/sum(population)*2) |&gt;
-  ungroup() |&gt;
-  ggplot(aes(dollars_per_day, fill = group, weight = weight)) +
-  scale_x_continuous(trans = "log2", limits = c(0.125, 300)) + 
-  geom_density(alpha = 0.2, bw = 0.75, position = "stack") + facet_grid(year ~ .) 
-              </input>
-            </program>
-
           <figure>
             <image source="images/income-smooth-density-counts-by-region-year-weighted-1.png" width="70%"/>
           </figure>
@@ -3397,22 +3367,19 @@ f(p) = \log \left( \frac{p}{1-p} \right)
 
           <p>Vaccines have helped save millions of lives. In the 19th century, before herd immunization was achieved through vaccination programs, deaths from infectious diseases, such as smallpox and polio, were common. Today however, vaccination programs have become somewhat controversial despite all the scientific evidence for their importance.</p>
 
-          <p>The controversy started with a paper published in 1988 and led by Andrew Wakefield claiming there was a link between the administration of the measles, mumps, and rubella (MMR) vaccine and the appearance of autism and bowel disease. Despite much scientific evidence contradicting this finding, sensationalist media reports and fear-mongering from conspiracy theorists led parts of the public into believing that vaccines were harmful. As a result, many parents ceased to vaccinate their children. This dangerous practice can be potentially disastrous given that the Centers for Disease Control (CDC) estimates that vaccinations will prevent more than 21 million hospitalizations and 732,000 deaths among children born in the last 20 years (see Benefits from Immunization during the Vaccines for Children Program Era — United States, 1994-2013<fn><url href="https://www.cdc.gov/mmwr/preview/mmwrhtml/mm6429a4.htm"/></fn>, MMWR). The 1988 paper has since been retracted and Andrew Wakefield was eventually "struck off the UK medical register, with a statement identifying deliberate falsification in the research published in The Lancet, and was thereby barred from practicing medicine in the UK." (source: Wikipedia<fn><url href="https://en.wikipedia.org/wiki/Andrew_Wakefield"/></fn>). Yet misconceptions persist, in part due to self-proclaimed activists who continue to disseminate misinformation about vaccines.</p>
+          <p>The controversy started with a <url href = "http://www.thelancet.com/journals/lancet/article/PIIS0140-6736(97)11096-0/abstract">paper published in 1988</url> and led by Andrew Wakefield claiming there was a link between the administration of the measles, mumps, and rubella (MMR) vaccine and the appearance of autism and bowel disease. Despite much scientific evidence contradicting this finding, sensationalist media reports and fear-mongering from conspiracy theorists led parts of the public into believing that vaccines were harmful. As a result, many parents ceased to vaccinate their children. This dangerous practice can be potentially disastrous given that the Centers for Disease Control (CDC) estimates that vaccinations will prevent more than 21 million hospitalizations and 732,000 deaths among children born in the last 20 years (see <url href = "https://www.cdc.gov/mmwr/preview/mmwrhtml/mm6316a4.htm">Benefits from Immunization during the Vaccines for Children Program Era</url> — United States, 1994-2013, MMWR). The 1988 paper has since been retracted and Andrew Wakefield was eventually "struck off the UK medical register, with a statement identifying deliberate falsification in the research published in The Lancet, and was thereby barred from practicing medicine in the UK." (source: Wikipedia<fn><url href="https://en.wikipedia.org/wiki/Andrew_Wakefield"/></fn>). Yet misconceptions persist, in part due to self-proclaimed activists who continue to disseminate misinformation about vaccines.</p>
 
-          <p>Effective communication of data is a strong antidote to misinformation and fear-mongering. In the introduction to this part of the book we showed an example, provided by a Wall Street Journal article, showing data related to the impact of vaccines on battling infectious diseases.  Here we reconstruct that example.</p>
+          <p>Effective communication of data is a strong antidote to misinformation and fear-mongering. In the introduction to this part of the book we showed an example, provided by a <url href = "http://graphics.wsj.com/infectious-diseases-and-vaccines/">Wall Street Journal article</url>, showing data related to the impact of vaccines on battling infectious diseases.  Here we reconstruct that example.</p>
 
           <subsection xml:id="subsec-vaccine-data">
             <title>Vaccine data</title>
 
-            <p>The data used for these plots were collected, organized, and distributed by the Tycho Project. They include weekly reported counts for seven diseases from 1928 to 2011, from all fifty states. We include the yearly totals in the <alert>dslabs</alert> package:</p>
+            <p>The data used for these plots were collected, organized, and distributed by the <url href = "http://www.tycho.pitt.edu/">Tycho Project</url>. They include weekly reported counts for seven diseases from 1928 to 2011, from all fifty states. We include the yearly totals in the <alert>dslabs</alert> package:</p>
 
             <program language="r">
               <input>
-if (!requireNamespace("tidyverse", quietly = TRUE)) tryCatch(install.packages("tidyverse", repos = "https://cloud.r-project.org"), error = function(e) invisible(NULL))
 library(tidyverse)
-if (!requireNamespace("RColorBrewer", quietly = TRUE)) tryCatch(install.packages("RColorBrewer", repos = "https://cloud.r-project.org"), error = function(e) invisible(NULL))
 library(RColorBrewer)
-if (!requireNamespace("dslabs", quietly = TRUE)) tryCatch(install.packages("dslabs", repos = "https://cloud.r-project.org"), error = function(e) invisible(NULL))
 library(dslabs)
 names(us_contagious_diseases)
               </input>
@@ -3452,7 +3419,7 @@ dat |&gt; filter(state == "California" &amp; !is.na(rate)) |&gt;
             <image source="images/california-measles-time-series-1.png" width="70%"/>
           </figure>
 
-            <p>We add a vertical line at 1963 since this is when the vaccine was introduced .</p>
+            <p>We add a vertical line at 1963 since this is when the vaccine was introduced<fn>Control, Centers for Disease; Prevention (2014). CDC health information for international travel 2014 (the yellow book). p. 250. ISBN 9780199948505</fn>.</p>
 
           </subsection>
 
