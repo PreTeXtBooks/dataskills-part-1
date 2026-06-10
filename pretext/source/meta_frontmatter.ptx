@@ -108,7 +108,7 @@ to make the content available in the PreTeXt format, enabling accessible and str
         The demand for skilled data science practitioners in industry, academia, and government is rapidly growing. This book introduces skills that can help you tackle real-world data analysis challenges. These include R programming, data wrangling with <term>dplyr</term>, data visualization with <term>ggplot2</term>, file organization with UNIX/Linux shell, version control with Git and GitHub, and reproducible document preparation with Quarto and <term>knitr</term>. The book is divided into four parts: <term>R</term>, <term>Data Visualization</term>, <term>Data Wrangling</term>, and <term>Productivity Tools</term>. Each part has several chapters meant to be presented as one lecture and includes dozens of exercises distributed across chapters.
       </p>
 
-      <paragraph>
+      <paragraphs>
         <title>Case studies</title>
         
         <p>
@@ -145,18 +145,18 @@ to make the content available in the PreTeXt format, enabling accessible and str
           </tabular>
         </table>
         
-      </paragraph>
+      </paragraphs>
       
-      <paragraph>
+      <paragraphs>
         <title>Who will find this book useful?</title>
         
         <p>
           This book is meant to be a textbook for a first course in Data Science. No previous knowledge of R is necessary, although some experience with programming may be helpful. To be a successful data analyst implementing these skill requires understanding advanced statistical concepts, such as those covered in <url href="http://rafalab.dfci.harvard.edu/dsbook-part-2/">Advanced Data Science</url>. If you read and understand all the chapters and complete all the exercises in this book, and understand statistical concepts, you will be well-positioned to perform basic data analysis tasks and you will be prepared to learn the more advanced concepts and skills needed to become an expert.
         </p>
         
-      </paragraph>
+      </paragraphs>
       
-      <paragraph>
+      <paragraphs>
         <title>What does this book cover?</title>
         
         <p>
@@ -175,16 +175,16 @@ to make the content available in the PreTeXt format, enabling accessible and str
           In the final part, we provide a brief introduction to the <term>productivity tools</term> we use on a day-to-day basis in data science projects. These are RStudio, UNIX/Linux shell, Git and GitHub, Quarto, and <term>knitr</term>.
         </p>
         
-      </paragraph>
+      </paragraphs>
       
-      <paragraph>
+      <paragraphs>
         <title>What is not covered by this book?</title>
         
         <p>
           This book focuses on the computing skills necessary for the data analysis aspects of data science. As mentioned, we do not cover statistical concepts. We also do not cover aspects related to data management or engineering. Although R programming is an essential part of the book, we do not teach more advanced computer science topics such as data structures, optimization, and algorithm theory. Similarly, we do not cover topics such as web services, interactive graphics, parallel computing, and data streaming processing.
         </p>
         
-      </paragraph>
+      </paragraphs>
       
   </preface>
 </frontmatter>
