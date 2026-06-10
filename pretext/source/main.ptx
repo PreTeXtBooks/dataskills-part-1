@@ -23,6 +23,8 @@
     <!-- out for now and write this when the book is more complete -->
     <xi:include href="./meta_frontmatter.ptx" />
 
+    <xi:include href="./introduction.ptx" />
+
     <!-- Add in Chapters/Parts: The tidy text format -->
     <!-- Part 1: R -->
     <xi:include href="r.ptx"/>
