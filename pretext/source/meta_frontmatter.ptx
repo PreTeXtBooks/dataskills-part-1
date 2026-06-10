@@ -108,8 +108,7 @@ to make the content available in the PreTeXt format, enabling accessible and str
         The demand for skilled data science practitioners in industry, academia, and government is rapidly growing. This book introduces skills that can help you tackle real-world data analysis challenges. These include R programming, data wrangling with <term>dplyr</term>, data visualization with <term>ggplot2</term>, file organization with UNIX/Linux shell, version control with Git and GitHub, and reproducible document preparation with Quarto and <term>knitr</term>. The book is divided into four parts: <term>R</term>, <term>Data Visualization</term>, <term>Data Wrangling</term>, and <term>Productivity Tools</term>. Each part has several chapters meant to be presented as one lecture and includes dozens of exercises distributed across chapters.
       </p>
 
-      <paragraphs>
-        <title>Case studies</title>
+      <p><alert>Case studies</alert></p>
         
         <p>
           Throughout the book, we use motivating case studies. In each case study, we try to realistically mimic a data scientist's experience. For each of the skills covered, we start by asking specific questions and answer these through data analysis. We learn the concepts as a means to answer the questions. Examples of the case studies included in the book are:
@@ -144,20 +143,14 @@ to make the content available in the PreTeXt format, enabling accessible and str
             </row>
           </tabular>
         </table>
-        
-      </paragraphs>
-      
-      <paragraphs>
-        <title>Who will find this book useful?</title>
+              
+      <p><alert>Who will find this book useful?</alert></p>
         
         <p>
           This book is meant to be a textbook for a first course in Data Science. No previous knowledge of R is necessary, although some experience with programming may be helpful. To be a successful data analyst implementing these skill requires understanding advanced statistical concepts, such as those covered in <url href="http://rafalab.dfci.harvard.edu/dsbook-part-2/">Advanced Data Science</url>. If you read and understand all the chapters and complete all the exercises in this book, and understand statistical concepts, you will be well-positioned to perform basic data analysis tasks and you will be prepared to learn the more advanced concepts and skills needed to become an expert.
         </p>
         
-      </paragraphs>
-      
-      <paragraphs>
-        <title>What does this book cover?</title>
+      <p><alert>What does this book cover?</alert></p>
         
         <p>
           We start by going over the <term>basics of R</term>, the <term>tidyverse</term>, and the <term>data.table</term> package. You learn R throughout the book, but in the first part we go over the building blocks needed to keep learning.
@@ -174,17 +167,12 @@ to make the content available in the PreTeXt format, enabling accessible and str
         <p>
           In the final part, we provide a brief introduction to the <term>productivity tools</term> we use on a day-to-day basis in data science projects. These are RStudio, UNIX/Linux shell, Git and GitHub, Quarto, and <term>knitr</term>.
         </p>
-        
-      </paragraphs>
-      
-      <paragraphs>
-        <title>What is not covered by this book?</title>
+              
+      <p><alert>What is not covered by this book?</alert></p>
         
         <p>
           This book focuses on the computing skills necessary for the data analysis aspects of data science. As mentioned, we do not cover statistical concepts. We also do not cover aspects related to data management or engineering. Although R programming is an essential part of the book, we do not teach more advanced computer science topics such as data structures, optimization, and algorithm theory. Similarly, we do not cover topics such as web services, interactive graphics, parallel computing, and data streaming processing.
         </p>
-        
-      </paragraphs>
-      
+              
   </preface>
 </frontmatter>
