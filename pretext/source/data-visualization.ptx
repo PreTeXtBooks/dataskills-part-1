@@ -1091,7 +1091,7 @@ Posit</url> <url href = "https://github.com/rstudio/cheatsheets/blob/main/LICENS
     <p>
       Our desired final plot includes a line that represents the average murder rate for 
       the entire country. Once we determine the per million rate to be <m>r</m>, the desired
-      line is defined by the formula: <m>y = rx</m>, with <y> and <x> our axes: total murders
+      line is defined by the formula: <m>y = rx</m>, with <m>y</m> and <m>x</m> our axes: total murders
       and population in millions, respectively. In the log-scale this line turns into: 
       <m>log(y) = log(r) + log(x)</m>, a line with slope 1 and intercept <m>log(r)</m>. We can
       compute r using:
