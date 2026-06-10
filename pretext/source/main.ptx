@@ -1,25 +1,29 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version='1.0' encoding='utf-8'?>
+<!-- This is the main file of the pretext template book provided -->
+<!-- by the <c>pretext new book</c> command.  The main.ptx here always-->
+<!-- starts with <pretext> tags.  In this example, the main file -->
+<!-- just imports other .ptx files which contain content. Open   -->
+<!-- those files to see more pretext features                    -->
 
-<pretext xmlns:xi="http://www.w3.org/2001/XInclude" xml:lang="en-US">
+<pretext xml:lang="en-US" xmlns:xi="http://www.w3.org/2001/XInclude">
 
-  <docinfo>
-    <macros>
-    </macros>
-  </docinfo>
+  <!-- we first include a file which contains the docinfo element: -->
+  <xi:include href="./meta_docinfo.ptx" />
 
+  <!-- The <book> tags wrap all the content.  Change the @xml:id   -->
+  <!-- to some short (non-spaced) description of your book         -->
   <book xml:id="intro-data-science">
+<!-- The book needs a title and can have a subtitle  -->
     <title>Introduction to Data Science</title>
     <subtitle>Data Wrangling and Visualization with R</subtitle>
 
-    <!-- Preface -->
-    <xi:include href="preface.ptx"/>
-    
-    <!-- Acknowledgments -->
-    <xi:include href="acknowledgements.ptx"/>
+    <!-- Now we include files containing each main devision.       -->
 
-    <!-- Introduction -->
-    <xi:include href="introduction.ptx"/>
+    <!-- First a frontmatter for prefaces and such. Maybe comment  -->
+    <!-- out for now and write this when the book is more complete -->
+    <xi:include href="./meta_frontmatter.ptx" />
 
+    <!-- Add in Chapters/Parts: The tidy text format -->
     <!-- Part 1: R -->
     <xi:include href="r.ptx"/>
 
