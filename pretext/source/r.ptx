@@ -2,7 +2,6 @@
       <title>R</title>
 
         <introduction>
-<title>R</title>
 <p>In this book, we will be using the R software environment for all our analysis. You will learn R and data analysis techniques simultaneously. To follow along you will therefore need access to R. We also recommend the use of an integrated development environment (IDE), such as RStudio, to save your work. Note that it is common for a course or workshop to offer access to an R environment and an IDE through your web browser, as done by RStudio cloud1. If you have access to such a resource, you don’t need to install R and RStudio. However, if you intend on becoming an advanced data analyst, we highly recommend installing these tools on your computer. Both R and RStudio are free and available online.</p>
 </introduction>
 
@@ -645,7 +644,7 @@ install.packages(c("tidyverse", "dslabs"))
       
       </subsection>
       
-      <subsection xml:id="the-accessor-"><title>The accessor: `$`</title>
+      <subsection xml:id="the-accessor-"><title>The accessor: `$</c></title>
       
       <p>For our analysis, we will need to access the different variables represented by columns included in this data frame. To do this, we use the accessor operator <c>$</c> in the following way:</p>
       
@@ -1115,7 +1114,7 @@ install.packages(c("tidyverse", "dslabs"))
       
       <p>Now that we have mastered some basic R knowledge, let's try to gain some insights into the safety of different states in the context of gun murders.</p>
       
-      <subsection xml:id="sort"><title>`sort`</title>
+      <subsection xml:id="sort"><title><c>sort</c></title>
       
       <p>Say we want to rank the states from least to most gun murders. The function <c>sort</c> sorts a vector in increasing order. We can therefore see the largest number of gun murders by typing:</p>
       
@@ -1134,7 +1133,7 @@ install.packages(c("tidyverse", "dslabs"))
       
       </subsection>
       
-      <subsection xml:id="order"><title>`order`</title>
+      <subsection xml:id="order"><title><c>order</c></title>
       
       <p>The function <c>order</c> is closer to what we want. It takes a vector as input and returns the vector of indexes that sorts the input vector. This may sound confusing so let's look at a simple example. We can create a vector and sort it:</p>
       
@@ -1189,7 +1188,7 @@ install.packages(c("tidyverse", "dslabs"))
       
       </subsection>
       
-      <subsection xml:id="max-and-whichmax"><title>`max` and `which.max`</title>
+      <subsection xml:id="max-and-whichmax"><title><c>max` and `which.max</c></title>
       
       <p>If we are only interested in the entry with the largest value, we can use <c>max</c> for the value:</p>
       
@@ -1215,7 +1214,7 @@ install.packages(c("tidyverse", "dslabs"))
       
       </subsection>
       
-      <subsection xml:id="rank"><title>`rank`</title>
+      <subsection xml:id="rank"><title><c>rank</c></title>
       
       <p>Although not as frequently used as <c>order</c> and <c>sort</c>, the function <c>rank</c> is also related to order and can be useful. For any given vector it returns a vector with the rank of the first entry, second entry, etc., of the input vector. Here is a simple example:</p>
       
@@ -1427,7 +1426,7 @@ original	sort	order	rank
       
       </subsection>
       
-      <subsection xml:id="which"><title>`which`</title>
+      <subsection xml:id="which"><title><c>which</c></title>
       
       <p>Suppose we want to look up California's murder rate. For this type of operation, it is convenient to convert vectors of logicals into indexes instead of keeping long vectors of logicals. The function <c>which</c> tells us which entries of a logical vector are TRUE. So we can type:</p>
       
@@ -1441,7 +1440,7 @@ original	sort	order	rank
 </pre>
       </subsection>
       
-      <subsection xml:id="match"><title>`match`</title>
+      <subsection xml:id="match"><title><c>match</c></title>
       
       <p>If instead of just one state we want to find out the murder rates for several states, say New York, Florida, and Texas, we can use the function <c>match</c>. This function tells us which indexes of a second vector match each of the entries of a first vector:</p>
       
@@ -1462,7 +1461,7 @@ original	sort	order	rank
 </pre>
       </subsection>
       
-      <subsection xml:id="in"><title>`%in%`</title>
+      <subsection xml:id="in"><title><c>%in%</c></title>
       
       <p>If rather than an index we want a logical that tells us whether or not each element of a first vector is in a second, we can use the function <c>%in%</c>. Let's imagine you are not sure if Boston, Dakota, and Washington are states. You can find out like this:</p>
       
