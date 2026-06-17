@@ -644,7 +644,7 @@ install.packages(c("tidyverse", "dslabs"))
       
       </subsection>
       
-      <subsection xml:id="the-accessor-"><title>The accessor: `$</c></title>
+      <subsection xml:id="the-accessor-"><title>The accessor: <c>$</c></title>
       
       <p>For our analysis, we will need to access the different variables represented by columns included in this data frame. To do this, we use the accessor operator <c>$</c> in the following way:</p>
       
@@ -1188,7 +1188,7 @@ install.packages(c("tidyverse", "dslabs"))
       
       </subsection>
       
-      <subsection xml:id="max-and-whichmax"><title><c>max` and `which.max</c></title>
+      <subsection xml:id="max-and-whichmax"><title><c>max</c> and <c>which.max</c></title>
       
       <p>If we are only interested in the entry with the largest value, we can use <c>max</c> for the value:</p>
       
